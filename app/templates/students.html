@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %} {{person}} {% endblock %}
+
+{% block content %}
+
+
+<div class="row students">
+
+    {% for i in students %}
+    <!-- student card -->
+    <div class="card student">
+        <a href="{{ url_for('person', person=i.id) }}">
+            <div class="card-body">
+                <div class="head">
+                    <h4 class="card-title left_title">{{i.name}}</h4>
+                    <p class="card-text left_text">Подготовка к ОГЭ</p>
+                    <i class="arrow center fa-solid fa-chevron-right"></i>
+                </div>
+                <div>
+                    <p class="phone">Телефон: +7(800) 200-23-16</p>
+                    <table class="table-sm">
+                        <thead>
+                        <tr>
+                            <th>Пн</th>
+                            <th>Вт</th>
+                            <th>Ср</th>
+                            <th>Чт</th>
+                            <th>Пт</th>
+                            <th>Cб</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>15:00</td>
+                            <td>18:30</td>
+                            <td>08:50</td>
+                            <td>15:00</td>
+                            <td>18:30</td>
+                            <td>08:50</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+
+    <!-- button add new user -->
+    <div class="card student">
+        <a data-bs-toggle="modal" data-bs-target="#myModal" class="knopka">+ новый ученик</a>
+    </div>
+
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered rounded">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title ms-">Добавить ученика</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+
+                    <form action="" method="post">
+
+                        <div class="mb-3">
+                            <label for="StudentName" class="form-label">Имя ученика</label>
+                            <input type="text" class="form-control" id="StudentName" name="StudentName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="StudentLogin" class="form-label">Логин ученика</label>
+                            <input type="text" class="form-control" id="StudentLogin" name="StudentLogin">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="StudentPassword" class="form-label">Пароль</label>
+                            <input type="text" class="form-control" id="StudentPassword" name="StudentPassword">
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label for="Course" class="form-label">Курс</label>
+                            <select class="form-select" aria-label="Default select example" id="Course" name="Course">
+                                <option selected>Общий курс</option>
+                                {% for i in programs %}
+                                    <option value="{{ i.id }}">{{ i.program }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <br/>
+
+                        <input type="submit" class="btn btn-success" value="Создать">
+
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

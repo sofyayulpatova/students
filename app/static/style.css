@@ -1,0 +1,399 @@
+/*COLORS*/
+/*SIZES*/
+/*HEADER*/
+.menu {
+  background-color: unset;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+}
+.menu li {
+  margin: 0.4em;
+  font-size: 18px;
+}
+.menu a {
+  color: #0a58ca;
+}
+
+/*SECTIONS*/
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body main {
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+body footer {
+  padding: 1rem;
+  box-shadow: 0px -2px 4px 0px rgba(120, 127, 206, 0.2);
+}
+
+/*BASICS*/
+a, p {
+  color: #0a58ca;
+  text-decoration: none;
+}
+
+h2, h3, h5 {
+  color: #767575;
+}
+
+.row {
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+#new {
+  font-size: 20px;
+}
+
+/*PROFILES (program.html, student.html)*/
+.profile-head {
+  align-items: center;
+  margin: 1.5rem 0 1.5rem 3.5rem;
+  width: max-content;
+}
+.profile-head .title {
+  width: max-content;
+}
+.profile-head .plus-button {
+  width: max-content;
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  padding: 0.25rem 0.75rem;
+  margin-left: 1rem;
+  color: #0a58ca;
+}
+.profile-head .plus-button:hover {
+  color: #0a58ca;
+}
+.profile-head .plus-button h3 {
+  color: inherit;
+}
+
+.student-profile .main, .program-profile .main {
+  margin-left: 3rem;
+}
+.student-profile .main .list-group, .program-profile .main .list-group {
+  margin-bottom: 1rem;
+}
+.student-profile .main .list-group .line, .program-profile .main .list-group .line {
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  display: grid;
+  align-items: center;
+  grid-template-columns: 6fr 1fr;
+}
+.student-profile .main .list-group .line:first-child, .program-profile .main .list-group .line:first-child {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.student-profile .main .list-group .line:last-child, .program-profile .main .list-group .line:last-child {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.student-profile .main .list-group .line + .line, .program-profile .main .list-group .line + .line {
+  border-top-width: 0;
+}
+.student-profile .main .list-group .line .actions, .program-profile .main .list-group .line .actions {
+  display: flex;
+  list-style: none;
+  margin: 0;
+}
+.student-profile .main .list-group .line .actions li, .program-profile .main .list-group .line .actions li {
+  margin: 1rem;
+}
+.student-profile .main .list-group .line .actions li a, .program-profile .main .list-group .line .actions li a {
+  color: #6fc793;
+}
+.student-profile .main .list-group .line .actions li a:hover, .program-profile .main .list-group .line .actions li a:hover {
+  color: #43875f;
+}
+.student-profile .main .list-group .line .list-group-item, .program-profile .main .list-group .line .list-group-item {
+  border: none;
+}
+.student-profile .main .list-group .line .list-group-item:hover, .program-profile .main .list-group .line .list-group-item:hover {
+  background-color: #fbfcfd73;
+}
+.student-profile .main .list-group .line .list-group-item:hover h5, .program-profile .main .list-group .line .list-group-item:hover h5 {
+  color: #5a5a5a;
+}
+.student-profile .main .list-group .line .list-group-item:hover p, .program-profile .main .list-group .line .list-group-item:hover p {
+  color: #0a58ca;
+}
+.student-profile .main .all, .program-profile .main .all {
+  margin-left: 1.25rem;
+}
+.student-profile .profile.program, .program-profile .profile.program {
+  height: 17rem;
+  width: 20rem;
+}
+.student-profile .profile.program .card-body, .program-profile .profile.program .card-body {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  height: 100%;
+}
+.student-profile .profile, .program-profile .profile {
+  border-radius: 1rem;
+  height: 16rem;
+  width: 21.5rem;
+  margin: 0;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  color: #0a58ca;
+}
+.student-profile .profile:hover, .program-profile .profile:hover {
+  box-shadow: 0 2px 4px rgba(120, 127, 206, 0.2);
+  background-color: #fbfcfd73;
+}
+.student-profile .profile .card-body, .program-profile .profile .card-body {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+.student-profile .profile .card-body .head, .program-profile .profile .card-body .head {
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-areas: "pos1 pos2" "pos3 pos4";
+  align-items: end;
+}
+.student-profile .profile .card-body .head .left_title, .program-profile .profile .card-body .head .left_title {
+  margin-top: 1rem;
+  grid-area: pos1;
+}
+.student-profile .profile .card-body .head .arrow, .program-profile .profile .card-body .head .arrow {
+  grid-area: pos2;
+}
+.student-profile .profile .card-body .head .left_text, .program-profile .profile .card-body .head .left_text {
+  margin-top: 0;
+  color: #eabd34;
+  grid-area: pos3;
+}
+.student-profile .profile .card-body .left_text, .program-profile .profile .card-body .left_text {
+  margin-top: 1rem;
+  color: #eabd34;
+  overflow-x: overlay;
+  overflow-y: hidden;
+}
+.student-profile .profile .card-body .phone, .program-profile .profile .card-body .phone {
+  margin-bottom: 1rem;
+}
+
+/*PROGRAMS (programs.html)*/
+.programs {
+  margin: 1rem 0 !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+@media screen and (min-width: 1900px) {
+  .programs {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1500px) {
+  .programs {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+.programs .program {
+  border-radius: 1rem;
+  margin: 1rem;
+  width: 20em;
+  height: 17em;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+}
+.programs .program:hover {
+  box-shadow: 0 2px 4px rgba(120, 127, 206, 0.2);
+  background-color: #fbfcfd73;
+}
+.programs .program a {
+  text-decoration: none;
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+}
+.programs .program a .card-body {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr 2fr;
+}
+.programs .program a .card-body .head {
+  display: grid;
+  grid-template-areas: "pos1 pos2";
+  align-items: center;
+}
+.programs .program a .card-body .head .left_title {
+  margin: 0;
+  grid-area: pos1;
+}
+.programs .program a .card-body .head .arrow {
+  grid-area: pos2;
+}
+.programs .program a .card-body .left_text {
+  margin-top: 1rem;
+  color: #eabd34;
+  overflow-x: overlay;
+  overflow-y: hidden;
+}
+.programs .program a:hover {
+  color: #0a58ca;
+  cursor: pointer;
+}
+
+/*STUDENTS PAGE (students.html)*/
+.students {
+  margin: 1rem 0 !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+@media screen and (min-width: 1900px) {
+  .students {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1500px) {
+  .students {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+.students .student {
+  border-radius: 1rem;
+  height: 16rem;
+  width: 21.5rem;
+  margin: 1rem;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+}
+.students .student:hover {
+  box-shadow: 0 2px 4px rgba(120, 127, 206, 0.2);
+  background-color: #fbfcfd73;
+}
+.students .student a {
+  text-decoration: none;
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+}
+.students .student a .card-body {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+.students .student a .card-body .head {
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-areas: "pos1 pos2" "pos3 pos4";
+  align-items: end;
+}
+.students .student a .card-body .head .left_title {
+  margin-top: 1rem;
+  grid-area: pos1;
+}
+.students .student a .card-body .head .arrow {
+  grid-area: pos2;
+}
+.students .student a .card-body .head .left_text {
+  margin-top: 0;
+  color: #eabd34;
+  grid-area: pos3;
+}
+.students .student a .card-body .phone {
+  margin-bottom: 1rem;
+}
+.students .student a:hover {
+  color: #0a58ca;
+  cursor: pointer;
+}
+.students .student a:hover .left_text {
+  color: #fcc406;
+}
+.students .student a:hover .phone {
+  color: inherit;
+}
+
+.lesson {
+  margin-top: 2rem;
+}
+.lesson .main {
+  margin-left: 5rem;
+}
+.lesson .side .list-group {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 1rem;
+}
+.lesson .side .list-group .list-group-item {
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: 1px solid rgba(120, 127, 206, 0.2);
+}
+.lesson .side .list-group .list-group-item + .list-group-item {
+  border-top-width: 0;
+}
+.lesson .side .list-group .list-group-item:first-child {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.lesson .side .list-group .list-group-item:last-child {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.lesson .side .list-group .list-group-item:hover {
+  background-color: #fbfcfd73;
+}
+.lesson .side .list-group .list-group-item:hover p {
+  color: #0a58ca;
+}
+
+.homework {
+  margin-top: 2rem;
+  align-items: baseline;
+}
+.homework h2 {
+  margin-left: 5rem;
+  width: -webkit-fill-available;
+}
+.homework .main {
+  margin-left: 5rem;
+}
+.homework .main .task {
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.homework .main .task .submission {
+  background-color: #eabd34;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  color: #fefefe;
+}
+.homework .main .task .submission:hover {
+  background-color: #fcc406;
+}
+.homework .main .task .text {
+  font-size: 1.25rem;
+}
+.homework .side .solution {
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+.homework .side .solution .file {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.homework .side .solution .graduate {
+  background-color: #eabd34;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  color: #fefefe;
+}
+.homework .side .solution .graduate:hover {
+  background-color: #fcc406;
+}
+
+.knopka {
+  text-align: center;
+  font-size: 20px;
+  padding: 5.5em 1em;
+}
+
+/*# sourceMappingURL=style.css.map */

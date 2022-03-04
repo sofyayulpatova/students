@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ lesson.title + " | Домашняя работа" }} {% endblock %}
+
+{% block content %}
+
+<div class="row homework">
+
+    <a href="{{ url_for('edit_homework', id=lesson.id) }}">Redaktirovat</a>
+
+
+    <h2>{{ "Урок " + lesson.title }}</h2>
+    <div class="col main">
+        <div class="task">
+            <p class="text">{{ homework.text|safe }}</p>
+            <a href="#" class="submission">Добавить решение</a>
+        </div>
+    </div>
+    <div class="col-5 side">
+        <div class="solution">
+
+            <p>вот тут можешь файл прикрутить?</p>
+            <p><a href="/static/plus.png" download="/static/plus.png">Открыть файл в браузере</a>
+                <a href="" class="graduate">Оценить</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

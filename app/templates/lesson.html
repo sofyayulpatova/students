@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ lesson.title }} {% endblock %}
+
+{% block content %}
+<div class="row lesson">
+
+    <div class="col main">
+        <h2> {{lesson.title}}</h2>
+        <p>{{ lesson.text|safe }}</p>
+    </div>
+    <div class="col-3 side">
+        <div class="list-group ms-5">
+            <a class="list-group-item list-group-item-action" href="{{url_for('homework', id=lesson.id)}}">
+                <div class="d-flex w-100 justify-content-between">
+                    <p class="m-1">Домашка</p>
+                </div>
+            </a>
+        </div>
+        <div class="list-group ms-5">
+            <a class="list-group-item list-group-item-action" href="{{url_for('test', id=lesson.id)}}">
+                <div class="d-flex w-100 justify-content-between">
+                    <p class="m-1">Тесты</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
