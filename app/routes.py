@@ -3,7 +3,7 @@ from app.models import User
 from flask import render_template, request, redirect, url_for, flash
 from app import login
 from flask_login import current_user, login_user, login_required, logout_user
-from app.models import User, Program, Lesson, Unique_Lesson, Homework
+from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test
 from app.forms import LoginForm
 from werkzeug.urls import url_parse
 
@@ -51,17 +51,27 @@ def students():
 @login_required
 def person(person):
     person = User.query.get(person)
-
     lesson = Lesson.query.all()
-
+    homework = Homework.query.all()
+    print(homework[0].hw_lesson.user)
+    test = Test.query.all()
+    # for lessons with unique lessons
     lessons = []
-    for i in lesson:
-        if i.unique_lesson and i.unique_lesson.user == person:
-            lessons.append(i.unique_lesson)
+    homeworks = []
+    tests = []
+    for i in range(3, 0, -1):
+        if lesson[-i].unique_lesson and lesson[-i].unique_lesson.user == person:
+            lessons.append(lesson[-i].unique_lesson)
         else:
-            lessons.append(i)
+            lessons.append(lesson[-i])
 
-    return render_template('student.html', student=person, lessons=lessons)
+        if homework[-i].hw_lesson:
+            homeworks.append(homework[-i])
+        '''   
+       if test[-i].test_lesson.user == person:
+           homeworks.append(test[-i])
+       '''
+    return render_template('student.html', student=person, lessons=lessons, homeworks=homeworks, tests=tests)
 
 
 # my programs page (all programs)
@@ -263,6 +273,7 @@ def create_homework(id):
 def edit_homework(id):
     homework = Homework.query.get(id)
     if request.method == 'POST':
+        homework.title = request.form.get('HomeworkName')
         homework.text = request.form.get('editordata')
         db.session.add(homework)
         db.session.commit()
@@ -280,7 +291,8 @@ def remove_homework(id):
 # test
 @app.route("/lesson/<int:id>/test")
 def test(id):
-    pass
+    test = Test.query.get(1)
+    return render_template("test.html", test=test)
 
 
 @app.route("/lesson/test/create")

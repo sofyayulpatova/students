@@ -79,7 +79,7 @@
 <div class="row student-profile">
     <div class="col main">
         <div class="list-group">
-            {% for i in lessons %}
+            {% for i in homeworks %}
             <div class="line">
                 <a href="{{ url_for('homework',  id=i.id)}}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
@@ -108,7 +108,7 @@
 <div class="row student-profile">
     <div class="col main">
         <div class="list-group">
-            {% for i in lessons %}
+            {% for i in tests %}
             <div class="line">
                 <a href="{{ url_for('test',  id=i.id) }}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">

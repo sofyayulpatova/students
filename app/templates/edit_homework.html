@@ -15,11 +15,9 @@
 
 <form method="post">
     <div class="form-check">
-
-            {% if id == 0 %}
-                <label class="form-check-label" for="class"> Для какого урока добавляем эту домашку? </label>
-                <input type="text" class="form-control" id="class" name="class">
-            {% endif %}
+        <label for="HomeworkName" class="form-label">Название домашнией работы</label>
+        <input type="text" class="form-control" id="HomeworkName" name="HomeworkName" value="{{ homework.title }}">
+        <label for="summernote" class="form-label">Текст домашней работы</label>
         <textarea id="summernote" name="editordata">
                 {{homework.text|safe}}
         </textarea>

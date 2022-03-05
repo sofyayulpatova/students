@@ -59,6 +59,7 @@ class Lesson(db.Model):
     program = db.relationship('Program', secondary=lp, backref='lesson')
     unique_lesson = db.relationship('Unique_Lesson', backref='lesson', uselist=False)
     homework = db.relationship('Homework', backref='hw_lesson', uselist=False)
+    test = db.relationship('Test', backref='test_lesson', uselist=False)
 
     def __repr__(self):
         return "<{}:{}>".format(self.id, self.title)
@@ -96,4 +97,19 @@ class Unique_Homework(db.Model):
 class Test(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    text = db.Column(db.Text())
+    lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
+    question = db.relationship('Question', backref='question_test')
+
+
+class Question(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    question = db.Column(db.String(100), nullable=False)
+    correct_answer = db.Column(db.String(100), nullable=False)
+    test_id = db.Column(db.Integer(), db.ForeignKey("test.id"))
+    incorrect_answer_id = db.relationship('IncorrectAnswers', backref='inccorect_question')
+
+
+class IncorrectAnswers(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    incorrect_answer = db.Column(db.String(100), nullable=False)
+    question_id = db.Column(db.Integer(), db.ForeignKey("question.id"))
