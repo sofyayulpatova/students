@@ -396,4 +396,24 @@ h2, h3, h5 {
   padding: 5.5em 1em;
 }
 
+/*FORMS*/
+.form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin: 2rem 5rem;
+}
+.form label {
+  font-size: 1.5rem;
+  color: #0a58ca;
+}
+.form .head .form-label:not(:first-of-type), .form .head .form-check {
+  margin-top: 1rem;
+}
+.form .editor {
+  margin: 0 2rem;
+}
+.form .editor .note-editor .note-editable {
+  height: 65vh;
+}
+
 /*# sourceMappingURL=style.css.map */

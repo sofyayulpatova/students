@@ -16,10 +16,10 @@
 <form method="post">
     <div class="form-check">
 
-            {% if id == 0 %}
-                <label class="form-check-label" for="class"> Для какого урока добавляем эту домашку? </label>
-                <input type="text" class="form-control" id="class" name="class">
-            {% endif %}
+        {% if id == 0 %}
+        <label class="form-check-label" for="class"> Для какого урока добавляем эту домашку? </label>
+        <input type="text" class="form-control" id="class" name="class">
+        {% endif %}
         <textarea id="summernote" name="editordata"></textarea>
         {% for i in users %}
         <input class="form-check-input" type="checkbox" value={{i.id}} id="{{ i.id }}" name="users">
