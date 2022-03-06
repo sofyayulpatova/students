@@ -396,4 +396,51 @@ h2, h3, h5 {
   padding: 5.5em 1em;
 }
 
+/*FORMS*/
+.form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin: 2rem 5rem;
+}
+.form label {
+  font-size: 1.5rem;
+  color: #0a58ca;
+}
+.form .head .sticky {
+  position: sticky;
+  top: 10px;
+}
+.form .head .form-label:not(:first-of-type), .form .head .form-check {
+  margin-top: 1rem;
+}
+.form .head input.form-control {
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+}
+.form .head .form-select {
+  line-height: 2;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  font-size: 1.2rem;
+}
+.form .head .form-select:hover {
+  cursor: pointer;
+}
+.form .head input[type=submit] {
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background-color: #fefefe;
+  margin-top: 1rem;
+  color: #0a58ca;
+}
+.form .editor {
+  margin: 0 2rem;
+}
+.form .editor .note-editor .note-editable {
+  height: 65vh;
+}
+
 /*# sourceMappingURL=style.css.map */

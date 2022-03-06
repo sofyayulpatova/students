@@ -125,7 +125,7 @@ h2, h3, h5 {
           border-bottom-right-radius: 1rem;
         }
 
-        & + .line{
+        & + .line {
           border-top-width: 0;
         }
 
@@ -494,4 +494,66 @@ h2, h3, h5 {
   text-align: center;
   font-size: 20px;
   padding: 5.5em 1em;
+}
+
+/*FORMS*/
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin: 2rem 5rem;
+
+  label {
+    font-size: 1.5rem;
+    color: $blue;
+  }
+
+  .head {
+
+    .sticky {
+      position: sticky;
+      top: 10px;
+    }
+    .form-label:not(:first-of-type), .form-check {
+      margin-top: 1rem;
+    }
+
+    input.form-control {
+      box-shadow: 0px 1px 4px 0px $shadow;
+      border: 1px solid $shadow;
+      border-radius: 1rem;
+    }
+
+    .form-select{
+      line-height: 2;
+      box-shadow: 0px 1px 4px 0px $shadow;
+      border: 1px solid $shadow;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+
+    input[type="submit"]{
+      border: 1px solid $shadow;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      background-color: $white;
+      margin-top: 1rem;
+      color: $blue;
+    }
+  }
+
+  .editor {
+    margin: 0 2rem;
+
+    .note-editor {
+
+      .note-editable {
+        height: 65vh;
+      }
+    }
+  }
 }
