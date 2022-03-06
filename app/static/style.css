@@ -406,6 +406,10 @@ h2, h3, h5 {
   font-size: 1.5rem;
   color: #0a58ca;
 }
+.form .head .sticky {
+  position: sticky;
+  top: 10px;
+}
 .form .head .form-label:not(:first-of-type), .form .head .form-check {
   margin-top: 1rem;
 }

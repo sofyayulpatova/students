@@ -509,6 +509,11 @@ h2, h3, h5 {
   }
 
   .head {
+
+    .sticky {
+      position: sticky;
+      top: 10px;
+    }
     .form-label:not(:first-of-type), .form-check {
       margin-top: 1rem;
     }

@@ -14,21 +14,23 @@
 
 <form method="post" class="form">
     <div class="head">
-        {% if id == 0 %}
-        <label class="form-check-label" for="class"> Для какого урока добавляем эту домашку? </label>
-        <input type="text" class="form-control" id="class" name="class">
-        {% endif %}
+        <div class="sticky">
+            {% if id == 0 %}
+            <label class="form-check-label" for="class"> Для какого урока добавляем эту домашку? </label>
+            <input type="text" class="form-control" id="class" name="class">
+            {% endif %}
 
-        <div class="form-check">
-            {% for i in users %}
-            <input class="form-check-input" type="checkbox" value={{i.id}} id="{{ i.id }}" name="users">
-            <label class="form-check-label" for="{{ i.id }}">
-                {{ i.name }}
-            </label>
-            {% endfor %}
+            <div class="form-check">
+                {% for i in users %}
+                <input class="form-check-input" type="checkbox" value={{i.id}} id="{{ i.id }}" name="users">
+                <label class="form-check-label" for="{{ i.id }}">
+                    {{ i.name }}
+                </label>
+                {% endfor %}
+            </div>
+
+            <input type="submit">
         </div>
-
-        <input type="submit">
     </div>
     <div class="editor">
         <label for="summernote">Содержание задания</label>
