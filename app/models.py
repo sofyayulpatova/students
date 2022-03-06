@@ -13,12 +13,12 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(255), nullable=False, unique=True)
     name = db.Column(db.String(255), nullable=False)
-    program = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
+    program_id = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
     password_hash = db.Column(db.String(255))
     description = db.Column(db.String(255))
     phone_number = db.Column(db.String(40), default="номер неизвестен")
     tutor = db.Column(db.Boolean(), default=False)
-    user = db.relationship('Lesson', secondary=lu, backref='user')
+    lesson = db.relationship('Lesson', secondary=lu, backref='user')
     unique_lesson = db.relationship('Unique_Lesson', backref='user')
 
     def __repr__(self):
@@ -46,6 +46,7 @@ class Program(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     program = db.Column(db.String(255), nullable=False)
     text = db.Column(db.Text())
+    user = db.relationship('User', backref='program')
 
     def __repr__(self):
         return self.program + "@" + str(self.id)
@@ -58,8 +59,9 @@ class Lesson(db.Model):
     text = db.Column(db.Text())
     program = db.relationship('Program', secondary=lp, backref='lesson')
     unique_lesson = db.relationship('Unique_Lesson', backref='lesson', uselist=False)
-    homework = db.relationship('Homework', backref='hw_lesson', uselist=False)
-    test = db.relationship('Test', backref='test_lesson', uselist=False)
+    unique_homework = db.relationship('Unique_Homework', backref='lesson', uselist=False)
+    homework = db.relationship('Homework', backref='lesson_homework', uselist=False)
+    test = db.relationship('Test', backref='lesson', uselist=False)
 
     def __repr__(self):
         return "<{}:{}>".format(self.id, self.title)
