@@ -59,6 +59,7 @@ def person(person):
     for i in range(len(lessons)):
 
         # add homework
+
         if lessons[i].unique_homework and lessons[i].unique_homework == person.id:
             homeworks.append(lessons[i].unique_homework)
         else:
@@ -103,25 +104,12 @@ def programs():
 @app.route("/programs/<int:id>")
 def program(id):
     program = Program.query.get(id)
-    lesson, homework, test = Lesson.query.all(), Homework.query.all(), Test.query.all()
-    lessons, homeworks, tests = [], [], []
-    if len(lessons) > 3:
-        for i in range(3, 0, -1):
-            if lesson[-i].unique_lesson and lesson[-i].unique_lesson.user == person:
-                lessons.append(lesson[-i].unique_lesson)
-            else:
-                lessons.append(lesson[-i])
-
-            if homework[-i].hw_lesson:
-                homeworks.append(homework[-i])
-            '''   
-           if test[-i].test_lesson.user == person:
-               homeworks.append(test[-i])
-           '''
-    else:
-        lessons, homeworks, tests = lesson, homework, test
-    return render_template("program.html", lessons=lessons, program_id=id, program=program, homeworks=homeworks,
-                           tests=tests)
+    lessons = program.lesson
+    homeworks = [i.homework for i in lessons]
+    tests = [i.test for i in lessons]
+    return render_template("program.html", lessons=lessons[-3:], program_id=id, program=program,
+                           homeworks=homeworks[-3:],
+                           tests=tests[-3:])
 
 
 # page with books, files etc.
@@ -159,6 +147,7 @@ def login():
 
 # logout
 @app.route('/logout/')
+@login_required
 def logout():
     logout_user()
     return "logout"
@@ -169,17 +158,22 @@ def is_tutor(obj):
 
 
 # lesson
-@app.route("/lesson/<int:id>")
-def lesson(id):
+@app.route("/<int:program_id>/lesson/<int:id>")
+@login_required
+def lesson(program_id, id):
     lesson = Lesson.query.get(id)
     les = Unique_Lesson.query.get(id)
-    if lesson.unique_lesson:
-        return render_template("lesson.html", lesson=lesson.unique_lesson)
-    else:
-        return render_template("lesson.html", lesson=lesson)
+
+    if program_id == 0:
+        if lesson.unique_lesson:
+            return render_template("lesson.html", lesson=lesson.unique_lesson)
+        else:
+            return render_template("lesson.html", lesson=lesson)
+    return render_template("lesson.html", lesson=lesson)
 
 
 @app.route('/lessons/create/', methods=['GET', 'POST'])
+@login_required
 def create_lesson():
     programs = Program.query.all()
     users = User.query.filter_by(tutor=False).all()
@@ -204,10 +198,11 @@ def create_lesson():
 
 
 @app.route('/lessons/<int:id>/create/empty_homework/', methods=['GET', 'POST'])
+@login_required
 def create_empty_homework(id):
     lesson = Lesson.query.get(id)
     homework = Homework(text="Домашки нет!", lesson=lesson.id, title=lesson.title)
-    test = Test(question=[], lesson_id=lesson.id, title='lesson.title')
+    test = Test(question=[], lesson_id=lesson.id, title=lesson.title)
     db.session.add_all([homework, test])
     db.session.commit()
 
@@ -249,6 +244,7 @@ def edit_lesson(id, user_id):
 
 
 @app.route("/lessons/remove/<int:id>/<int:course_id>", methods=["GET", "POST"])
+@login_required
 def remove_lesson(id, course_id):
     lesson = Lesson.query.get(id)
     homework = Homework.query.filter_by(lesson=id).first()
@@ -264,6 +260,7 @@ def remove_lesson(id, course_id):
 # homework
 
 @app.route("/lesson/<int:id>/homework")
+@login_required
 def homework(id):
     lesson = Lesson.query.get(id)
     if lesson.unique_homework:
@@ -273,32 +270,32 @@ def homework(id):
 
 
 @app.route("/lesson/<int:id>/homework/edit", methods=['GET', 'POST'])
+@login_required
 def edit_homework(id):
-    homework = Homework.query.get(id)
-    print(request.url)
     if request.method == 'POST':
-        if request.form.get('question') == 'no':
-            homework = Unique_Homework.query.get(id)
-            if homework is None:
-                homework.title = request.form.get('HomeworkName')
-                homework.text = request.form.get('editordata')
+        unique_homework = Unique_Homework.query.get(id)
+        if unique_homework is None:
+            title = request.form.get('HomeworkName')
+            text = request.form.get('editordata')
+            unique_homework = Unique_Homework(title=title, text=text, lesson_id=id)
+        else:
+            unique_homework.lesson_id = id
+            unique_homework.title = request.form.get('HomeworkName')
+            unique_homework.text = request.form.get('editordata')
+            Lesson.query.get(id).unique_homework = unique_homework
 
-
-            else:
-                homework.title = request.form.get('HomeworkName')
-                homework.text = request.form.get('editordata')
-            # TODO write an possibility to create/redact UNIQUE homework
-            db.session.add(homework)
-            db.session.commit()
-            request.close()
-            return redirect(request.url, code=302)
-    # http://127.0.0.1:5000/lesson/1/homework/edit    from USER
-    # FROM PROGRAM http://127.0.0.1:5000/lesson/1/homework/edit
-
-    return render_template("edit_homework.html", homework=homework)
+        db.session.add(unique_homework)
+        db.session.commit()
+        request.close()
+        return redirect(url_for('homework', id=id))
+    lesson = Lesson.query.get(id)
+    if lesson.unique_homework:
+        return render_template("edit_homework.html", homework=lesson.unique_homework)
+    return render_template("edit_homework.html", homework=lesson.homework)
 
 
 @app.route("/lesson/<int:id>/homework/remove")
+@login_required
 def remove_homework(id):
     homework = Homework.get(id)
     homework.text = "Ничего не задано"
@@ -308,21 +305,20 @@ def remove_homework(id):
 
 # test
 @app.route("/lesson/<int:id>/test")
+@login_required
 def test(id):
-    test = Test.query.get(1)
+    test = Test.query.get(id)
     return render_template("test.html", test=test)
 
 
-@app.route("/lesson/test/create")
-def create_test():
-    pass
-
-
 @app.route("/lesson/<int:id>/test/edit")
+@login_required
 def edit_test(id):
-    pass
+    test = Test.query.get(id)
+    return render_template('edit_test.html', test=test)
 
 
 @app.route("/lesson/<int:id>/test/remove")
+@login_required
 def remove_test(id):
     pass

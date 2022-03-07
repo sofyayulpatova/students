@@ -3,7 +3,6 @@
 {% block title %} {{ homework.title + " | Домашняя работа" }} {% endblock %}
 
 {% block content %}
-
 <div class="row homework">
 
     <a href="{{ url_for('edit_homework', id=lesson.id) }}">Redaktirovat</a>
@@ -12,7 +11,7 @@
     <h2>{{ homework.title }}</h2>
     <div class="col main">
         <div class="task">
-            <p class="text">{{ homework.text|safe }}</p>
+            <p class="text">{{ homework.text | safe }}</p>
             <a href="#" class="submission">Добавить решение</a>
         </div>
     </div>

@@ -86,11 +86,13 @@ class Unique_Lesson(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
+    program = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
 
 
 class Unique_Homework(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
+    program = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())

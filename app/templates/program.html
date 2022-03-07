@@ -17,7 +17,7 @@
         <div class="list-group">
             {% for i in lessons %}
             <div class="line">
-                <a href="{{ url_for('lesson',  id=i.id)}}" class="list-group-item list-group-item-action">
+                <a href="{{ url_for('lesson',  id=i.id, program_id=program.id)}}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
                     </div>

@@ -9,5 +9,5 @@
     <h2>{{ "Тест " + test.title }}</h2>
 
 </div>
-
+<a href="{{ url_for('edit_test', id=test.lesson_id) }}"></a>
 {% endblock %}
