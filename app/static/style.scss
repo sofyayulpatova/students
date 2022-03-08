@@ -277,6 +277,7 @@ h2, h3, h5 {
           display: grid;
           grid-template-areas: "pos1 pos2";
           align-items: center;
+          grid-auto-columns: minmax(auto, 12em);
 
           .left_title {
             margin: 0;
@@ -347,6 +348,7 @@ h2, h3, h5 {
           display: grid;
           grid-template-areas: "pos1 pos2" "pos3 pos4";
           align-items: end;
+          grid-auto-columns: minmax(auto, 12em);
 
           .left_title {
             margin-top: 1rem;
@@ -430,35 +432,40 @@ h2, h3, h5 {
 }
 
 .homework {
-  margin-top: 2rem;
-  align-items: baseline;
 
-  h2 {
-    margin-left: 5rem;
-    width: -webkit-fill-available;
+  .head {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 5fr auto;
+    align-items: center;
+
+    h2 {
+      margin-left: 5rem;
+      width: -webkit-fill-available;
+    }
+
+    a{
+      margin-left: 0.5rem;
+    }
   }
+  .body {
+    margin-top: 1rem;
 
-  .main {
-    margin-left: 5rem;
+    .main {
+      margin-left: 5rem;
 
-    .task {
-      border: 1px solid $shadow;
-      border-radius: 1rem;
-      padding: 1rem;
+      .task {
+        border: 1px solid $shadow;
+        border-radius: 1rem;
+        padding: 1rem;
 
-      .submission {
-        background-color: $orange;
-        padding: 0.5rem;
-        border-radius: 0.75rem;
-        color: $white;
-
-        &:hover {
-          background-color: $orange_hover;
+        p{
+          overflow-wrap: anywhere;
         }
-      }
 
-      .text {
-        font-size: 1.25rem;
+        .text {
+          font-size: 1.25rem;
+        }
       }
     }
   }
@@ -468,7 +475,6 @@ h2, h3, h5 {
       border: 1px solid $shadow;
       border-radius: 1rem;
       padding: 1rem;
-      margin-top: 1.5rem;
 
       .file {
         display: block;
@@ -514,6 +520,7 @@ h2, h3, h5 {
       position: sticky;
       top: 10px;
     }
+
     .form-label:not(:first-of-type), .form-check {
       margin-top: 1rem;
     }
@@ -524,19 +531,19 @@ h2, h3, h5 {
       border-radius: 1rem;
     }
 
-    .form-select{
+    .form-select {
       line-height: 2;
       box-shadow: 0px 1px 4px 0px $shadow;
       border: 1px solid $shadow;
       border-radius: 1rem;
       font-size: 1.2rem;
 
-      &:hover{
+      &:hover {
         cursor: pointer;
       }
     }
 
-    input[type="submit"]{
+    input[type="submit"] {
       border: 1px solid $shadow;
       border-radius: 1rem;
       padding: 1.5rem;
@@ -553,6 +560,11 @@ h2, h3, h5 {
 
       .note-editable {
         height: 65vh;
+
+        p{
+          color: unset;
+          overflow-wrap: anywhere;
+        }
       }
     }
   }

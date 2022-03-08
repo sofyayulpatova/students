@@ -3,26 +3,29 @@
 {% block title %} {{ homework.title + " | Домашняя работа" }} {% endblock %}
 
 {% block content %}
-<div class="row homework">
-
-    <a href="{{ url_for('edit_homework', id=lesson.id, user_id=0) }}">Redaktirovat</a>
-
-
-    <h2>{{ homework.title }}</h2>
-    <div class="col main">
-        <div class="task">
-            <p class="text">{{ homework.text | safe }}</p>
-            <a href="#" class="submission">Добавить решение</a>
+<div class="homework">
+    <div class="head">
+        <div>
+            <h2>{{ homework.title }}</h2>
+        </div>
+        <div>
+            <a href="{{ url_for('edit_homework', id=lesson.id, user_id=0) }}"><i
+                    class="fa-solid fa-pen"></i></a>
         </div>
     </div>
-    <div class="col-5 side">
-        <div class="solution">
-
-            <p>вот тут можешь файл прикрутить?</p>
-            <p><a href="/static/plus.png" download="/static/plus.png">Открыть файл в браузере</a>
-                <a href="" class="graduate">Оценить</a>
+    <div class="row body">
+        <div class="col-7 main">
+            <div class="task">
+                <p class="text">{{ homework.text | safe }}</p>
+            </div>
+        </div>
+        <div class="col-4 side">
+            <div class="solution">
+                <h5>Последняя попытка</h5>
+                <p><a href="/static/plus.png" download="/static/plus.png">main.py</a></p>
+                <a href="" class="graduate">Прокомментировать</a>
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

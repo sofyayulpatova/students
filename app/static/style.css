@@ -221,6 +221,7 @@ h2, h3, h5 {
   display: grid;
   grid-template-areas: "pos1 pos2";
   align-items: center;
+  grid-auto-columns: minmax(auto, 12em);
 }
 .programs .program a .card-body .head .left_title {
   margin: 0;
@@ -282,6 +283,7 @@ h2, h3, h5 {
   display: grid;
   grid-template-areas: "pos1 pos2" "pos3 pos4";
   align-items: end;
+  grid-auto-columns: minmax(auto, 12em);
 }
 .students .student a .card-body .head .left_title {
   margin-top: 1rem;
@@ -342,39 +344,40 @@ h2, h3, h5 {
   color: #0a58ca;
 }
 
-.homework {
+.homework .head {
   margin-top: 2rem;
-  align-items: baseline;
+  display: grid;
+  grid-template-columns: 1fr 5fr auto;
+  align-items: center;
 }
-.homework h2 {
+.homework .head h2 {
   margin-left: 5rem;
   width: -webkit-fill-available;
 }
-.homework .main {
+.homework .head a {
+  margin-left: 0.5rem;
+}
+.homework .body {
+  margin-top: 1rem;
+}
+.homework .body .main {
   margin-left: 5rem;
 }
-.homework .main .task {
+.homework .body .main .task {
   border: 1px solid rgba(120, 127, 206, 0.2);
   border-radius: 1rem;
   padding: 1rem;
 }
-.homework .main .task .submission {
-  background-color: #eabd34;
-  padding: 0.5rem;
-  border-radius: 0.75rem;
-  color: #fefefe;
+.homework .body .main .task p {
+  overflow-wrap: anywhere;
 }
-.homework .main .task .submission:hover {
-  background-color: #fcc406;
-}
-.homework .main .task .text {
+.homework .body .main .task .text {
   font-size: 1.25rem;
 }
 .homework .side .solution {
   border: 1px solid rgba(120, 127, 206, 0.2);
   border-radius: 1rem;
   padding: 1rem;
-  margin-top: 1.5rem;
 }
 .homework .side .solution .file {
   display: block;
@@ -441,6 +444,10 @@ h2, h3, h5 {
 }
 .form .editor .note-editor .note-editable {
   height: 65vh;
+}
+.form .editor .note-editor .note-editable p {
+  color: unset;
+  overflow-wrap: anywhere;
 }
 
 /*# sourceMappingURL=style.css.map */
