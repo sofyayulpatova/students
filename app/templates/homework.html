@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row homework">
 
-    <a href="{{ url_for('edit_homework', id=lesson.id) }}">Redaktirovat</a>
+    <a href="{{ url_for('edit_homework', id=lesson.id, user_id=0) }}">Redaktirovat</a>
 
 
     <h2>{{ homework.title }}</h2>

@@ -79,7 +79,6 @@ def person(person):
             lessons.append(i)
             homeworks.append(i.homework)
             tests.append(i.test)
-
     return render_template('student.html', student=person, lessons=lessons[-3:], homeworks=homeworks[-3:],
                            tests=tests[-3:])
 
@@ -91,7 +90,7 @@ def programs():
     if request.method == "POST":
         name = request.form['ProgramName']
         text = request.form['Text']
-        program = Program(program=name, text=text)
+        program = Program(program=name, text=text, lesson=[])
         db.session.add(program)
         db.session.commit()
         request.close()
@@ -104,12 +103,15 @@ def programs():
 @app.route("/programs/<int:id>")
 def program(id):
     program = Program.query.get(id)
+    print(program.lesson)
+
     lessons = program.lesson
     homeworks = [i.homework for i in lessons]
     tests = [i.test for i in lessons]
     return render_template("program.html", lessons=lessons[-3:], program_id=id, program=program,
                            homeworks=homeworks[-3:],
                            tests=tests[-3:])
+
 
 
 # page with books, files etc.
@@ -158,41 +160,52 @@ def is_tutor(obj):
 
 
 # lesson
-@app.route("/<int:program_id>/lesson/<int:id>")
+@app.route("/<int:program_id>/lesson/<int:id>/<is_unique>")
 @login_required
-def lesson(program_id, id):
+def lesson(program_id, id, is_unique):
     lesson = Lesson.query.get(id)
     les = Unique_Lesson.query.get(id)
-
+    print(lesson, les, id)
+    # if unique lesson only
+    if is_unique == 1:
+        print("in unique")
+        return render_template("lesson.html", lesson=Unique_Lesson.query.get(id), program_id=program_id, id=id)
+    # from student page
     if program_id == 0:
+        print("in program == 0")
         if lesson.unique_lesson:
-            return render_template("lesson.html", lesson=lesson.unique_lesson)
+            print("in program == 0 and unique lesson")
+            return render_template("lesson.html", lesson=lesson.unique_lesson, program_id=program_id, id=id)
         else:
-            return render_template("lesson.html", lesson=lesson)
-    return render_template("lesson.html", lesson=lesson)
+            print("in program == 0 and not unique lesson")
+            return render_template("lesson.html", lesson=lesson, program_id=program_id, id=id)
+    print("hi")
+    return render_template("lesson.html", lesson=lesson, program_id=program_id, id=id)
 
 
-@app.route('/lessons/create/', methods=['GET', 'POST'])
+@app.route('/lessons/create/<int:user_id>', methods=['GET', 'POST'])
 @login_required
-def create_lesson():
+def create_lesson(user_id):
     programs = Program.query.all()
     users = User.query.filter_by(tutor=False).all()
 
     if request.method == "POST":
-        title = request.form.get('LessonName')
-        course = request.form.get('Course')
-        body = request.form.get('editordata')
-        open_for_users_id = request.form.getlist("users")
-        lesson = Lesson(title=title, program=[], text=body)
-        program = Program.query.get(course)
-        lesson.program.append(program)
-        open_for_users = User.query.filter(User.id.in_(open_for_users_id)).all()
+        if user_id == 0:
+            title = request.form.get('LessonName')
+            course = request.form.get('Course')
+            body = request.form.get('editordata')
+            open_for_users_id = request.form.getlist("users")
+            program = Program.query.get(course)
+            lesson = Lesson(title=title, program=program, text=body)
 
-        lesson.user.extend(open_for_users)
-        db.session.add(lesson)
-        db.session.commit()
-        request.close()
-        return redirect(url_for('create_empty_homework', id=lesson.id))
+            open_for_users = User.query.filter(User.id.in_(open_for_users_id)).all()
+            print(open_for_users)
+
+            lesson.user.extend(open_for_users)
+            db.session.add(lesson)
+            db.session.commit()
+            request.close()
+            return redirect(url_for('create_empty_homework', id=lesson.id))
 
     return render_template('create_lesson.html', programs=programs, users=users)
 
@@ -206,7 +219,7 @@ def create_empty_homework(id):
     db.session.add_all([homework, test])
     db.session.commit()
 
-    return redirect(url_for("program", id=lesson.program[0].id))
+    return redirect(url_for("program", id=lesson.program_id))
 
 
 @app.route("/lessons/edit/<int:id>/<int:user_id>", methods=["GET", "POST"])
@@ -214,18 +227,15 @@ def edit_lesson(id, user_id):
     lesson = Lesson.query.get(id)
     programs = Program.query.all()
     if request.method == "POST":
-        if request.form.get("question") == "yes":
+        if user_id == 0:
             lesson.title = request.form.get('LessonName')
-            lesson.course = request.form.get('Course')
             lesson.text = request.form.get('editordata')
 
-            db.session.add_all(lesson)
+            db.session.add(lesson)
             db.session.commit()
             request.close()
-            next_page = request.args.get('next')
-            if not next_page or url_parse(next_page).netloc != '':
-                return redirect(url_for('program', id=lesson.course))
-            return redirect(next_page)
+            print(lesson, lesson.program)
+            return redirect(url_for('program', id=lesson.program_id))
         else:
             title = request.form.get('LessonName')
             text = request.form.get('editordata')
@@ -235,10 +245,7 @@ def edit_lesson(id, user_id):
             db.session.add(unique_lesson)
             db.session.commit()
             request.close()
-            next_page = request.args.get('next')
-            if not next_page or url_parse(next_page).netloc != '':
-                return redirect(url_for('person', person=user_id))
-            return redirect(next_page)
+            return redirect(url_for('person', person=user_id))
 
     return render_template("edit_lesson.html", lesson=lesson, programs=programs)
 
@@ -259,37 +266,61 @@ def remove_lesson(id, course_id):
 
 # homework
 
-@app.route("/lesson/<int:id>/homework")
+@app.route("/<int:program>/lesson/<int:id>/homework")
 @login_required
-def homework(id):
+def homework(id, program):
     lesson = Lesson.query.get(id)
-    if lesson.unique_homework:
-        return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
-    else:
-        return render_template("homework.html", lesson=lesson, homework=lesson.homework)
+    if program == 0:
+        print('prog = 0')
+        if lesson.unique_homework:
+            return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
+    print("here?", lesson.homework.text)
+    return render_template("homework.html", lesson=lesson, homework=lesson.homework)
 
 
-@app.route("/lesson/<int:id>/homework/edit", methods=['GET', 'POST'])
+@app.route("/lesson/<int:id>/homework/<int:user_id>/edit", methods=['GET', 'POST'])
 @login_required
-def edit_homework(id):
+def edit_homework(id, user_id):
     if request.method == 'POST':
+
+
+        if user_id == 0:
+            print("измнения из программы")
+            homework = Homework.query.get(id)
+            #print('hi', id, homework[0].title, homework[1].title)
+
+            homework.lesson_id = id
+            homework.title = request.form.get('HomeworkName')
+            homework.text = request.form.get('editordata')
+            lesson = Lesson.query.get(id)
+            lesson.homework = homework
+
+            db.session.add(homework)
+            db.session.commit()
+            request.close()
+            return redirect(url_for('homework', id=id, program=lesson.program_id))
         unique_homework = Unique_Homework.query.get(id)
         if unique_homework is None:
+            print("hi, were uni")
             title = request.form.get('HomeworkName')
             text = request.form.get('editordata')
             unique_homework = Unique_Homework(title=title, text=text, lesson_id=id)
         else:
+            print("vjrgh")
             unique_homework.lesson_id = id
             unique_homework.title = request.form.get('HomeworkName')
             unique_homework.text = request.form.get('editordata')
-            Lesson.query.get(id).unique_homework = unique_homework
+            lesson = Lesson.query.get(id)
+            lesson.unique_homework = unique_homework
 
         db.session.add(unique_homework)
         db.session.commit()
         request.close()
-        return redirect(url_for('homework', id=id))
+        return redirect(url_for('homework', id=id, program=0))
     lesson = Lesson.query.get(id)
-    if lesson.unique_homework:
+
+    if lesson.unique_homework and user_id != 0:
+        print(11111111)
         return render_template("edit_homework.html", homework=lesson.unique_homework)
     return render_template("edit_homework.html", homework=lesson.homework)
 
@@ -297,10 +328,10 @@ def edit_homework(id):
 @app.route("/lesson/<int:id>/homework/remove")
 @login_required
 def remove_homework(id):
-    homework = Homework.get(id)
+    homework = Homework.query.get(id)
     homework.text = "Ничего не задано"
     db.session.add(homework)
-    return redirect(url_for('program', id=homework.hw_lesson.id))
+    return redirect(url_for('program', id=homework.lesson_homework.id))
 
 
 # test

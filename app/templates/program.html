@@ -6,7 +6,7 @@
 
 <div class="row profile-head">
     <h3 class="title">Уроки</h3>
-    <a href="{{ url_for('create_lesson') }}" class="plus-button">
+    <a href="{{ url_for('create_lesson', user_id=0) }}" class="plus-button">
         <div class="d-flex justify-content-between">
             <h3>+</h3>
         </div>
@@ -17,7 +17,8 @@
         <div class="list-group">
             {% for i in lessons %}
             <div class="line">
-                <a href="{{ url_for('lesson',  id=i.id, program_id=program.id)}}" class="list-group-item list-group-item-action">
+                <a href="{{ url_for('lesson',  id=i.id, program_id=program.id, is_unique=0)}}"
+                   class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
                     </div>
@@ -60,16 +61,18 @@
         <div class="list-group">
             {% for i in homeworks %}
             <div class="line">
-                <a href="{{ url_for('homework',  id=i.lesson)}}" class="list-group-item list-group-item-action">
+                <a href="{{ url_for('homework',  id=i.lesson, program=program.id)}}"
+                   class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
                     </div>
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
-                <p>{{i.lesson_homework}}</p>
                 <ul class="actions">
-                    <li><a href="{{ url_for('edit_homework', id=i.lesson)}}"><i class="fa-solid fa-pen"></i></a></li>
-                    <li><a href="#"><i class="fa-solid fa-trash-can"></i></a></li>
+                    <li><a href="{{ url_for('edit_homework', id=i.lesson, user_id=0)}}"><i class="fa-solid fa-pen"></i></a>
+                    </li>
+                    <li><a href="{{ url_for('remove_homework', id=i.lesson)}}"><i class="fa-solid fa-trash-can"></i></a>
+                    </li>
                 </ul>
             </div>
             {% endfor %}

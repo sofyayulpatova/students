@@ -16,22 +16,8 @@
     <div class="head">
         <div class="sticky">
             <label for="LessonName" class="form-label">Название урока</label>
-            <input type="text" class="form-control" id="LessonName" name="LessonName">
+            <input type="text" class="form-control" id="LessonName" name="LessonName" value="{{ lesson.title }}">
 
-            <label for="Course" class="form-label">Курс</label>
-            <select class="form-select" aria-label="Default select example" id="Course" name="Course">
-                {% for i in programs %}
-                <option value="{{ i.id }}">{{ i.program }}</option>
-                {% endfor %}
-            </select>
-
-            <div class="form-check">
-                <p> Измеенить урок для всех учеников и курсов?</p>
-                <input class="form-check-input" type="checkbox" value='yes' id="question" name="question">
-                <label class="form-check-label" for="question">
-                    Да!
-                </label>
-            </div>
 
             <input type="submit">
         </div>

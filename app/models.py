@@ -36,17 +36,12 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-lp = db.Table('lp',
-              db.Column('program', db.Integer(), db.ForeignKey('program.id')),
-              db.Column('lesson', db.Integer(), db.ForeignKey('lesson.id'))
-              )
-
-
 class Program(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     program = db.Column(db.String(255), nullable=False)
     text = db.Column(db.Text())
     user = db.relationship('User', backref='program')
+    lesson = db.relationship('Lesson', backref='program')
 
     def __repr__(self):
         return self.program + "@" + str(self.id)
@@ -57,7 +52,7 @@ class Lesson(db.Model):
     optional = db.Column(db.Text())
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
-    program = db.relationship('Program', secondary=lp, backref='lesson')
+    program_id = db.Column(db.Integer(), db.ForeignKey('program.id'))
     unique_lesson = db.relationship('Unique_Lesson', backref='lesson', uselist=False)
     unique_homework = db.relationship('Unique_Homework', backref='lesson', uselist=False)
     homework = db.relationship('Homework', backref='lesson_homework', uselist=False)
