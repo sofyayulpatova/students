@@ -23,13 +23,21 @@ $large: 1900px;
   background-color: unset;
   box-shadow: 0px 1px 4px 0px $shadow;
 
-  li {
+  .nav-item {
     margin: 0.4em;
     font-size: 18px;
-  }
 
-  a {
-    color: $blue;
+    .nav-link {
+      color: $blue;
+
+      &:hover {
+        background: none;
+      }
+    }
+
+    &:last-child {
+      margin-left: auto;
+    }
   }
 }
 
@@ -265,7 +273,11 @@ h2, h3, h5 {
     a {
       text-decoration: none;
       height: -webkit-fill-available;
+      height: -moz-available;
+      height: fill-available;
       width: -webkit-fill-available;
+      width: -moz-available;
+      width: fill-available;
 
       .card-body {
 
@@ -337,7 +349,11 @@ h2, h3, h5 {
     a {
       text-decoration: none;
       height: -webkit-fill-available;
+      height: -moz-available;
+      height: fill-available;
       width: -webkit-fill-available;
+      width: -moz-available;
+      width: fill-available;
 
       .card-body {
         display: grid;
@@ -398,6 +414,7 @@ h2, h3, h5 {
   .side {
     .list-group {
       position: -webkit-sticky;
+      position: -moz-sticky;
       position: sticky;
       top: 1rem;
 
@@ -442,12 +459,15 @@ h2, h3, h5 {
     h2 {
       margin-left: 5rem;
       width: -webkit-fill-available;
+      width: -moz-available;
+      width: fill-available;
     }
 
-    a{
+    a {
       margin-left: 0.5rem;
     }
   }
+
   .body {
     margin-top: 1rem;
 
@@ -459,7 +479,7 @@ h2, h3, h5 {
         border-radius: 1rem;
         padding: 1rem;
 
-        p{
+        p {
           overflow-wrap: anywhere;
         }
 
@@ -561,10 +581,40 @@ h2, h3, h5 {
       .note-editable {
         height: 65vh;
 
-        p{
+        p {
           color: unset;
           overflow-wrap: anywhere;
         }
+      }
+    }
+  }
+}
+
+.login {
+  width: fit-content;
+  margin: 5rem auto;
+
+  h2 {
+    color: $black;
+    text-align: center;
+  }
+
+  form {
+    font-size: 1.1rem;
+
+    input {
+      border: 1px solid $shadow;
+      border-radius: 1rem;
+      box-shadow: 0px 1px 4px 0px $shadow;
+      padding: 0.7rem 0.5rem;
+
+      &[type="submit"] {
+        width: -webkit-fill-available;
+        width: -moz-available;
+        width: fill-available;
+        padding: 1rem;
+        background-color: $white;
+        color: $blue;
       }
     }
   }
