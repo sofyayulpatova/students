@@ -25,6 +25,7 @@ def main():
 
 # page with all students
 @app.route('/students/', methods=['POST', 'GET'])
+@login_required
 def students():
     if request.method == 'POST':
         name = request.form['StudentName']
@@ -113,7 +114,6 @@ def program(id):
                            tests=tests[-3:])
 
 
-
 # page with books, files etc.
 @app.route('/library')
 @login_required
@@ -122,10 +122,25 @@ def library():
 
 
 # tutor's control panel
-@app.route('/control/')
+@app.route('/control_profile/')
 @login_required
-def control():
-    return render_template('control.html')
+def control_profile():
+    students = User.query.filter_by(tutor=False).all()
+    programs = Program.query.all()
+    return render_template('control_profile.html', students=students, programs=programs)
+
+
+@app.route('/control_students/')
+@login_required
+def control_students():
+    u = User.query.filter_by(tutor=False)
+    return render_template('control_profile.html', students=u)
+
+
+@app.route('/update_profile/', methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    return "really, update"
 
 
 # login page
@@ -199,7 +214,6 @@ def create_lesson(user_id):
             lesson = Lesson(title=title, program=program, text=body)
 
             open_for_users = User.query.filter(User.id.in_(open_for_users_id)).all()
-            print(open_for_users)
 
             lesson.user.extend(open_for_users)
             db.session.add(lesson)
@@ -283,11 +297,10 @@ def homework(id, program):
 def edit_homework(id, user_id):
     if request.method == 'POST':
 
-
         if user_id == 0:
             print("измнения из программы")
             homework = Homework.query.get(id)
-            #print('hi', id, homework[0].title, homework[1].title)
+            # print('hi', id, homework[0].title, homework[1].title)
 
             homework.lesson_id = id
             homework.title = request.form.get('HomeworkName')
