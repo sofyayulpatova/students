@@ -3,7 +3,7 @@ from app.models import User
 from flask import render_template, request, redirect, url_for, flash
 from app import login
 from flask_login import current_user, login_user, login_required, logout_user
-from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework
+from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile
 from app.forms import LoginForm
 from werkzeug.urls import url_parse
 
@@ -11,7 +11,9 @@ from werkzeug.urls import url_parse
 # greeting page
 @app.route('/')
 def index():
-    return render_template("index.html")
+    profile = Profile.query.get(1)
+
+    return render_template("index.html", profile=profile)
 
 
 # FOR TUTOR
@@ -128,6 +130,25 @@ def control_profile():
     students = User.query.filter_by(tutor=False).all()
     programs = Program.query.all()
     return render_template('control_profile.html', students=students, programs=programs)
+
+
+@app.route('/edit_profile/', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    if request.method == 'POST':
+        profile = Profile.query.get(1)
+        profile.name = request.form.get('Name_Surname')
+        profile.specialisation = request.form.get('tutor')
+        profile.about = request.form.get('about')
+        profile.education = request.form.get('education')
+        profile.work = request.form.get('work')
+        profile.price = request.form.get('price')
+        profile.contacts = request.form.get('contacts')
+        db.session.add(profile)
+        db.session.commit()
+        return redirect(url_for('index'))
+    profile = Profile.query.get(1)
+    return render_template('edit_profile.html', profile=profile)
 
 
 @app.route('/control_students/')

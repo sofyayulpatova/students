@@ -112,3 +112,14 @@ class IncorrectAnswers(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     incorrect_answer = db.Column(db.String(100), nullable=False)
     question_id = db.Column(db.Integer(), db.ForeignKey("question.id"))
+
+
+class Profile(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(100))
+    specialisation = db.Column(db.String(100))
+    about = db.Column(db.Text())
+    education = db.Column(db.Text())
+    work = db.Column(db.Text())
+    price = db.Column(db.Text())
+    contacts = db.Column(db.Text())
