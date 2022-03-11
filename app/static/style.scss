@@ -35,7 +35,7 @@ $large: 1900px;
       }
     }
 
-    &:last-child {
+    &:nth-last-child(2) {
       margin-left: auto;
     }
   }

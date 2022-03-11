@@ -16,6 +16,11 @@
 
 {% block menu %}
 <ul class="nav justify-content menu active">
+    {% if current_user.is_anonymous %}
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('login') }}">Войти</a>
+    </li>
+    {% else %}
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('main') }}">Главная</a>
     </li>
@@ -35,11 +40,9 @@
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('control_profile') }}">Панель управления</a>
     </li>
-    {% if current_user.is_anonymous %}
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('login') }}">Войти</a>
+        <a class="nav-link" aria-current="page" href="#"><i class="fa-solid fa-bell"></i></a>
     </li>
-    {% else %}
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('logout') }}">Выйти</a>
     </li>
