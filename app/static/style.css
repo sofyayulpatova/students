@@ -493,4 +493,34 @@ h2, h3, h5 {
   color: #0a58ca;
 }
 
+.error {
+  height: 100vh;
+  background: url("/static/error_background.webp") no-repeat;
+  background-size: cover;
+  padding: 35vh;
+}
+.error .error-block {
+  margin: auto;
+  width: fit-content;
+  text-align: center;
+}
+.error .error-block > * {
+  text-transform: uppercase;
+  color: #fefefe;
+  margin-bottom: 0.5rem;
+}
+.error .error-block .error-title {
+  border-top: 3px solid #fefefe;
+  border-bottom: 3px solid #fefefe;
+  padding: 1rem;
+}
+.error .error-block .error-button {
+  display: block;
+  width: fit-content;
+  padding: 1rem;
+  margin: auto;
+  border-radius: 1rem;
+  background-color: #6fc793;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -619,3 +619,37 @@ h2, h3, h5 {
     }
   }
 }
+
+.error {
+  height: 100vh;
+  background: url("/static/error_background.webp") no-repeat;
+  background-size: cover;
+  padding: 35vh;
+
+  .error-block {
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+
+    & > * {
+      text-transform: uppercase;
+      color: $white;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-title {
+      border-top: 3px solid $white;
+      border-bottom: 3px solid $white;
+      padding: 1rem;
+    }
+
+    .error-button {
+      display: block;
+      width: fit-content;
+      padding: 1rem;
+      margin: auto;
+      border-radius: 1rem;
+      background-color: $green;
+    }
+  }
+}
