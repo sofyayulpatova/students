@@ -7,6 +7,10 @@ from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Uni
 from app.forms import LoginForm
 from werkzeug.urls import url_parse
 
+import logging
+from logging.handlers import SMTPHandler
+
+
 
 # errors
 @app.errorhandler(404)
@@ -399,3 +403,5 @@ def edit_test(id):
 @login_required
 def remove_test(id):
     pass
+
+
