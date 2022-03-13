@@ -1,25 +1,18 @@
 {% extends "base.html" %}
 
+{% block title %}Главная{% endblock %}
 
 {% block content %}
 
-<div class="container-lg mt-4">
-
-    <div class="row"></div>
-
-    <div class="row">
-
-        <div class="col-1"></div>
-
+<article class="index">
+    <section class="row introduce">
         <div class="col-7">
             <!-- section name -->
-            <h1 class="fw-light">{{ profile.name | safe }}</h1>
-            <h4 class="fw-light">{{ profile.specialisation | safe }}</h4>
-            <br>
+            <h1 class="name">{{ profile.name | safe }}</h1>
+            <h4 class="spec">{{ profile.specialisation | safe }}</h4>
+
             <!-- about yourself -->
-            <h2 class="fw-light">О себе</h2>
-            <hr>
-            <p class="fw-light">{{ profile.about | safe }}</p>
+            <p class="about">{{ profile.about | safe }}</p>
         </div>
 
         <!-- Portrait -->
@@ -27,43 +20,29 @@
             <img class="img-fluid" src="https://m.buro247.ru/images/senina/aiony-haust-3TLl_97HNJo-unspl.jpg"
                  alt="picture">
         </div>
+    </section>
 
-    </div>
-
-    <div class="row">
-        <div class="col-1"></div>
-
-        <div class="col">
+    <section class="row info">
+        <div class="col-7">
             <!-- Education -->
-            <h2 class="fw-light">Образование</h2>
-
-            <hr>
-
-            <p class="fs-6 fw-light">{{ profile.education | safe }}</p>
+            <h3 class="title">Образование</h3>
+            <p class="">{{ profile.education | safe }}</p>
 
 
             <!-- work experience -->
-            <h3 class="fw-light">Опыт работы</h3>
-            <hr>
-            <p class="fw-light fst-italic">{{ profile.work | safe }}</p>
+            <h3 class="title">Опыт работы</h3>
+            <p class="">{{ profile.work | safe }}</p>
 
             <!-- price -->
-            <h3 class="fw-light"> Стоимость занятий </h3>
-            <hr>
-            <br>
-            <div class="col-4">
-                <p>{{ profile.price | safe }}</p>
-            </div>
+            <h3 class="title">Стоимость занятий </h3>
+            <p>{{ profile.price | safe }}</p>
 
             <!-- contact -->
-            <h3 class="fw-light">Хочу связаться</h3>
-            <hr>
+            <h3 class="title">Хочу связаться</h3>
             <p>{{ profile.contacts | safe }}</p>
         </div>
-
-        <div class="col-1"></div>
-    </div>
-
-</div>
+        <div class="col-3"></div>
+    </section>
+</article>
 
 {% endblock %}

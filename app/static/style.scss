@@ -65,7 +65,7 @@ a, p {
   text-decoration: none;
 }
 
-h2, h3, h5 {
+h1, h2, h3, h4, h5 {
   color: $black;
 }
 
@@ -245,7 +245,7 @@ h2, h3, h5 {
 
 /*PROGRAMS (programs.html)*/
 .programs {
-  margin: 1rem 0 !important;
+  margin: 1.5rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
@@ -321,7 +321,7 @@ h2, h3, h5 {
 
 /*STUDENTS PAGE (students.html)*/
 .students {
-  margin: 1rem 0 !important;
+  margin: 1.5rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
@@ -650,6 +650,38 @@ h2, h3, h5 {
       margin: auto;
       border-radius: 1rem;
       background-color: $green;
+    }
+  }
+}
+
+.index {
+  margin: 1.5rem 8rem;
+
+  .introduce {
+    justify-content: space-evenly;
+    align-items: center;
+
+    .spec {
+      font-weight: lighter;
+      border-bottom: 2px solid $shadow;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .about {
+      overflow-wrap: anywhere;
+      color: $blue;
+    }
+  }
+
+  .info {
+    justify-content: space-evenly;
+
+    .title {
+      font-weight: lighter;
+      border-bottom: 2px solid $shadow;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
     }
   }
 }
