@@ -10,7 +10,7 @@
     {% for i in program %}
     <!-- program card -->
     <div class="card program">
-        <a href="{{ url_for('program', id=i.id)}}">
+        <a href="{{ url_for('main.program', id=i.id)}}">
             <div class="card-body">
                 <div class="head">
                     <h4 class="card-title left_title">{{i.program}}</h4>

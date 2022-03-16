@@ -1,31 +1,14 @@
-from app import app, db
-from app.models import User
 from flask import render_template, request, redirect, url_for, flash
-from app import login
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile
-from app.forms import LoginForm
+from app.main.forms import LoginForm
 from werkzeug.urls import url_parse
-
-import logging
-from logging.handlers import SMTPHandler
-
-
-
-# errors
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template('404.html'), 404
-
-
-@app.errorhandler(500)
-def internal_error(error):
-    db.session.rollback()
-    return render_template('500.html'), 500
+from app.main import bp
+from app import db
 
 
 # greeting page
-@app.route('/')
+@bp.route('/')
 def index():
     profile = Profile.query.get(1)
 
@@ -35,14 +18,14 @@ def index():
 # FOR TUTOR
 
 # main with calendar, closest lessons, unchecked homework, etc.
-@app.route('/main/')
+@bp.route('/main/')
 @login_required
 def main():
     return render_template("main.html")
 
 
 # page with all students
-@app.route('/students/', methods=['POST', 'GET'])
+@bp.route('/students/', methods=['POST', 'GET'])
 @login_required
 def students():
     if request.method == 'POST':
@@ -66,7 +49,7 @@ def students():
 
 
 # particular student page
-@app.route('/students/<int:person>')
+@bp.route('/students/<int:person>')
 @login_required
 def person(person):
     person = User.query.get(person)
@@ -103,7 +86,7 @@ def person(person):
 
 
 # my programs page (all programs)
-@app.route('/programs/', methods=['POST', 'GET'])
+@bp.route('/programs/', methods=['POST', 'GET'])
 @login_required
 def programs():
     if request.method == "POST":
@@ -119,7 +102,7 @@ def programs():
 
 
 # one particular program
-@app.route("/programs/<int:id>")
+@bp.route("/programs/<int:id>")
 def program(id):
     program = Program.query.get(id)
     print(program.lesson)
@@ -133,14 +116,14 @@ def program(id):
 
 
 # page with books, files etc.
-@app.route('/library')
+@bp.route('/library')
 @login_required
 def library():
     return render_template('library.html')
 
 
 # tutor's control panel
-@app.route('/control_profile/')
+@bp.route('/control_profile/')
 @login_required
 def control_profile():
     students = User.query.filter_by(tutor=False).all()
@@ -148,7 +131,7 @@ def control_profile():
     return render_template('control_profile.html', students=students, programs=programs)
 
 
-@app.route('/edit_profile/', methods=['GET', 'POST'])
+@bp.route('/edit_profile/', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
     if request.method == 'POST':
@@ -167,21 +150,21 @@ def edit_profile():
     return render_template('edit_profile.html', profile=profile)
 
 
-@app.route('/control_students/')
+@bp.route('/control_students/')
 @login_required
 def control_students():
     u = User.query.filter_by(tutor=False)
     return render_template('control_profile.html', students=u)
 
 
-@app.route('/update_profile/', methods=['GET', 'POST'])
+@bp.route('/update_profile/', methods=['GET', 'POST'])
 @login_required
 def update_profile():
     return "really, update"
 
 
 # login page
-@app.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main'))
@@ -200,7 +183,7 @@ def login():
 
 
 # logout
-@app.route('/logout/')
+@bp.route('/logout/')
 @login_required
 def logout():
     logout_user()
@@ -212,7 +195,7 @@ def is_tutor(obj):
 
 
 # lesson
-@app.route("/<int:program_id>/lesson/<int:id>/<is_unique>")
+@bp.route("/<int:program_id>/lesson/<int:id>/<is_unique>")
 @login_required
 def lesson(program_id, id, is_unique):
     lesson = Lesson.query.get(id)
@@ -235,7 +218,7 @@ def lesson(program_id, id, is_unique):
     return render_template("lesson.html", lesson=lesson, program_id=program_id, id=id)
 
 
-@app.route('/lessons/create/<int:user_id>', methods=['GET', 'POST'])
+@bp.route('/lessons/create/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def create_lesson(user_id):
     programs = Program.query.all()
@@ -261,7 +244,7 @@ def create_lesson(user_id):
     return render_template('create_lesson.html', programs=programs, users=users)
 
 
-@app.route('/lessons/<int:id>/create/empty_homework/', methods=['GET', 'POST'])
+@bp.route('/lessons/<int:id>/create/empty_homework/', methods=['GET', 'POST'])
 @login_required
 def create_empty_homework(id):
     lesson = Lesson.query.get(id)
@@ -273,7 +256,7 @@ def create_empty_homework(id):
     return redirect(url_for("program", id=lesson.program_id))
 
 
-@app.route("/lessons/edit/<int:id>/<int:user_id>", methods=["GET", "POST"])
+@bp.route("/lessons/edit/<int:id>/<int:user_id>", methods=["GET", "POST"])
 def edit_lesson(id, user_id):
     lesson = Lesson.query.get(id)
     programs = Program.query.all()
@@ -301,7 +284,7 @@ def edit_lesson(id, user_id):
     return render_template("edit_lesson.html", lesson=lesson, programs=programs)
 
 
-@app.route("/lessons/remove/<int:id>/<int:course_id>", methods=["GET", "POST"])
+@bp.route("/lessons/remove/<int:id>/<int:course_id>", methods=["GET", "POST"])
 @login_required
 def remove_lesson(id, course_id):
     lesson = Lesson.query.get(id)
@@ -317,7 +300,7 @@ def remove_lesson(id, course_id):
 
 # homework
 
-@app.route("/<int:program>/lesson/<int:id>/homework")
+@bp.route("/<int:program>/lesson/<int:id>/homework")
 @login_required
 def homework(id, program):
     lesson = Lesson.query.get(id)
@@ -329,7 +312,7 @@ def homework(id, program):
     return render_template("homework.html", lesson=lesson, homework=lesson.homework)
 
 
-@app.route("/lesson/<int:id>/homework/<int:user_id>/edit", methods=['GET', 'POST'])
+@bp.route("/lesson/<int:id>/homework/<int:user_id>/edit", methods=['GET', 'POST'])
 @login_required
 def edit_homework(id, user_id):
     if request.method == 'POST':
@@ -375,7 +358,7 @@ def edit_homework(id, user_id):
     return render_template("edit_homework.html", homework=lesson.homework)
 
 
-@app.route("/lesson/<int:id>/homework/remove")
+@bp.route("/lesson/<int:id>/homework/remove")
 @login_required
 def remove_homework(id):
     homework = Homework.query.get(id)
@@ -385,21 +368,21 @@ def remove_homework(id):
 
 
 # test
-@app.route("/lesson/<int:id>/test")
+@bp.route("/lesson/<int:id>/test")
 @login_required
 def test(id):
     test = Test.query.get(id)
     return render_template("test.html", test=test)
 
 
-@app.route("/lesson/<int:id>/test/edit")
+@bp.route("/lesson/<int:id>/test/edit")
 @login_required
 def edit_test(id):
     test = Test.query.get(id)
     return render_template('edit_test.html', test=test)
 
 
-@app.route("/lesson/<int:id>/test/remove")
+@bp.route("/lesson/<int:id>/test/remove")
 @login_required
 def remove_test(id):
     pass

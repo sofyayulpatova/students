@@ -6,7 +6,7 @@
 
 <div class="row profile-head">
     <h3 class="title">Уроки</h3>
-    <a href="{{ url_for('create_lesson', user_id=0) }}" class="plus-button">
+    <a href="{{ url_for('main.create_lesson', user_id=0) }}" class="plus-button">
         <div class="d-flex justify-content-between">
             <h3>+</h3>
         </div>
@@ -17,7 +17,7 @@
         <div class="list-group">
             {% for i in lessons %}
             <div class="line">
-                <a href="{{ url_for('lesson',  id=i.id, program_id=program.id, is_unique=0)}}"
+                <a href="{{ url_for('main.lesson',  id=i.id, program_id=program.id, is_unique=0)}}"
                    class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
@@ -25,9 +25,9 @@
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
                 <ul class="actions">
-                    <li><a href="{{ url_for('edit_lesson', id=i.id, user_id=0) }}"><i
+                    <li><a href="{{ url_for('main.edit_lesson', id=i.id, user_id=0) }}"><i
                             class="fa-solid fa-pen"></i></a></li>
-                    <li><a href="{{ url_for('remove_lesson',  id=i.id, course_id=program.id)}}"><i
+                    <li><a href="{{ url_for('main.remove_lesson',  id=i.id, course_id=program.id)}}"><i
                             class="fa-solid fa-trash-can"></i></a></li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
         <div class="list-group">
             {% for i in homeworks %}
             <div class="line">
-                <a href="{{ url_for('homework',  id=i.lesson, program=program.id)}}"
+                <a href="{{ url_for('main.homework',  id=i.lesson, program=program.id)}}"
                    class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
@@ -69,9 +69,9 @@
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
                 <ul class="actions">
-                    <li><a href="{{ url_for('edit_homework', id=i.lesson, user_id=0)}}"><i class="fa-solid fa-pen"></i></a>
+                    <li><a href="{{ url_for('main.edit_homework', id=i.lesson, user_id=0)}}"><i class="fa-solid fa-pen"></i></a>
                     </li>
-                    <li><a href="{{ url_for('remove_homework', id=i.lesson)}}"><i class="fa-solid fa-trash-can"></i></a>
+                    <li><a href="{{ url_for('main.remove_homework', id=i.lesson)}}"><i class="fa-solid fa-trash-can"></i></a>
                     </li>
                 </ul>
             </div>
@@ -95,7 +95,7 @@
         <div class="list-group">
             {% for i in lessons %}
             <div class="line">
-                <a href="{{ url_for('test',  id=i.id) }}" class="list-group-item list-group-item-action">
+                <a href="{{ url_for('main.test',  id=i.id) }}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
                     </div>

@@ -11,12 +11,12 @@
     </div>
     <div class="col-3 side">
         <div class="list-group ms-5">
-            <a class="list-group-item list-group-item-action" href="{{url_for('homework', id=id, program=program_id)}}">
+            <a class="list-group-item list-group-item-action" href="{{url_for('main.homework', id=id, program=program_id)}}">
                 <div class="d-flex w-100 justify-content-between">
                     <p class="m-1">Домашка</p>
                 </div>
             </a>
-            <a class="list-group-item list-group-item-action" href="{{url_for('test', id=id)}}">
+            <a class="list-group-item list-group-item-action" href="{{url_for('main.test', id=id)}}">
                 <div class="d-flex w-100 justify-content-between">
                     <p class="m-1">Тесты</p>
                 </div>

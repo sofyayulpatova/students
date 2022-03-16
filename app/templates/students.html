@@ -10,7 +10,7 @@
     {% for i in students %}
     <!-- student card -->
     <div class="card student">
-        <a href="{{ url_for('person', person=i.id) }}">
+        <a href="{{ url_for('main.person', person=i.id) }}">
             <div class="card-body">
                 <div class="head">
                     <h4 class="card-title left_title">{{i.name}}</h4>
