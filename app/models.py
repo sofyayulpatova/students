@@ -22,6 +22,7 @@ class User(UserMixin, db.Model):
     tutor = db.Column(db.Boolean(), default=False)
     lesson = db.relationship('Lesson', secondary=lu, backref='user')
     unique_lesson = db.relationship('Unique_Lesson', backref='user')
+    schedule = db.relationship('Schedule', backref='user')
 
     def __repr__(self):
         return "<User {}>".format(self.id)
@@ -38,9 +39,17 @@ def load_user(id):
     return User.query.get(int(id))
 
 
+class Weekday(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(10))
 
 
-
+class Schedule(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    weekday = db.Column(db.String("20"))
+    start = db.Column(db.DateTime)
+    end = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
 
 class Program(db.Model):

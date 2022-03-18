@@ -25,6 +25,9 @@ def create_app(config_class=Config):
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
 
+    from app.student import bp as student_bp
+    app.register_blueprint(student_bp)
+
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
@@ -33,4 +36,4 @@ def create_app(config_class=Config):
 
 from app import models
 
-'''render_as_batch=True'''
+''''''

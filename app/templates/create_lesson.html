@@ -25,14 +25,6 @@
                 {% endfor %}
             </select>
 
-            <div class="form-check">
-                {% for i in users %}
-                <input class="form-check-input" type="checkbox" value={{i.id}} id="{{ i.id }}" name="users">
-                <label class="form-check-label" for="{{ i.id }}">
-                    {{ i.name }}
-                </label>
-                {% endfor %}
-            </div>
 
             <input type="submit">
         </div>
