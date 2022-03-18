@@ -264,7 +264,7 @@ def create_lesson(user_id):
 def create_empty_homework(id):
     lesson = Lesson.query.get(id)
     homework = Homework(text="Домашки нет!", lesson=lesson.id, title=lesson.title)
-    test = Test(question=[], lesson_id=lesson.id, title=lesson.title)
+    test = Test(lesson_id=lesson.id, title=lesson.title, question="", answer="")
     db.session.add_all([homework, test])
     db.session.commit()
 
@@ -396,7 +396,6 @@ def edit_test(id):
     if request.method == "POST":
         questions = request.form.getlist('questions')
         answers = request.form.getlist('answers')
-        print(questions, answers)
         return redirect(url_for('main.test', id=id))
     test = Test.query.get(id)
     return render_template('edit_test.html', test=test)

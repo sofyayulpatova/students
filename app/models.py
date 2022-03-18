@@ -46,7 +46,7 @@ class Weekday(db.Model):
 
 class Schedule(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    weekday = db.Column(db.String("20"))
+    weekday = db.Column(db.String(20))
     start = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
@@ -113,21 +113,8 @@ class Test(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
-    question = db.relationship('Question', backref='question_test')
-
-
-class Question(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
     question = db.Column(db.String(100), nullable=False)
-    correct_answer = db.Column(db.String(100), nullable=False)
-    test_id = db.Column(db.Integer(), db.ForeignKey("test.id"))
-    incorrect_answer_id = db.relationship('IncorrectAnswers', backref='inccorect_question')
-
-
-class IncorrectAnswers(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    incorrect_answer = db.Column(db.String(100), nullable=False)
-    question_id = db.Column(db.Integer(), db.ForeignKey("question.id"))
+    answer = db.Column(db.String(100), nullable=False)
 
 
 class Profile(db.Model):
