@@ -1,12 +1,11 @@
 from flask import render_template, request, redirect, url_for, flash, abort
 from flask_login import current_user, login_user, login_required, logout_user
-from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile
+from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA
 from app.main.forms import LoginForm
 from werkzeug.urls import url_parse
 from app.main import bp
 from app import db
 from functools import wraps
-
 
 
 # greeting page
@@ -24,7 +23,6 @@ def index():
 @login_required
 def main():
     return render_template("main.html")
-
 
 
 # page with all students
@@ -387,7 +385,7 @@ def remove_homework(id):
 @login_required
 def test(id):
     test = Test.query.get(id)
-    return render_template("test.html", test=test)
+    return render_template("test.html", test=test, qa=test.qa)
 
 
 @bp.route("/lesson/<int:id>/test/edit", methods=['POST', 'GET'])
@@ -396,6 +394,13 @@ def edit_test(id):
     if request.method == "POST":
         questions = request.form.getlist('questions')
         answers = request.form.getlist('answers')
+        q_and_a = []
+        for i in range(len(questions)):
+            q = QA(test_id=id, question=questions[i], answer=answers[i])
+            q_and_a.append(q)
+        t = Test(title="qwe", lesson_id=id)
+        db.session.add_all([t] + q_and_a)
+        db.session.commit()
         return redirect(url_for('main.test', id=id))
     test = Test.query.get(id)
     return render_template('edit_test.html', test=test)
@@ -405,4 +410,8 @@ def edit_test(id):
 @bp.route("/lesson/<int:id>/test/remove")
 @login_required
 def remove_test(id):
-    pass
+    test = Test.query.get(id)
+    test.qa = []
+    # TODO ничего не задано красивая страница
+    db.session.add(test)
+    db.session.commit()

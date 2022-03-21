@@ -113,8 +113,14 @@ class Test(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
-    question = db.Column(db.String(100), nullable=False)
-    answer = db.Column(db.String(100), nullable=False)
+    qa = db.relationship("QA", backref="test")
+
+
+class QA(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    test_id = db.Column(db.Integer(), db.ForeignKey("test.id"))
+    question = db.Column(db.String(100))
+    answer = db.Column(db.String(100))
 
 
 class Profile(db.Model):

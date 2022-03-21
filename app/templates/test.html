@@ -10,4 +10,10 @@
 
 </div>
 <a href="{{ url_for('main.edit_test', id=test.lesson_id) }}"></a>
+
+{% for i in qa %}
+<p>{{i.question +  " - "  + i.answer}}</p>
+{% endfor %}
+<p></p>
+<p></p>
 {% endblock %}
