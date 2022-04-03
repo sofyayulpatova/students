@@ -13,9 +13,16 @@
 {% block content %}
 <form method="POST">
     <div class="input-wrapper">
-        <div>Name : <br/>
-            <input type="text" name="questions" value=""/> <input type="text" name="answers" value=""/>
-            <a href="javascript:void(0);" class="add-input" title="Add input"><img src="/static/img/add.png"/></a>
+        <div>
+            {% if test %}
+                {% for i in qa %}
+                    <input type="text" name="questions" value="{{ i.question }}"/> <input type="text" name="answers"  value="{{ i.answer }}"/>
+                    <a href="javascript:void(0);" class="add-input" title="Add input"><img src="/static/img/add.png"/></a><br>
+                {% endfor %}
+            {% else %}
+                <input type="text" name="questions" value=""/> <input type="text" name="answers" value=""/>
+                <a href="javascript:void(0);" class="add-input" title="Add input"><img src="/static/img/add.png"/></a>
+            {% endif %}
         </div>
     </div>
     <input type="submit" name="cmdsubmit">

@@ -14,12 +14,35 @@
 </head>
 <body>
 
+
 {% block menu %}
 <ul class="nav justify-content menu active">
     {% if current_user.is_anonymous %}
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('main.login') }}">Войти</a>
     </li>
+
+
+    {% elif current_user.tutor == False %}
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.lesson') }}">Уроки</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.homework') }}">Домашняя работа</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.tests') }}">Тесты</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href=""></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">Выйти</a>
+    </li>
+
+
+
+
     {% else %}
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('main.main') }}">Главная</a>
@@ -50,11 +73,23 @@
 </ul>
 {% endblock %}
 
+{% block alert %}
+<div class="container">
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
 <main>
     {% block content %}
 
     {% endblock %}
 </main>
+
 
 {% block footer %}
 <footer class="mt-auto">

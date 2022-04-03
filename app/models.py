@@ -88,7 +88,7 @@ class Homework(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
     to_file = db.Column(db.String(100))
-    lesson = db.Column(db.Integer(), db.ForeignKey("lesson.id"), nullable=False)
+    lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
 
 
 class Unique_Lesson(db.Model):

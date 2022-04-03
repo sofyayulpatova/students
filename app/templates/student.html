@@ -24,7 +24,7 @@
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
                 <ul class="actions">
-                    <li><a href="#"><i class="fa-solid fa-eye"></i></a></li>
+                    <li><a href="{{url_for('main.open_lesson', user_id=student.id, lesson_id=i.id)}}"><i class="fa-solid fa-eye"></i></a></li>
                     <li><a href="{{ url_for('main.edit_lesson', id=i.id, user_id=student.id) }}"><i class="fa-solid fa-pen"></i></a></li>
                 </ul>
             </div>
@@ -88,8 +88,7 @@
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
                 <ul class="actions">
-                    <li><a href="#"><i class="fa-solid fa-eye"></i></a></li>
-                    <li><a href="{{ url_for('main.edit_homework', id=i.lesson, user_id=student.id) }}"><i class="fa-solid fa-pen"></i></a></li>
+                    <li><a href="{{ url_for('main.edit_homework', id=i.lesson_id, user_id=student.id) }}"><i class="fa-solid fa-pen"></i></a></li>
                 </ul>
             </div>
             {% endfor %}
@@ -117,7 +116,6 @@
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
                 <ul class="actions">
-                    <li><a href="#"><i class="fa-solid fa-eye"></i></a></li>
                     <li><a href="{{ url_for('main.edit_test',  id=i.id) }}"><i class="fa-solid fa-pen"></i></a></li>
                 </ul>
             </div>

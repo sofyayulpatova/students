@@ -11,6 +11,8 @@
         <div>
             <a href="{{ url_for('main.edit_homework', id=lesson.id, user_id=0) }}"><i
                     class="fa-solid fa-pen"></i></a>
+            <a href="{{ url_for('main.remove_homework', id=lesson.id, user_id=0) }}"><i
+                    class="fa-solid fa-trash"></i></a>
         </div>
     </div>
     <div class="row body">
