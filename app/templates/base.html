@@ -25,10 +25,10 @@
 
     {% elif current_user.tutor == False %}
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('student.lesson') }}">Уроки</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.lessons') }}">Уроки</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('student.homework') }}">Домашняя работа</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.homeworks') }}">Домашняя работа</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('student.tests') }}">Тесты</a>

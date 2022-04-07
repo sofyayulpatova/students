@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} snth {% endblock %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+    <table>
+        <tbody>
+        <tr>
+            <td> Вертикальная ориентация:</td>
+            <td><input type="file" name="avatar"></td>
+        </tr>
+        <tr>
+            <td> Описание:</td>
+            <td><input type="text" name="desc"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+
+{% endblock %}
+

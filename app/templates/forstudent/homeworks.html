@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} snth {% endblock %}
+
+{% block content %}
+<div class="row profile-head">
+    <h3 class="title">Все домашние работы</h3>
+        <div class="d-flex justify-content-between">
+        </div>
+    </a>
+</div>
+<div class="row student-profile">
+    <div class="col main">
+        <div class="list-group">
+            {% for i in homeworks %}
+            <div class="line">
+                <a href="{{ url_for('student.homework',  id=i.id)}}" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="m-1">{{i.title}}</h5>
+                    </div>
+                    <p class="m-1">Some placeholder content in a paragraph.</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>
+
+{% endblock %}

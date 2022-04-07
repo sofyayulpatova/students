@@ -42,13 +42,14 @@ def load_user(id):
 class Weekday(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(10))
+    schedule = db.relationship('Schedule', backref="weekday")
 
 
 class Schedule(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    weekday = db.Column(db.String(20))
     start = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
+    weekday_id = db.Column(db.Integer(), db.ForeignKey("Weekday.id"))
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
 
