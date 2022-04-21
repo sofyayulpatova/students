@@ -14,8 +14,10 @@
 <form method="POST">
     <div class="input-wrapper">
         <div>
-            {% if test %}
+            {% if qa %}
+
                 {% for i in qa %}
+
                     <input type="text" name="questions" value="{{ i.question }}"/> <input type="text" name="answers"  value="{{ i.answer }}"/>
                     <a href="javascript:void(0);" class="add-input" title="Add input"><img src="/static/img/add.png"/></a><br>
                 {% endfor %}

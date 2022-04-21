@@ -25,6 +25,9 @@
 
     {% elif current_user.tutor == False %}
     <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.main_page') }}">Главная</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('student.lessons') }}">Уроки</a>
     </li>
     <li class="nav-item">
@@ -33,9 +36,7 @@
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('student.tests') }}">Тесты</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" aria-current="page" href=""></a>
-    </li>
+
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">Выйти</a>
     </li>

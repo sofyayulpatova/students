@@ -1,13 +1,9 @@
-from flask import render_template, request, redirect, url_for, flash
-from flask_login import current_user, login_user, login_required, logout_user
-from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile
-from app.main.forms import LoginForm
-from werkzeug.urls import url_parse
+from flask import render_template, request
+from flask_login import current_user, login_required
+from app.models import Lesson, Test
 from app.student import bp
 from werkzeug.utils import secure_filename
 import os
-from app import db
-from functools import wraps
 
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt'}
 
@@ -63,11 +59,21 @@ def tests():
     return render_template("forstudent/tests.html", tests=tests)
 
 
-@bp.route('/tests/<int:id>')
+@bp.route('/tests/<int:id>', methods=['GET', 'POST'])
 @login_required
 def test(id):
-    tests = [i.test for i in current_user.lesson]
-    return render_template("forstudent/tests.html", tests=tests)
+    test = Test.query.get(id)
+    if request.method == 'POST':
+        counter = 0
+        questions = request.form.getlist('questions')
+        for i in range(len(test.qa)):
+            if test.qa[i].answer == questions[i]:
+                counter += 1
+        print(counter)
+        return render_template("forstudent/test.html", test=test.qa, counter=counter)
+
+
+    return render_template("forstudent/test.html", test=test.qa)
 
 
 @bp.route('/main_page')

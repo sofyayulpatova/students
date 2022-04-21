@@ -1,11 +1,9 @@
-from flask import render_template, request, redirect, url_for, flash, abort
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA
 from app.main.forms import LoginForm
-from werkzeug.urls import url_parse
 from app.main import bp
 from app import db
-from functools import wraps
 
 
 # greeting page
@@ -361,6 +359,7 @@ def remove_lesson(id, course_id):
     else:
         return redirect(url_for('main.index'))
 
+
 # homework
 
 @bp.route("/<int:program>/lesson/<int:id>/homework")
@@ -376,6 +375,7 @@ def homework(id, program):
         return render_template("homework.html", lesson=lesson, homework=lesson.homework)
     else:
         return redirect(url_for('main.index'))
+
 
 @bp.route("/lesson/<int:id>/homework/<int:user_id>/edit", methods=['GET', 'POST'])
 @login_required
@@ -424,6 +424,7 @@ def edit_homework(id, user_id):
     else:
         return redirect(url_for('main.index'))
 
+
 @bp.route("/lesson/<int:id>/homework/remove/<int:user_id>")
 @login_required
 def remove_homework(id, user_id):
@@ -441,6 +442,7 @@ def remove_homework(id, user_id):
     else:
         return redirect(url_for('main.index'))
 
+
 # test
 @bp.route("/lesson/<int:id>/test")
 @login_required
@@ -451,6 +453,7 @@ def test(id):
     else:
         return redirect(url_for('main.index'))
 
+
 @bp.route("/lesson/<int:id>/test/edit", methods=['POST', 'GET'])
 @login_required
 def edit_test(id):
@@ -459,11 +462,11 @@ def edit_test(id):
             questions = request.form.getlist('questions')
             answers = request.form.getlist('answers')
             q_and_a = []
+            Test.query.get(id).qa = []
             for i in range(len(questions)):
                 q = QA(test_id=id, question=questions[i], answer=answers[i])
                 q_and_a.append(q)
-            t = Test(title="qwe", lesson_id=id)
-            db.session.add_all([t] + q_and_a)
+            db.session.add_all(q_and_a)
             db.session.commit()
             return redirect(url_for('main.test', id=id))
         test = Test.query.get(id)
@@ -471,6 +474,7 @@ def edit_test(id):
         return render_template('edit_test.html', test=test, qa=test.qa)
     else:
         return redirect(url_for('main.index'))
+
 
 @bp.route("/lesson/<int:id>/test/remove")
 @login_required
@@ -484,6 +488,7 @@ def remove_test(id):
         return redirect(url_for("main.test", id=id))
     else:
         return redirect(url_for('main.index'))
+
 
 @bp.route("/student/lesson/<int:lesson_id>/<int:user_id>")
 def open_lesson(lesson_id, user_id):

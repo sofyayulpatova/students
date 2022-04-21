@@ -49,7 +49,7 @@ class Schedule(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     start = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
-    weekday_id = db.Column(db.Integer(), db.ForeignKey("Weekday.id"))
+    weekday_id = db.Column(db.Integer(), db.ForeignKey("weekday.id"))
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
 
