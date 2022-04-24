@@ -18,7 +18,7 @@
 {% block menu %}
 <ul class="nav justify-content menu active">
     {% if current_user.is_anonymous %}
-    <li class="nav-item">
+    <li class="nav-item" style="margin-left: auto">
         <a class="nav-link" aria-current="page" href="{{ url_for('main.login') }}">Войти</a>
     </li>
 
@@ -36,12 +36,12 @@
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('student.tests') }}">Тесты</a>
     </li>
-
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="#"><i class="fa-solid fa-bell"></i></a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">Выйти</a>
     </li>
-
-
 
 
     {% else %}
@@ -77,12 +77,12 @@
 {% block alert %}
 <div class="container">
 
-{% for message in get_flashed_messages() %}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    {{ message }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    {% endfor %}
-</div>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
 <main>
