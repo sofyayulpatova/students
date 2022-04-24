@@ -1,6 +1,6 @@
 /*COLORS*/
-/*SIZES*/
-/*HEADER*/
+/* SIZES */
+/* HEADER */
 .menu {
   background-color: unset;
   box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
@@ -19,7 +19,7 @@
   margin-left: auto;
 }
 
-/*SECTIONS*/
+/* SECTIONS */
 body {
   height: 100vh;
   display: flex;
@@ -34,7 +34,7 @@ body footer {
   box-shadow: 0px -2px 4px 0px rgba(120, 127, 206, 0.2);
 }
 
-/*BASICS*/
+/* BASICS */
 a, p {
   color: #0a58ca;
   text-decoration: none;
@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5 {
   font-size: 20px;
 }
 
-/*PROFILES (program.html, student.html)*/
+/* PROFILES (program.html, student.html) */
 .profile-head {
   align-items: center;
   margin: 1.5rem 0 1.5rem 3.5rem;
@@ -91,6 +91,7 @@ h1, h2, h3, h4, h5 {
   display: grid;
   align-items: center;
   grid-template-columns: 6fr 1fr;
+  overflow: hidden;
 }
 .student-profile .main .list-group .line:first-child, .program-profile .main .list-group .line:first-child {
   border-top-left-radius: 1rem;
@@ -121,7 +122,7 @@ h1, h2, h3, h4, h5 {
   border: none;
 }
 .student-profile .main .list-group .line .list-group-item:hover, .program-profile .main .list-group .line .list-group-item:hover {
-  background-color: #fbfcfd73;
+  background-color: rgba(251, 252, 253, 0.4509803922);
 }
 .student-profile .main .list-group .line .list-group-item:hover h5, .program-profile .main .list-group .line .list-group-item:hover h5 {
   color: #5a5a5a;
@@ -151,7 +152,7 @@ h1, h2, h3, h4, h5 {
 }
 .student-profile .profile:hover, .program-profile .profile:hover {
   box-shadow: 0 2px 4px rgba(120, 127, 206, 0.2);
-  background-color: #fbfcfd73;
+  background-color: rgba(251, 252, 253, 0.4509803922);
 }
 .student-profile .profile .card-body, .program-profile .profile .card-body {
   display: grid;
@@ -185,7 +186,7 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 1rem;
 }
 
-/*PROGRAMS (programs.html)*/
+/* PROGRAMS (programs.html) */
 .programs {
   margin: 1.5rem 0;
   display: grid;
@@ -211,7 +212,7 @@ h1, h2, h3, h4, h5 {
 }
 .programs .program:hover {
   box-shadow: 0 2px 4px rgba(120, 127, 206, 0.2);
-  background-color: #fbfcfd73;
+  background-color: rgba(251, 252, 253, 0.4509803922);
 }
 .programs .program a {
   text-decoration: none;
@@ -277,7 +278,7 @@ h1, h2, h3, h4, h5 {
 }
 .students .student:hover {
   box-shadow: 0 2px 4px rgba(120, 127, 206, 0.2);
-  background-color: #fbfcfd73;
+  background-color: rgba(251, 252, 253, 0.4509803922);
 }
 .students .student a {
   text-decoration: none;
@@ -353,7 +354,7 @@ h1, h2, h3, h4, h5 {
   border-bottom-right-radius: 1rem;
 }
 .lesson .side .list-group .list-group-item:hover {
-  background-color: #fbfcfd73;
+  background-color: rgba(251, 252, 253, 0.4509803922);
 }
 .lesson .side .list-group .list-group-item:hover p {
   color: #0a58ca;
@@ -523,6 +524,7 @@ h1, h2, h3, h4, h5 {
   background-color: #6fc793;
 }
 
+/*Index page*/
 .index {
   margin: 1.5rem 8rem;
 }
@@ -548,6 +550,73 @@ h1, h2, h3, h4, h5 {
   border-bottom: 2px solid rgba(120, 127, 206, 0.2);
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+}
+
+/* Control Profile Page*/
+.control-profile .head {
+  padding: 1.5rem 3.5rem;
+  margin: 0;
+  background-color: rgba(240, 241, 241, 0.5);
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+}
+.control-profile .head img {
+  border-radius: 1rem;
+  height: 200px;
+}
+@media screen and (min-width: 1500px) {
+  .control-profile .head img {
+    height: 250px;
+  }
+}
+@media screen and (min-width: 1900px) {
+  .control-profile .head img {
+    height: 300px;
+  }
+}
+.control-profile .head .text h3 {
+  color: #484545;
+  display: inline-block;
+}
+.control-profile .head .text .edit {
+  font-size: 1.3rem;
+  margin-left: 0.5rem;
+  color: #6fc793;
+}
+.control-profile .head .text .edit:hover {
+  color: #43875f;
+}
+.control-profile .head .text h5 {
+  color: #5a5a5a;
+}
+.control-profile .body {
+  margin: 1.5rem 3.5rem;
+}
+.control-profile .body .all {
+  margin-left: 1.25rem;
+}
+.control-profile .body .list-group {
+  margin-bottom: 1rem;
+}
+.control-profile .body .list-group .list-group-item {
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: 1px solid rgba(120, 127, 206, 0.2);
+}
+.control-profile .body .list-group .list-group-item + .list-group-item {
+  border-top-width: 0;
+}
+.control-profile .body .list-group .list-group-item:first-child {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.control-profile .body .list-group .list-group-item:last-child {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.control-profile .body .list-group .list-group-item:hover {
+  background-color: rgba(251, 252, 253, 0.4509803922);
+}
+.control-profile .body .list-group .list-group-item:hover p {
+  color: #0a58ca;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -4,6 +4,38 @@
 
 {% block content %}
 
+<section class="control-profile">
+    <div class="row head">
+        <div class="col-2">
+            <img src="https://m.buro247.ru/images/senina/aiony-haust-3TLl_97HNJo-unspl.jpg" alt="portrait">
+        </div>
+        <div class="col-10 text">
+            <h3>Name Surname</h3>
+            <a href="{{url_for('main.edit_profile')}}" class="edit"><i class="fa-solid fa-gear"></i></a>
+            <h5>username</h5>
+        </div>
+    </div>
+    <div class="row body">
+        <div class="col-2">
+            <h4>Cтуденты</h4>
+            <div class="list-group">
+
+                {% for i in students %}
+                <a class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="m-1">{{i.name}}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <a href="#" class="all">All students</a>
+        </div>
+        <div class="col-10">
+
+        </div>
+    </div>
+</section>
+
 
 <div class="container" style="margin-left: 4em; margin-top: 4em;">
     <div class="row">
@@ -12,7 +44,8 @@
             <img src="/static/book.png" class="rounded float-start" alt="portrait"
                  style="height: 200px;">
 
-            <a class="btn btn-primary" style="float: right; margin-right: 15em;" href="{{url_for('main.edit_profile')}}">edit profile</a>
+            <a class="btn btn-primary" style="float: right; margin-right: 15em;"
+               href="{{url_for('main.edit_profile')}}">edit profile</a>
 
             <h3 style="padding-left: 9em;">Name Surname</h3>
 
@@ -70,8 +103,6 @@
     </div>
 
 </div>
-
-
 
 
 {% endblock %}
