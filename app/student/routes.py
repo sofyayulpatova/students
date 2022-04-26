@@ -17,7 +17,7 @@ def lessons():
             lessons.append(i.unique_lesson)
         else:
             lessons.append(i)
-    return render_template('forstudent/lessons.html', lessons=current_user.lesson)
+    return render_template('forstudent/lessons.html', lessons=current_user.lesson[-3:])
 
 
 @bp.route('/lesson/<int:id>')
