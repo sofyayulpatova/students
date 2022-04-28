@@ -17,7 +17,7 @@ def lessons():
             lessons.append(i.unique_lesson)
         else:
             lessons.append(i)
-    return render_template('forstudent/lessons.html', lessons=current_user.lesson)
+    return render_template('forstudent/lessons.html', lessons=current_user.lesson[-3:])
 
 
 @bp.route('/lesson/<int:id>')
@@ -63,6 +63,7 @@ def tests():
 @login_required
 def test(id):
     test = Test.query.get(id)
+    counter = -1
     if request.method == 'POST':
         counter = 0
         questions = request.form.getlist('questions')
@@ -70,10 +71,10 @@ def test(id):
             if test.qa[i].answer == questions[i]:
                 counter += 1
         print(counter)
-        return render_template("forstudent/test.html", test=test.qa, counter=counter)
+        return render_template("forstudent/test.html", test=test.qa, counter=counter, id=id)
 
 
-    return render_template("forstudent/test.html", test=test.qa)
+    return render_template("forstudent/test.html", test=test.qa, counter=counter, id=id)
 
 
 @bp.route('/main_page')
@@ -90,7 +91,7 @@ def main_page():
         else:
             homeworks.append(i.homework)
         tests.append(i.test)
-    return render_template("forstudent/hehehe.html", lessons=lessons, homeworks=homeworks, tests=tests)
+    return render_template("forstudent/hehehe.html", lessons=lessons[-3:], homeworks=homeworks[-3:], tests=tests[-3:])
 
 
 def allowed_file(filename):

@@ -89,8 +89,8 @@ def person(person):
                 lessons.append(i)
                 homeworks.append(i.homework)
                 tests.append(i.test)
-        return render_template('student.html', student=person, lessons=lessons[-3:], homeworks=homeworks[-3:],
-                               tests=tests[-3:])
+        return render_template('student.html', student=person, lessons=lessons, homeworks=homeworks,
+                               tests=tests)
     else:
         return redirect(url_for('main.index'))
 
@@ -116,6 +116,7 @@ def programs():
 
 # one particular program
 @bp.route("/programs/<int:id>")
+@login_required
 def program(id):
     if current_user.tutor:
         program = Program.query.get(id)
@@ -125,10 +126,10 @@ def program(id):
         homeworks = [i.homework for i in lessons]
         print(homeworks)
         tests = [i.test for i in lessons]
-        return render_template("program.html", lessons=lessons[-3:], program_id=id, program=program,
-                               homeworks=homeworks[-3:],
+        return render_template("program.html", lessons=lessons, program_id=id, program=program,
+                               homeworks=homeworks,
 
-                               tests=tests[-3:])
+                               tests=tests)
     else:
         return redirect(url_for('main.index'))
 
@@ -266,9 +267,10 @@ def create_lesson(user_id):
             return render_template('create_lesson.html', programs=Program.query.all())
         elif user_id != 0 and request.method != "POST":
             user = User.query.get(user_id)
-            program = [Program.query.get(1)]
-            print(Program.query.filter(Program.user.contains(user)))
-            return render_template('create_lesson.html', programs=program)
+            # TODO THIS IS TRASH PROGRAM!!!!!!
+            program = [Program.query.get(2)]
+            # print(Program.query.filter(Program.user.contains(user)))
+            return render_template('create_lesson.html', program=program)
 
         if request.method == "POST":
             if user_id == 0:
@@ -283,10 +285,13 @@ def create_lesson(user_id):
                 request.close()
                 return redirect(url_for('main.create_empty_homework', id=lesson.id))
             else:
+                print("we are creating for user")
                 title = request.form.get('LessonName')
                 course = request.form.get('Course')
                 body = request.form.get('editordata')
-                program = Program.query.get(1)
+
+                # TODO THIS IS TRASH PROGRAM!!!!!!
+                program = Program.query.get(2)
                 lesson = Lesson(title=title, program=program, text=body)
                 db.session.add(lesson)
                 db.session.commit()
@@ -324,9 +329,10 @@ def edit_lesson(id, user_id):
                 db.session.add(lesson)
                 db.session.commit()
                 request.close()
-                print(lesson, lesson.program)
+                # print(lesson, lesson.program)
                 return redirect(url_for('main.program', id=lesson.program_id))
             else:
+
                 title = request.form.get('LessonName')
                 text = request.form.get('editordata')
                 user_id = user_id
@@ -371,7 +377,7 @@ def homework(id, program):
             print('prog = 0')
             if lesson.unique_homework:
                 return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
-        print("here?", lesson.homework.text)
+        # print("here?", lesson.homework.text)
         return render_template("homework.html", lesson=lesson, homework=lesson.homework)
     else:
         return redirect(url_for('main.index'))
@@ -384,7 +390,7 @@ def edit_homework(id, user_id):
         if request.method == 'POST':
 
             if user_id == 0:
-                print("измнения из программы")
+                # print("измнения из программы")
                 homework = Homework.query.get(id)
                 # print('hi', id, homework[0].title, homework[1].title)
 
@@ -405,7 +411,7 @@ def edit_homework(id, user_id):
                 text = request.form.get('editordata')
                 unique_homework = Unique_Homework(title=title, text=text, lesson_id=id)
             else:
-                print("vjrgh")
+                # print("vjrgh")
                 unique_homework.lesson_id = id
                 unique_homework.title = request.form.get('HomeworkName')
                 unique_homework.text = request.form.get('editordata')

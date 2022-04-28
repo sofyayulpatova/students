@@ -3,18 +3,24 @@
 {% block title %} snth {% endblock %}
 
 {% block content %}
+
+{%if counter == -1 %}
 <form method="post">
     {% for i in test %}
     <div>
         <p>{{ i.question }}</p>
         <input type="text" name="questions" id="questions">
     </div>
-{% endfor %}
-<input type="submit">
+    {% endfor %}
+    <input type="submit">
 </form>
+{% endif %}
 
 
 {% if counter >= 0 %}
 <p> You have answered right on {{ counter }} from {{ test|length }} questions </p>
+<a href="{{url_for('student.test', id=id)}}">Try again</a>
 {% endif %}
+
+
 {% endblock %}
