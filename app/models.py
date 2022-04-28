@@ -133,3 +133,4 @@ class Profile(db.Model):
     work = db.Column(db.Text())
     price = db.Column(db.Text())
     contacts = db.Column(db.Text())
+

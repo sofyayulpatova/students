@@ -5,6 +5,27 @@
 {% block content %}
 
 
+<script>
+    var items = 1;
+
+    function AddItem() {
+        var div = document.getElementById("items");
+        var button = document.getElementById("add");
+        items++;
+
+        var newitem = "<br><select  name='weekday'>" +
+            "<option value=1>Monday</option>" + "<option value=2>Tuesday</option>"
+            + "<option value=3>Wednesday</option>" + "<option value=4>Thursday</option>"
+            + "<option value=5>Friday</option>" + "<option value=6>Saturday</option>"
+            + "<option value=7>Sunday</option></select>"
+            + "<input type='time' name='lesson-time'><br>";
+        newnode = document.createElement("span");
+        newnode.innerHTML = newitem;
+        div.insertBefore(newnode, button);
+    }
+</script>
+
+
 <div class="row students">
 
     {% for i in students %}
@@ -87,13 +108,29 @@
                             <input type="text" class="form-control" id="StudentPassword" name="StudentPassword">
                         </div>
 
+
+                        <div ID="items">
+                            <p>Schedule</p>
+                            <select name='weekday' id="lessons"> +
+                                <option value=1>Monday</option>
+                                <option value=2>Tuesday</option>
+                                <option value=3>Wednesday</option>
+                                <option value=4>Thursday</option>
+                                <option value=5>Friday</option>
+                                <option value=6>Saturday</option>
+                                <option value=7>Sunday</option>
+                            </select>
+                            <input type='time' name='lesson-time'><br>
+                            <input type="button" value="Add a lesson" onClick="AddItem();" ID="add"><br>
+                        </div>
+
                         <div class="mb-3">
 
                             <label for="Course" class="form-label">Курс</label>
                             <select class="form-select" aria-label="Default select example" id="Course" name="Course">
                                 <option selected>Общий курс</option>
                                 {% for i in programs %}
-                                    <option value="{{ i.id }}">{{ i.program }}</option>
+                                <option value="{{ i.id }}">{{ i.program }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -113,4 +150,10 @@
 </div>
 
 {% endblock %}
+
+
+
+
+
+
 

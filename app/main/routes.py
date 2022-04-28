@@ -89,8 +89,8 @@ def person(person):
                 lessons.append(i)
                 homeworks.append(i.homework)
                 tests.append(i.test)
-        return render_template('student.html', student=person, lessons=lessons[-3:], homeworks=homeworks[-3:],
-                               tests=tests[-3:])
+        return render_template('student.html', student=person, lessons=lessons, homeworks=homeworks,
+                               tests=tests)
     else:
         return redirect(url_for('main.index'))
 
@@ -116,6 +116,7 @@ def programs():
 
 # one particular program
 @bp.route("/programs/<int:id>")
+@login_required
 def program(id):
     if current_user.tutor:
         program = Program.query.get(id)
@@ -125,10 +126,10 @@ def program(id):
         homeworks = [i.homework for i in lessons]
         print(homeworks)
         tests = [i.test for i in lessons]
-        return render_template("program.html", lessons=lessons[-3:], program_id=id, program=program,
-                               homeworks=homeworks[-3:],
+        return render_template("program.html", lessons=lessons, program_id=id, program=program,
+                               homeworks=homeworks,
 
-                               tests=tests[-3:])
+                               tests=tests)
     else:
         return redirect(url_for('main.index'))
 
