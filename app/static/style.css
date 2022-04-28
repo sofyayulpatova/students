@@ -553,69 +553,97 @@ h1, h2, h3, h4, h5 {
 }
 
 /* Control Profile Page*/
-.control-profile .head {
+.control-profile > .head {
   padding: 1.5rem 3.5rem;
   margin: 0;
   background-color: rgba(240, 241, 241, 0.5);
   box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
 }
-.control-profile .head img {
+.control-profile > .head img {
   border-radius: 1rem;
   height: 200px;
 }
 @media screen and (min-width: 1500px) {
-  .control-profile .head img {
+  .control-profile > .head img {
     height: 250px;
   }
 }
 @media screen and (min-width: 1900px) {
-  .control-profile .head img {
+  .control-profile > .head img {
     height: 300px;
   }
 }
-.control-profile .head .text h3 {
+.control-profile > .head .text h3 {
   color: #484545;
   display: inline-block;
 }
-.control-profile .head .text .edit {
+.control-profile > .head .text .edit {
   font-size: 1.3rem;
   margin-left: 0.5rem;
   color: #6fc793;
 }
-.control-profile .head .text .edit:hover {
+.control-profile > .head .text .edit:hover {
   color: #43875f;
 }
-.control-profile .head .text h5 {
+.control-profile > .head .text h5 {
   color: #5a5a5a;
 }
 .control-profile .body {
-  margin: 1.5rem 3.5rem;
+  padding: 1.5rem 3.5rem;
 }
-.control-profile .body .all {
+.control-profile .body .side-menu .all, .control-profile .body .side-menu h4 {
   margin-left: 1.25rem;
 }
-.control-profile .body .list-group {
+.control-profile .body .side-menu .list-group {
   margin-bottom: 1rem;
 }
-.control-profile .body .list-group .list-group-item {
+.control-profile .body .side-menu .list-group .list-group-item {
   box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
   border: 1px solid rgba(120, 127, 206, 0.2);
 }
-.control-profile .body .list-group .list-group-item + .list-group-item {
+.control-profile .body .side-menu .list-group .list-group-item + .list-group-item {
   border-top-width: 0;
 }
-.control-profile .body .list-group .list-group-item:first-child {
+.control-profile .body .side-menu .list-group .list-group-item:first-child {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
-.control-profile .body .list-group .list-group-item:last-child {
+.control-profile .body .side-menu .list-group .list-group-item:last-child {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-.control-profile .body .list-group .list-group-item:hover {
+.control-profile .body .side-menu .list-group .list-group-item:hover {
   background-color: rgba(251, 252, 253, 0.4509803922);
 }
-.control-profile .body .list-group .list-group-item:hover p {
+.control-profile .body .side-menu .list-group .list-group-item:hover p {
+  color: #0a58ca;
+}
+.control-profile .body .main .stat {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+@media screen and (min-width: 1900px) {
+  .control-profile .body .main .stat {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+.control-profile .body .main .stat .card {
+  width: 15em;
+  height: 13em;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.control-profile .body .main .stat .card .head {
+  margin: 1rem 0;
+}
+.control-profile .body .main .stat .card:hover {
+  background-color: rgba(251, 252, 253, 0.4509803922);
+}
+.control-profile .body .main .stat .card:hover p {
   color: #0a58ca;
 }
 

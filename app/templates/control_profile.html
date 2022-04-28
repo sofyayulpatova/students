@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row body">
-        <div class="col-2">
+        <div class="col-2 side-menu">
             <h4>Cтуденты</h4>
             <div class="list-group">
 
@@ -30,79 +30,43 @@
             </div>
             <a href="#" class="all">All students</a>
         </div>
-        <div class="col-10">
-
+        <div class="col-10 main">
+            <h4>Now you have</h4>
+            <div class="stat">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="head">
+                            <h1 class="card-title left_title"> {{students|length}}</h1>
+                        </div>
+                        <p class="card-text left_text">students</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="head">
+                            <h1 class="card-title left_title"> {{programs|length}}</h1>
+                        </div>
+                        <p class="card-text left_text">programs</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="head">
+                            <h1 class="card-title left_title"> {{programs|length}}</h1>
+                        </div>
+                        <p class="card-text left_text">programs</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="head">
+                            <h1 class="card-title left_title"> {{programs|length}}</h1>
+                        </div>
+                        <p class="card-text left_text">programs</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
-
-<div class="container" style="margin-left: 4em; margin-top: 4em;">
-    <div class="row">
-        <!-- row with icon, name and etc + settings-->
-        <div class="col">
-            <img src="/static/book.png" class="rounded float-start" alt="portrait"
-                 style="height: 200px;">
-
-            <a class="btn btn-primary" style="float: right; margin-right: 15em;"
-               href="{{url_for('main.edit_profile')}}">edit profile</a>
-
-            <h3 style="padding-left: 9em;">Name Surname</h3>
-
-            <h5 style="padding-left: 13em;">username</h5>
-
-
-        </div>
-    </div>
-
-
-    <div class="row" style="margin-top: 3em;">
-
-        <!-- students column -->
-        <div class="col-3">
-            <h4>Cтуденты</h4>
-            <div class="list-group" style="margin-top: 2em;">
-
-                {% for i in students %}
-                <a class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <p class="m-1">{{i.name}}</p>
-                    </div>
-                </a>
-                {% endfor %}
-
-                <a style="margin-top: 2em;"> all students </a>
-
-            </div>
-        </div>
-        <!-- amount of students -->
-        <div class="col-2" style="margin-left: 9em;">
-            <h4>Now you have</h4>
-            <div class="card" style="width: 250px; height: 250px; margin-top: 2em;">
-                <div class="card-body">
-                    <div class="head">
-                        <h1 class="card-title left_title"> {{students|length}}</h1>
-                    </div>
-                    <p class="card-text left_text"> students</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-2" style="margin-left: 6em; margin-top:4em;">
-            <div class="card" style="width: 250px; height: 250px;">
-                <div class="card-body">
-                    <div class="head">
-                        <h1 class="card-title left_title"> {{programs|length}}</h1>
-                    </div>
-                    <p class="card-text left_text">programs </p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
 {% endblock %}
