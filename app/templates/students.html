@@ -6,22 +6,30 @@
 
 
 <script>
-    var items = 1;
+    let items = 1;
 
     function AddItem() {
-        var div = document.getElementById("items");
-        var button = document.getElementById("add");
+        let div = document.getElementById("items");
+        let button = document.getElementById("add");
         items++;
 
-        var newitem = "<br><select  name='weekday'>" +
-            "<option value=1>Monday</option>" + "<option value=2>Tuesday</option>"
-            + "<option value=3>Wednesday</option>" + "<option value=4>Thursday</option>"
-            + "<option value=5>Friday</option>" + "<option value=6>Saturday</option>"
-            + "<option value=7>Sunday</option></select>"
-            + "<input type='time' name='lesson-time'><br>";
-        newnode = document.createElement("span");
-        newnode.innerHTML = newitem;
-        div.insertBefore(newnode, button);
+        let newItem = "<select  name='weekday'>" +
+            "<option value=1>Monday</option>" +
+            "<option value=2>Tuesday</option>"
+            + "<option value=3>Wednesday</option>" +
+            "<option value=4>Thursday</option>"
+            + "<option value=5>Friday</option>" +
+            "<option value=6>Saturday</option>" +
+            "<option value=7>Sunday</option></select> " +
+            "<input type='time' name='lesson-time'><br>";
+        let newNode = document.createElement("div");
+        newNode.classList.add("record");
+        newNode.innerHTML = newItem;
+        div.insertBefore(newNode, button);
+    }
+
+    function RemoveItem() {
+
     }
 </script>
 
@@ -70,21 +78,20 @@
 
     <!-- button add new user -->
     <div class="card student">
-        <a data-bs-toggle="modal" data-bs-target="#myModal" class="knopka">+ новый ученик</a>
+        <a data-bs-toggle="modal" data-bs-target="#new-student" class="knopka">+ новый ученик</a>
     </div>
 
 </div>
 
 
 <!-- The Modal -->
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="new-student">
     <div class="modal-dialog modal-dialog-centered rounded">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title ms-">Добавить ученика</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- Modal body -->
@@ -93,39 +100,39 @@
 
                     <form action="" method="post">
 
-                        <div class="mb-3">
+                        <p>
                             <label for="StudentName" class="form-label">Имя ученика</label>
                             <input type="text" class="form-control" id="StudentName" name="StudentName">
-                        </div>
+                        </p>
 
-                        <div class="mb-3">
+                        <p>
                             <label for="StudentLogin" class="form-label">Логин ученика</label>
                             <input type="text" class="form-control" id="StudentLogin" name="StudentLogin">
-                        </div>
+                        </p>
 
-                        <div class="mb-3">
+                        <p>
                             <label for="StudentPassword" class="form-label">Пароль</label>
                             <input type="text" class="form-control" id="StudentPassword" name="StudentPassword">
+                        </p>
+
+                        <div id="items">
+                            <label class="form-label">Schedule</label><br>
+                            <div class="record">
+                                <select name="weekday">
+                                    <option value=1>Monday</option>
+                                    <option value=2>Tuesday</option>
+                                    <option value=3>Wednesday</option>
+                                    <option value=4>Thursday</option>
+                                    <option value=5>Friday</option>
+                                    <option value=6>Saturday</option>
+                                    <option value=7>Sunday</option>
+                                </select>
+                                <input type='time' name='lesson-time'><br>
+                            </div>
+                            <input type="button" value="Add a lesson" onClick="AddItem();" id="add">
                         </div>
 
-
-                        <div ID="items">
-                            <p>Schedule</p>
-                            <select name='weekday' id="lessons"> +
-                                <option value=1>Monday</option>
-                                <option value=2>Tuesday</option>
-                                <option value=3>Wednesday</option>
-                                <option value=4>Thursday</option>
-                                <option value=5>Friday</option>
-                                <option value=6>Saturday</option>
-                                <option value=7>Sunday</option>
-                            </select>
-                            <input type='time' name='lesson-time'><br>
-                            <input type="button" value="Add a lesson" onClick="AddItem();" ID="add"><br>
-                        </div>
-
-                        <div class="mb-3">
-
+                        <p>
                             <label for="Course" class="form-label">Курс</label>
                             <select class="form-select" aria-label="Default select example" id="Course" name="Course">
                                 <option selected>Общий курс</option>
@@ -133,9 +140,7 @@
                                 <option value="{{ i.id }}">{{ i.program }}</option>
                                 {% endfor %}
                             </select>
-                        </div>
-
-                        <br/>
+                        </p>
 
                         <input type="submit" class="btn btn-success" value="Создать">
 
