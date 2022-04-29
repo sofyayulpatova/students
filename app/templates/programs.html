@@ -23,45 +23,43 @@
     {% endfor %}
 
     <div class="card program">
-        <a data-bs-toggle="modal" data-bs-target="#myModal" class="knopka">+ новая программа</a>
+        <a data-bs-toggle="modal" data-bs-target="#new-program" class="knopka">+ новая программа</a>
     </div>
 </div>
 
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="new-program">
     <div class="modal-dialog modal-dialog-centered rounded">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title ms-">Добавить программу</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="row">
-                    <form action="" method="post">
+                <form action="" method="post">
+                    <p>
+                        <label for="ProgramName" class="form-label">Название программы</label>
+                        <input type="text" class="form-control" id="ProgramName" name="ProgramName">
+                        <br>
+                    </p>
 
-                        <div class="mb-3 m-3">
-                            <label for="ProgramName" class="form-label">Название программы</label>
-                            <input type="text" class="form-control" id="ProgramName" name="ProgramName">
-                        </div>
+                    <p>
+                        <label for="Text" class="form-label">Описание программы</label>
+                        <textarea class="form-control" id="Text" rows="3" name="Text"></textarea>
+                        <br>
+                    </p>
+                    <p>
+                        <input type="submit" value="Создать">
+                    </p>
+                </form>
 
-                        <div class="mb-3 m-3">
-                            <label for="Text" class="form-label">Описание программы</label>
-                            <textarea class="form-control" id="Text" rows="3" name="Text"></textarea>
-                        </div>
-
-                        <br/>
-
-                        <input type="submit" class="btn btn-success m-3" value="Создать">
-
-                    </form>
-
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 {% endblock %}
