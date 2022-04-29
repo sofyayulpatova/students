@@ -10,12 +10,17 @@ lu = db.Table('lu',
               db.Column('lesson', db.Integer(), db.ForeignKey('lesson.id'))
               )
 
+up = db.Table('up',
+              db.Column('user', db.Integer(), db.ForeignKey('user.id')),
+              db.Column('program', db.Integer(), db.ForeignKey('program.id'))
+              )
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(255), nullable=False, unique=True)
     name = db.Column(db.String(255), nullable=False)
-    program_id = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
+    program = db.relationship('Program', secondary=up, backref='user')
     password_hash = db.Column(db.String(255))
     description = db.Column(db.String(255))
     phone_number = db.Column(db.String(40), default="номер неизвестен")
@@ -47,8 +52,8 @@ class Weekday(db.Model):
 
 class Schedule(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    start = db.Column(db.DateTime)
-    end = db.Column(db.DateTime)
+    start = db.Column(db.Time)
+    end = db.Column(db.Time)
     weekday_id = db.Column(db.Integer(), db.ForeignKey("weekday.id"))
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
@@ -57,7 +62,6 @@ class Program(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     program = db.Column(db.String(255), nullable=False)
     text = db.Column(db.Text())
-    user = db.relationship('User', backref='program')
     lesson = db.relationship('Lesson', backref='program')
 
     def __repr__(self):
@@ -133,4 +137,3 @@ class Profile(db.Model):
     work = db.Column(db.Text())
     price = db.Column(db.Text())
     contacts = db.Column(db.Text())
-

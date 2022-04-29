@@ -7,7 +7,7 @@
 <div class="row profile-head">
     <h3 class="title">Уроки</h3>
      <!--
-    <a href="{{ url_for('main.create_lesson', user_id=student.id) }}" class="plus-button">
+    <a href="{{ url_for('main.create_lesson', user_id=student.id, course_id=student.program[0].id) }}" class="plus-button">
         <div class="d-flex justify-content-between">
             <h3>+</h3>
         </div>
@@ -40,7 +40,7 @@
              <div class="card-body">
                 <div class="head">
                     <h4 class="card-title left_title">{{student.name}}</h4>
-                    <p class="card-text left_text">Подготовка к ОГЭ</p>
+                    <p class="card-text left_text">{{ student.program }}</p>
                 </div>
                 <div>
                     <p class="phone">Телефон: +7(800) 200-23-16</p>

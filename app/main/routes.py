@@ -1,9 +1,12 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_user, login_required, logout_user
-from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA
+from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA, Weekday, \
+    Schedule
 from app.main.forms import LoginForm
 from app.main import bp
 from app import db
+import time
+import datetime
 
 
 # greeting page
@@ -30,18 +33,29 @@ def main():
 @bp.route('/students/', methods=['POST', 'GET'])
 @login_required
 def students():
+
+
     if current_user.tutor:
 
         if request.method == 'POST':
             name = request.form['StudentName']
             login = request.form['StudentLogin']
             password = request.form['StudentPassword']
-            program = request.form['Course']
+            program_id = request.form['Course']
+            weekday = request.form.getlist('weekday')
+            start = request.form.getlist('start')
+            end = request.form.getlist('end')
 
-            student = User(name=name, username=login, program_id=program)
+            print(datetime.datetime.strptime(start[0], '%H:%M').time(), end)
+
+            student = User(name=name, username=login)
+            student.program.append(Program.query.get(program_id))
+
             student.set_password(password)
             db.session.add(student)
             db.session.commit()
+
+            create_schedule(weekday, student.id, start, end)
             request.close()
             return redirect('/students', 302)
         programs = Program.query.all()
@@ -51,8 +65,17 @@ def students():
                 students.append(i)
         return render_template("students.html", students=students, programs=programs)
     else:
-        flash("123123")
         return redirect(url_for('main.index'))
+
+
+def create_schedule(weekday, user_id, start, end):
+    sch = []
+    for i in range(len(weekday)):
+        sch.append(Schedule(start=datetime.datetime.strptime(start[i], '%H:%M').time(), end=datetime.datetime.strptime(end[i], '%H:%M').time(), weekday_id=weekday[i], user_id=user_id))
+
+    db.session.add_all(sch)
+    db.session.commit()
+    return 0
 
 
 # particular student page
@@ -61,7 +84,9 @@ def students():
 def person(person):
     if current_user.tutor:
         person = User.query.get(person)
-        current_program = person.program
+
+        # TODO for now only one program per student, later, add more!!!
+        current_program = person.program[0]
         lesson = current_program.lesson
         homeworks, lessons, tests = [], lesson.copy(), []
 
@@ -259,9 +284,9 @@ def lesson(program_id, id, is_unique):
         return redirect(url_for('main.index'))
 
 
-@bp.route('/lessons/create/<int:user_id>', methods=['GET', 'POST'])
+@bp.route('/<int:course_id>/lessons/create/<int:user_id>', methods=['GET', 'POST'])
 @login_required
-def create_lesson(user_id):
+def create_lesson(course_id, user_id):
     if current_user.tutor:
         if user_id == 0 and request.method != "POST":
             return render_template('create_lesson.html', programs=Program.query.all())
@@ -275,9 +300,8 @@ def create_lesson(user_id):
         if request.method == "POST":
             if user_id == 0:
                 title = request.form.get('LessonName')
-                course = request.form.get('Course')
                 body = request.form.get('editordata')
-                program = Program.query.get(course)
+                program = Program.query.get(course_id)
                 lesson = Lesson(title=title, program=program, text=body)
 
                 db.session.add(lesson)
@@ -506,3 +530,21 @@ def open_lesson(lesson_id, user_id):
         return "0"
     else:
         return redirect(url_for('main.index'))
+
+
+
+
+
+@bp.route("/students/remove/<int:student_id>/", methods=["GET", "POST"])
+@login_required
+def remove_student(student_id):
+    if current_user.tutor:
+        student = User.query.get(student_id)
+        db.session.delete(student)
+
+        db.session.commit()
+        request.close()
+        return redirect(url_for('main.students'))
+    else:
+        return redirect(url_for('main.index'))
+

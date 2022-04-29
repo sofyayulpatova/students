@@ -5,25 +5,7 @@
 {% block content %}
 
 
-<script>
-    var items = 1;
 
-    function AddItem() {
-        var div = document.getElementById("items");
-        var button = document.getElementById("add");
-        items++;
-
-        var newitem = "<br><select  name='weekday'>" +
-            "<option value=1>Monday</option>" + "<option value=2>Tuesday</option>"
-            + "<option value=3>Wednesday</option>" + "<option value=4>Thursday</option>"
-            + "<option value=5>Friday</option>" + "<option value=6>Saturday</option>"
-            + "<option value=7>Sunday</option></select>"
-            + "<input type='time' name='lesson-time'><br>";
-        newnode = document.createElement("span");
-        newnode.innerHTML = newitem;
-        div.insertBefore(newnode, button);
-    }
-</script>
 
 
 <div class="row students">
@@ -109,7 +91,7 @@
                         </div>
 
 
-                        <div ID="items">
+                        <!--<div ID="items">
                             <p>Schedule</p>
                             <select name='weekday' id="lessons"> +
                                 <option value=1>Monday</option>
@@ -122,6 +104,26 @@
                             </select>
                             <input type='time' name='lesson-time'><br>
                             <input type="button" value="Add a lesson" onClick="AddItem();" ID="add"><br>
+                        </div>-->
+
+                        <div class="input-wrapper">
+                            <div>
+
+                                <select name="weekday" id="weekday">
+                                    <option value=1>Monday</option>
+                                    <option value=2>Tuesday</option>
+                                    <option value=3>Wednesday</option>
+                                    <option value=4>Thursday</option>
+                                    <option value=5>Friday</option>
+                                    <option value=6>Saturday</option>
+                                    <option value=7>Sunday</option>
+                                </select>
+                                <input name='start' type="time" id="start">
+                                <input name='end' type="time" id="end">
+
+                                <a href="javascript:void(0);" class="add-input" title="Add input">+</a>
+
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -148,6 +150,36 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        var max_input_fields = 10;
+        var add_input = $('.add-input');
+        var input_wrapper = $('.input-wrapper');
+
+        var new_input = "<br><select  name='weekday'>" +
+            "<option value=1>Monday</option>" + "<option value=2>Tuesday</option>"
+            + "<option value=3>Wednesday</option>" + "<option value=4>Thursday</option>"
+            + "<option value=5>Friday</option>" + "<option value=6>Saturday</option>"
+            + "<option value=7>Sunday</option></select>"
+            + "<input type='time' name='lesson-time'><br>" + "<a href='javascript:void(0);' class='remove-input' title='Remove input'>+</a></div>";
+
+        var add_input_count = 1
+        $(add_input).click(function () {
+            if (add_input_count < max_input_fields) {
+                add_input_count++;
+                $(input_wrapper).append(new_input);
+            }
+        });
+        $(input_wrapper).on('click', '.remove-input', function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            add_input_count--;
+        });
+    });
+</script>
+
 
 {% endblock %}
 
