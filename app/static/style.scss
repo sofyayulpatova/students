@@ -320,6 +320,46 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+#new-program {
+
+  .modal-content {
+    border-radius: 0.5rem;
+    border: none;
+
+    .modal-header {
+      display: block;
+      text-align: center;
+      box-shadow: $box-shadow;
+      border: none;
+    }
+
+    .modal-body {
+
+      margin: 0.5rem 1rem;
+
+      label {
+        font-size: 1.1rem;
+      }
+
+      input, textarea {
+        border: 1px solid rgba(120, 127, 206, 0.2);
+        border-radius: 1rem;
+        box-shadow: 0px 1px 4px 0px rgb(120 127 206 / 20%);
+        padding: 0.7rem 0.5rem;
+        background-clip: unset;
+
+        &[type=submit] {
+          width: -webkit-fill-available;
+          width: -moz-available;
+          width: fill-available;
+          padding: 1rem;
+          background-color: #fefefe;
+          color: #0a58ca;
+        }
+      }
+    }
+  }
+}
 
 /*STUDENTS PAGE (students.html)*/
 .students {
@@ -592,6 +632,8 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* Login page */
+
 .login {
   width: fit-content;
   margin: 5rem auto;
@@ -621,6 +663,8 @@ h1, h2, h3, h4, h5 {
     }
   }
 }
+
+/* Error pages */
 
 .error {
   height: 100vh;
@@ -794,7 +838,7 @@ h1, h2, h3, h4, h5 {
           margin-bottom: 2rem;
           text-align: center;
 
-          .head{
+          .head {
             margin: 1rem 0;
           }
 

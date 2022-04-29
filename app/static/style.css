@@ -252,6 +252,38 @@ h1, h2, h3, h4, h5 {
   cursor: pointer;
 }
 
+#new-program .modal-content {
+  border-radius: 0.5rem;
+  border: none;
+}
+#new-program .modal-content .modal-header {
+  display: block;
+  text-align: center;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: none;
+}
+#new-program .modal-content .modal-body {
+  margin: 0.5rem 1rem;
+}
+#new-program .modal-content .modal-body label {
+  font-size: 1.1rem;
+}
+#new-program .modal-content .modal-body input, #new-program .modal-content .modal-body textarea {
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  padding: 0.7rem 0.5rem;
+  background-clip: unset;
+}
+#new-program .modal-content .modal-body input[type=submit], #new-program .modal-content .modal-body textarea[type=submit] {
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill-available;
+  padding: 1rem;
+  background-color: #fefefe;
+  color: #0a58ca;
+}
+
 /*STUDENTS PAGE (students.html)*/
 .students {
   margin: 1.5rem 0;
@@ -468,6 +500,7 @@ h1, h2, h3, h4, h5 {
   overflow-wrap: anywhere;
 }
 
+/* Login page */
 .login {
   width: fit-content;
   margin: 5rem auto;
@@ -494,6 +527,7 @@ h1, h2, h3, h4, h5 {
   color: #0a58ca;
 }
 
+/* Error pages */
 .error {
   height: 100vh;
   background: url("/static/error_background.webp") no-repeat;
