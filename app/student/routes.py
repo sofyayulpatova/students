@@ -55,12 +55,12 @@ def homework(id):
         avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
 
         if lesson.unique_homework:
-            lesson.unique_homework.to_file = "/uploads/" + filename
+            lesson.unique_homework.to_file = filename
             print(lesson.unique_homework.to_file)
             db.session.add(lesson.unique_homework)
             db.session.commit()
         else:
-            lesson.homework.to_file = "/uploads/" + filename
+            lesson.homework.to_file = filename
             db.session.add(lesson.homework)
             print(lesson.homework.to_file)
             db.session.commit()

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA, Weekday, \
     Schedule
@@ -405,6 +405,11 @@ def homework(id, program):
         return render_template("homework.html", lesson=lesson, homework=lesson.homework)
     else:
         return redirect(url_for('main.index'))
+
+
+@bp.route('/' + 'uploads/' + '<filename>')
+def get_file(filename):
+    return send_from_directory('uploads', filename, as_attachment=True)
 
 
 @bp.route("/lesson/<int:id>/homework/<int:user_id>/edit", methods=['GET', 'POST'])
