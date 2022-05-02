@@ -397,6 +397,7 @@ def remove_lesson(id, course_id):
 def homework(id, program):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
+        print(lesson.homework.to_file)
         if program == 0:
             if lesson.unique_homework:
                 return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)

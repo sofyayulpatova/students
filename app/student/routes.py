@@ -4,6 +4,7 @@ from app.models import Lesson, Test
 from app.student import bp
 from werkzeug.utils import secure_filename
 import os
+from app import db
 
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt'}
 
@@ -50,14 +51,19 @@ def homework(id):
     if request.method == "POST":
         avatar = request.files.get('avatar')
         # Упакуйте имя файла для безопасности, но есть проблема с отображением китайского имени файла
-        filename = secure_filename(avatar.filename)
+        filename = avatar.filename
         avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
 
         if lesson.unique_homework:
-            lesson.unique_homework.to_file = os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads",
-                                                          filename)
+            lesson.unique_homework.to_file = "/uploads/" + filename
+            print(lesson.unique_homework.to_file)
+            db.session.add(lesson.unique_homework)
+            db.session.commit()
         else:
-            lesson.homework.to_file = os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename)
+            lesson.homework.to_file = "/uploads/" + filename
+            db.session.add(lesson.homework)
+            print(lesson.homework.to_file)
+            db.session.commit()
         return redirect(url_for('student.homework', id=id))
 
     if lesson.unique_homework:
@@ -115,7 +121,7 @@ def allowed_file(filename):
 # Create a directory in a known location to save files to.
 uploads_dir = os.path.join('uploads')
 
-
+"""
 @bp.route('/upload', methods=['GET', 'POST'])
 def settings():
     if request.method == 'GET':
@@ -128,3 +134,4 @@ def settings():
         avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
         print(desc)
         return "reade"
+"""
