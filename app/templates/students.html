@@ -135,7 +135,6 @@
                         <p>
                             <label for="Course" class="form-label">Курс</label>
                             <select class="form-select" aria-label="Default select example" id="Course" name="Course">
-                                <option selected>Общий курс</option>
                                 {% for i in programs %}
                                 <option value="{{ i.id }}">{{ i.program }}</option>
                                 {% endfor %}

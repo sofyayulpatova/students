@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_required
 from app.models import Lesson, Test
 from app.student import bp
@@ -42,10 +42,24 @@ def homeworks():
     return render_template("forstudent/homeworks.html", homeworks=homeworks)
 
 
-@bp.route('/homework/<int:id>')
+@bp.route('/homework/<int:id>', methods=["GET", "POST"])
 @login_required
 def homework(id):
     lesson = Lesson.query.get(id)
+
+    if request.method == "POST":
+        avatar = request.files.get('avatar')
+        # Упакуйте имя файла для безопасности, но есть проблема с отображением китайского имени файла
+        filename = secure_filename(avatar.filename)
+        avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
+
+        if lesson.unique_homework:
+            lesson.unique_homework.to_file = os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads",
+                                                          filename)
+        else:
+            lesson.homework.to_file = os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename)
+        return redirect(url_for('student.homework', id=id))
+
     if lesson.unique_homework:
         return render_template('forstudent/homework.html', homework=lesson.unique_homework)
     else:
@@ -72,7 +86,6 @@ def test(id):
                 counter += 1
         print(counter)
         return render_template("forstudent/test.html", test=test.qa, counter=counter, id=id)
-
 
     return render_template("forstudent/test.html", test=test.qa, counter=counter, id=id)
 
@@ -101,8 +114,6 @@ def allowed_file(filename):
 
 # Create a directory in a known location to save files to.
 uploads_dir = os.path.join('uploads')
-
-
 
 
 @bp.route('/upload', methods=['GET', 'POST'])

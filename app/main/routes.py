@@ -398,7 +398,6 @@ def homework(id, program):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
         if program == 0:
-            print('prog = 0')
             if lesson.unique_homework:
                 return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
         # print("here?", lesson.homework.text)

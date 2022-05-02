@@ -3,7 +3,7 @@ from flask import current_app
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-import datetime
+from datetime import datetime
 
 lu = db.Table('lu',
               db.Column('user', db.Integer(), db.ForeignKey('user.id')),
@@ -29,6 +29,23 @@ class User(UserMixin, db.Model):
     unique_lesson = db.relationship('Unique_Lesson', backref='user')
     schedule = db.relationship('Schedule', backref='user')
 
+    # for notifications homework
+    homework_sent = db.relationship('Homework',
+                                    foreign_keys='Homework.sender_id',
+                                    backref='author', lazy='dynamic')
+    homework_received = db.relationship('Homework',
+                                        foreign_keys='Homework.recipient_id',
+                                        backref='recipient', lazy='dynamic')
+
+    # for notifications unique homework
+    unique_homework_sent = db.relationship('Unique_Homework',
+                                           foreign_keys='Unique_Homework.unique_sender_id',
+                                           backref='author', lazy='dynamic')
+    unique_homework_received = db.relationship('Unique_Homework',
+                                               foreign_keys='Unique_Homework.unique_recipient_id',
+                                               backref='recipient', lazy='dynamic')
+    last_message_read_time = db.Column(db.DateTime())
+
     def __repr__(self):
         return "<User {}>".format(self.id)
 
@@ -37,6 +54,11 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def new_messages(self):
+        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
+        return Homework.query.filter_by(recipient=self).filter(
+            Homework.timestamp > last_read_time).count()
 
 
 @login.user_loader
@@ -90,9 +112,14 @@ class Library(db.Model):
 
 class Homework(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
+    # for notifications
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    # homework itself (title, body, route to file)
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
-    to_file = db.Column(db.String(100))
+    to_file = db.Column(db.String(255))
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
 
 
@@ -112,6 +139,14 @@ class Unique_Homework(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
+
+    # for notifications
+    unique_sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    unique_recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    # route to file
+    to_file = db.Column(db.String(255))
 
 
 class Test(db.Model):
