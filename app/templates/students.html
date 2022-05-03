@@ -15,13 +15,14 @@
 
         let newItem = "<select  name='weekday'>" +
             "<option value=1>Monday</option>" +
-            "<option value=2>Tuesday</option>"
-            + "<option value=3>Wednesday</option>" +
-            "<option value=4>Thursday</option>"
-            + "<option value=5>Friday</option>" +
+            "<option value=2>Tuesday</option>" +
+            "<option value=3>Wednesday</option>" +
+            "<option value=4>Thursday</option>" +
+            "<option value=5>Friday</option>" +
             "<option value=6>Saturday</option>" +
             "<option value=7>Sunday</option></select> " +
-            "<input type='time' name='lesson-time'><br>";
+            "<input type='time' name='start-time'> " +
+            "<input type='time' name='end-time'>";
         let newNode = document.createElement("div");
         newNode.classList.add("record");
         newNode.innerHTML = newItem;
@@ -127,7 +128,8 @@
                                     <option value=6>Saturday</option>
                                     <option value=7>Sunday</option>
                                 </select>
-                                <input type='time' name='lesson-time'><br>
+                                <input type='time' name='start-time'>
+                                <input type='time' name='end-time'>
                             </div>
                             <input type="button" value="Add a lesson" onClick="AddItem();" id="add">
                         </div>
