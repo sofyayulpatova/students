@@ -46,8 +46,6 @@ def students():
             start = request.form.getlist('start')
             end = request.form.getlist('end')
 
-            print(datetime.datetime.strptime(start[0], '%H:%M').time(), end)
-
             student = User(name=name, username=login)
             student.program.append(Program.query.get(program_id))
 
