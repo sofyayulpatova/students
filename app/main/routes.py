@@ -43,8 +43,8 @@ def students():
             password = request.form['StudentPassword']
             program_id = request.form['Course']
             weekday = request.form.getlist('weekday')
-            start = request.form.getlist('start')
-            end = request.form.getlist('end')
+            start = request.form.getlist('start-time')
+            end = request.form.getlist('end-time')
 
             student = User(name=name, username=login)
             student.program.append(Program.query.get(program_id))
