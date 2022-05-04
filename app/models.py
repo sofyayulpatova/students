@@ -116,8 +116,12 @@ class Homework(db.Model):
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    grade = db.Column(db.Integer)
+
     # homework itself (title, body, route to file)
     title = db.Column(db.String(100), nullable=False)
+
     text = db.Column(db.Text())
     to_file = db.Column(db.String(255))
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))

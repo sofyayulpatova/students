@@ -33,8 +33,6 @@ def main():
 @bp.route('/students/', methods=['POST', 'GET'])
 @login_required
 def students():
-
-
     if current_user.tutor:
 
         if request.method == 'POST':
@@ -69,7 +67,9 @@ def students():
 def create_schedule(weekday, user_id, start, end):
     sch = []
     for i in range(len(weekday)):
-        sch.append(Schedule(start=datetime.datetime.strptime(start[i], '%H:%M').time(), end=datetime.datetime.strptime(end[i], '%H:%M').time(), weekday_id=weekday[i], user_id=user_id))
+        sch.append(Schedule(start=datetime.datetime.strptime(start[i], '%H:%M').time(),
+                            end=datetime.datetime.strptime(end[i], '%H:%M').time(), weekday_id=weekday[i],
+                            user_id=user_id))
 
     db.session.add_all(sch)
     db.session.commit()
@@ -118,6 +118,33 @@ def person(person):
         return redirect(url_for('main.index'))
 
 
+@bp.route('/delete_student/<int:student_id>')
+@login_required
+def delete_student(student_id):
+    uniq_hw = Unique_Homework.query.filter_by(user_id=student_id).first()
+    uniq_le = Unique_Lesson.query.filter_by(user_id=student_id).first()
+
+    if uniq_le is not None:
+        db.session.delete(uniq_le)
+    # student = User.query.get(student_id)
+    if uniq_hw is not None:
+        db.session.delete(uniq_hw)
+
+    db.session.commit()
+    print("first delete")
+    return redirect(url_for('main.delete_completely_student', student_id=student_id))
+
+
+@bp.route('/delete_student_complete/<int:student_id>')
+@login_required
+def delete_completely_student(student_id):
+    student = User.query.get(student_id)
+    db.session.delete(student)
+    db.session.commit()
+    print("sedondd delete")
+    return redirect(url_for('main.students'))
+
+
 # my programs page (all programs)
 @bp.route('/programs/', methods=['POST', 'GET'])
 @login_required
@@ -153,6 +180,46 @@ def program(id):
                                homeworks=homeworks,
 
                                tests=tests)
+    else:
+        return redirect(url_for('main.index'))
+
+
+@bp.route("/program/remove/<int:id>", methods=["GET", "POST"])
+@login_required
+def remove_program(id):
+    if current_user.tutor:
+        program = Program.query.get(id)
+        for i in range(len(program.lesson)):
+
+            # homework
+            if program.lesson[i].unique_homework:
+                db.session.delete(program.lesson[i].unique_homework)
+                db.session.delete(program.lesson[i].homework)
+            else:
+                db.session.delete(program.lesson[i].homework)
+
+            # test
+            db.session.delete(program.lesson[i].test)
+            # lesson
+            if program.lesson[i].unique_lesson:
+                db.session.delete(program.lesson[i].unique_lesson)
+                db.session.delete(program.lesson[i])
+            else:
+                db.session.delete(program.lesson[i])
+        db.session.delete(program)
+        db.session.commit()
+        '''
+        lesson = Lesson.query.get(id)
+        homework = Homework.query.filter_by(lesson_id=lesson.id).first()
+        test = Test.query.filter_by(lesson_id=lesson.id).first()
+        db.session.delete(homework)
+        db.session.delete(test)
+        db.session.delete(lesson)
+        db.session.commit()
+        request.close()
+        '''
+
+        return redirect(url_for('main.programs'))
     else:
         return redirect(url_for('main.index'))
 
@@ -390,22 +457,42 @@ def remove_lesson(id, course_id):
 
 # homework
 
-@bp.route("/<int:program>/lesson/<int:id>/homework")
+@bp.route("/<int:program>/lesson/<int:id>/homework", methods=['GET', 'POST'])
 @login_required
 def homework(id, program):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
-        print(lesson.homework.to_file)
+
+        # method POST
+        if request.method == "POST":
+            grade = request.form.get('grade')
+            comment = request.form.get('comment')
+
+            if lesson.unique_lesson:
+                lesson.unique_homework.text = comment
+                lesson.unique_homework.grade = grade
+
+                db.session.add(lesson.unique_homework)
+            else:
+                lesson.homework.text = comment
+                lesson.homework.grade = grade
+
+                db.session.add(lesson.homework)
+
+            db.session.commit()
+            return redirect(url_for('main.homework', program=program, id=id))
+
+        # method GET
         if program == 0:
             if lesson.unique_homework:
                 return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
-        # print("here?", lesson.homework.text)
+
         return render_template("homework.html", lesson=lesson, homework=lesson.homework)
     else:
         return redirect(url_for('main.index'))
 
 
-@bp.route('/' + 'uploads/' + '<filename>')
+@bp.route('/uploads/<filename>')
 def get_file(filename):
     return send_from_directory('uploads', filename, as_attachment=True)
 
@@ -535,9 +622,6 @@ def open_lesson(lesson_id, user_id):
         return redirect(url_for('main.index'))
 
 
-
-
-
 @bp.route("/students/remove/<int:student_id>/", methods=["GET", "POST"])
 @login_required
 def remove_student(student_id):
@@ -550,4 +634,3 @@ def remove_student(student_id):
         return redirect(url_for('main.students'))
     else:
         return redirect(url_for('main.index'))
-

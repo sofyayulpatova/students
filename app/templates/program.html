@@ -5,6 +5,8 @@
 {% block content %}
 
 <div class="row profile-head">
+
+    <a href="{{ url_for('main.remove_program', id=program.id) }}">Удалить программу</a>
     <h3 class="title">Уроки</h3>
     <a href="{{ url_for('main.create_lesson', user_id=0, course_id=program.id) }}" class="plus-button">
         <div class="d-flex justify-content-between">

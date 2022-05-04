@@ -24,9 +24,51 @@
         <div class="col-4 side">
             <div class="solution">
                 <h5>Последняя попытка</h5>
-                <p><a href="{{ url_for('main.get_file', filename=homework.to_file) }}">main.py</a></p>
-                <a href="" class="graduate">Прокомментировать</a>
+
+                {% if homework.to_file != None %}
+                    <p><a href="{{ url_for('main.get_file', filename=homework.to_file) }}">Скачать файл</a></p>
+
+
+                    <a data-bs-toggle="modal" data-bs-target="#new-student" class="graduate">Оценить</a>
+
+
+
+                {% else %}
+                    <a href="" class="">Ученик еще не загрузил домашнее задание</a>
+                {% endif %}
             </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="new-student">
+    <div class="modal-dialog modal-dialog-centered rounded">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title ms-">Оценить домашнее задание</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <form action="" method="post">
+                    <label for="grade">Поставьте оценку </label>
+                    <input type="number" name="grade" id="grade">
+
+                    <label for="comment">Напишите комментарий </label>
+                    <input type="text" name="comment" id="comment">
+
+                    <input type="submit">
+
+                </form>
+
+            </div>
+
         </div>
     </div>
 </div>
