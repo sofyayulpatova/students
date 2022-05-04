@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} New Homework {% endblock %}
+{% block title %} {{_('Новое ДЗ')}} {% endblock %}
 
 {% block addons %}
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="editor">
-        <label for="summernote">Содержание задания</label>
+        <label for="summernote">{{ _('Содержание задания') }}</label>
         <textarea id="summernote" name="editordata"></textarea>
     </div>
 </form>

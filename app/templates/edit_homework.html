@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Edit Homework {% endblock %}
+{% block title %} {{ _('Редактировать ДЗ') }} {% endblock %}
 
 {% block addons %}
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
         <div class="sticky">
 
             <div class="mb-3 m-3">
-                <label for="HomeworkName" class="form-label">Название домашней работы</label>
+                <label for="HomeworkName" class="form-label">{{ _('Название домашней работы') }}}</label>
                 <input type="text" class="form-control" id="HomeworkName" name="HomeworkName" value="{{ homework.title }}">
             </div>
 
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="editor">
-        <label for="summernote">Содержание задания</label>
+        <label for="summernote">{{ _('Содержание задания') }}</label>
         <textarea id="summernote" name="editordata">
             {{homework.text|safe}}
         </textarea>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ homework.title + " | Домашняя работа" }} {% endblock %}
+{% block title %} {{ homework.title + " | _('Домашняя работа') }} {% endblock %}
 
 {% block content %}
 <div class="homework">
@@ -23,18 +23,13 @@
         </div>
         <div class="col-4 side">
             <div class="solution">
-                <h5>Последняя попытка</h5>
+                <h5>{{ _('Последняя попытка') }}</h5>
 
                 {% if homework.to_file != None %}
-                    <p><a href="{{ url_for('main.get_file', filename=homework.to_file) }}">Скачать файл</a></p>
-
-
-                    <a data-bs-toggle="modal" data-bs-target="#new-student" class="graduate">Оценить</a>
-
-
-
+                    <p><a href="{{ url_for('main.get_file', filename=homework.to_file) }}">{{ _('Скачать файл') }}</a></p>
+                    <a data-bs-toggle="modal" data-bs-target="#new-student" class="graduate">{{ _('Оценить') }}</a>
                 {% else %}
-                    <a href="" class="">Ученик еще не загрузил домашнее задание</a>
+                    <a href="" class="">{{ _('Ученик еще не загрузил домашнее задание') }}</a>
                 {% endif %}
             </div>
         </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Edit Lesson {% endblock %}
+{% block title %} {{ _('Редактировать урок') }} {% endblock %}
 
 {% block addons %}
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -15,9 +15,7 @@
     <div class="input-wrapper">
         <div>
             {% if qa %}
-
                 {% for i in qa %}
-
                     <input type="text" name="questions" value="{{ i.question }}"/> <input type="text" name="answers"  value="{{ i.answer }}"/>
                     <a href="javascript:void(0);" class="add-input" title="Add input"><img src="/static/img/add.png"/></a><br>
                 {% endfor %}

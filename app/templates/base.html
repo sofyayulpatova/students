@@ -19,58 +19,58 @@
 <ul class="nav justify-content menu active">
     {% if current_user.is_anonymous %}
     <li class="nav-item" style="margin-left: auto">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.login') }}">Войти</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.login') }}">{{ _('Войти') }}</a>
     </li>
 
 
     {% elif current_user.tutor == False %}
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('student.main_page') }}">Главная</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.main_page') }}"> {{ _('Главная') }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('student.lessons') }}">Уроки</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.lessons') }}">{{ _('Уроки') }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('student.homeworks') }}">Домашняя работа</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.homeworks') }}">{{ _('Домашняя работа') }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('student.tests') }}">Тесты</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('student.tests') }}">{{ _('Тесты') }}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="#"><i class="fa-solid fa-bell"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">Выйти</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">{{ _('Выйти') }}</a>
     </li>
 
 
     {% else %}
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.main') }}">Главная</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.main') }}">{{ _('Главная') }}</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.students') }}">Ученики</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.students') }}">{{ _('Ученики') }}</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.programs') }}">Мои программы</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.programs') }}">{{ _('Мои программы') }}</a>
     </li>
 
 
 
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.control_profile') }}">Панель управления</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.control_profile') }}">{{ _('Панель управления') }}</a>
     </li>
 
     <li class="nav-item">
-        <a style="color: grey;" class="nav-link disabled" aria-current="page" href="{{ url_for('main.library') }}">Библиотека</a>
+        <a style="color: grey;" class="nav-link disabled" aria-current="page" href="{{ url_for('main.library') }}">{{ _('Библиотека') }}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="#"><i class="fa-solid fa-bell"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">Выйти</a>
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.logout') }}">{{ _('Выйти') }}</a>
     </li>
     {% endif %}
 </ul>

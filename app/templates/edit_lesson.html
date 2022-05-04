@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Edit Lesson {% endblock %}
+{% block title %} {{ _('Редактировать урок') }} {% endblock %}
 
 {% block addons %}
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -15,15 +15,13 @@
 <form method="post" class="form">
     <div class="head">
         <div class="sticky">
-            <label for="LessonName" class="form-label">Название урока</label>
+            <label for="LessonName" class="form-label">{{ _('Название урока') }}</label>
             <input type="text" class="form-control" id="LessonName" name="LessonName" value="{{ lesson.title }}">
-
-
             <input type="submit">
         </div>
     </div>
     <div class="editor">
-        <label for="summernote">Содержание урока</label>
+        <label for="summernote">{{ _('Содержание урока') }}</label>
         <textarea id="summernote" name="editordata">
             {{ lesson.text }}
         </textarea>

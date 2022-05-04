@@ -16,6 +16,12 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     UPLOAD_FOLDER = '/uploads'
 
+    LANGUAGES = {
+        'ru': 'Russian',
+        'en': 'English',
+        'lv': 'Latvian'
+    }
+
     '''
     
     MAIL_SERVER = 'smtp.googlemail.com'

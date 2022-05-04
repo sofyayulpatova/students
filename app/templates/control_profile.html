@@ -17,7 +17,7 @@
     </div>
     <div class="row body">
         <div class="col-2 side-menu">
-            <h4>Cтуденты</h4>
+            <h4>{{ _('Cтуденты') }}</h4>
             <div class="list-group">
 
                 {% for i in students %}
@@ -28,17 +28,17 @@
                 </a>
                 {% endfor %}
             </div>
-            <a href="#" class="all">All students</a>
+            <a href="#" class="all">{{ _('Все студенты') }}</a>
         </div>
         <div class="col-10 main">
-            <h4>Now you have</h4>
+            <h4>{{ _('Сейчас у вас есть') }}</h4>
             <div class="stat">
                 <div class="card">
                     <div class="card-body">
                         <div class="head">
                             <h1 class="card-title left_title"> {{students|length}}</h1>
                         </div>
-                        <p class="card-text left_text">students</p>
+                        <p class="card-text left_text">{ _('студентов') }</p>
                     </div>
                 </div>
                 <div class="card">
@@ -46,23 +46,7 @@
                         <div class="head">
                             <h1 class="card-title left_title"> {{programs|length}}</h1>
                         </div>
-                        <p class="card-text left_text">programs</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="head">
-                            <h1 class="card-title left_title"> {{programs|length}}</h1>
-                        </div>
-                        <p class="card-text left_text">programs</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="head">
-                            <h1 class="card-title left_title"> {{programs|length}}</h1>
-                        </div>
-                        <p class="card-text left_text">programs</p>
+                        <p class="card-text left_text">{{ _('программ') }}</p>
                     </div>
                 </div>
             </div>
