@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Programs {% endblock %}
+{% block title %} {{ _('Программы') }} {% endblock %}
 
 {% block content %}
 
@@ -23,7 +23,7 @@
     {% endfor %}
 
     <div class="card program">
-        <a data-bs-toggle="modal" data-bs-target="#new-program" class="knopka">+ новая программа</a>
+        <a data-bs-toggle="modal" data-bs-target="#new-program" class="knopka">+ {{ _('новая программа') }}</a>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title ms-">Добавить программу</h4>
+                <h4 class="modal-title ms-">{{ _('Добавить программу') }}</h4>
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
             </div>
 
@@ -41,13 +41,13 @@
             <div class="modal-body">
                 <form action="" method="post">
                     <p>
-                        <label for="ProgramName" class="form-label">Название программы</label>
+                        <label for="ProgramName" class="form-label">{{ _('Название программы') }}</label>
                         <input type="text" class="form-control" id="ProgramName" name="ProgramName">
                         <br>
                     </p>
 
                     <p>
-                        <label for="Text" class="form-label">Описание программы</label>
+                        <label for="Text" class="form-label">{{ _('Описание программы') }}</label>
                         <textarea class="form-control" id="Text" rows="3" name="Text"></textarea>
                         <br>
                     </p>

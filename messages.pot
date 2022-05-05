@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-05 01:22+0300\n"
+"POT-Creation-Date: 2022-05-05 14:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: app/templates/base.html:22
+#: app/templates/base.html:22 app/templates/login.html:7
 msgid "Войти"
 msgstr ""
 
@@ -25,7 +25,8 @@ msgstr ""
 msgid "Главная"
 msgstr ""
 
-#: app/templates/base.html:31
+#: app/templates/base.html:31 app/templates/program.html:10
+#: app/templates/student.html:8
 msgid "Уроки"
 msgstr ""
 
@@ -33,7 +34,8 @@ msgstr ""
 msgid "Домашняя работа"
 msgstr ""
 
-#: app/templates/base.html:37
+#: app/templates/base.html:37 app/templates/lesson.html:21
+#: app/templates/program.html:88 app/templates/student.html:106
 msgid "Тесты"
 msgstr ""
 
@@ -69,6 +71,10 @@ msgstr ""
 msgid "Сейчас у вас есть"
 msgstr ""
 
+#: app/templates/control_profile.html:41
+msgid "студентов"
+msgstr ""
+
 #: app/templates/control_profile.html:49
 msgid "программ"
 msgstr ""
@@ -89,7 +95,7 @@ msgstr ""
 msgid "Название урока"
 msgstr ""
 
-#: app/templates/create_lesson.html:23
+#: app/templates/create_lesson.html:23 app/templates/students.html:138
 msgid "Курс"
 msgstr ""
 
@@ -106,6 +112,7 @@ msgid "Название домашней работы"
 msgstr ""
 
 #: app/templates/edit_lesson.html:3 app/templates/edit_test.html:3
+#: app/templates/try.html:3
 msgid "Редактировать урок"
 msgstr ""
 
@@ -125,19 +132,114 @@ msgstr ""
 msgid "О себе"
 msgstr ""
 
-#: app/templates/edit_profile.html:36
+#: app/templates/edit_profile.html:36 app/templates/index.html:28
 msgid "Образование"
 msgstr ""
 
-#: app/templates/edit_profile.html:43
+#: app/templates/edit_profile.html:43 app/templates/index.html:33
 msgid "Опыт работы"
 msgstr ""
 
-#: app/templates/edit_profile.html:50
+#: app/templates/edit_profile.html:50 app/templates/index.html:37
 msgid "Стоимость занятий"
 msgstr ""
 
 #: app/templates/edit_profile.html:58
 msgid "Контакты"
+msgstr ""
+
+#: app/templates/index.html:41
+msgid "Хочу связаться"
+msgstr ""
+
+#: app/templates/lesson.html:16 app/templates/program.html:54
+#: app/templates/student.html:78
+msgid "Домашние задания"
+msgstr ""
+
+#: app/templates/program.html:9
+msgid "Удалить программу"
+msgstr ""
+
+#: app/templates/program.html:38 app/templates/program.html:82
+#: app/templates/program.html:113 app/templates/student.html:37
+#: app/templates/student.html:100 app/templates/student.html:128
+msgid "Посмотреть все"
+msgstr ""
+
+#: app/templates/programs.html:3
+msgid "Программы"
+msgstr ""
+
+#: app/templates/programs.html:26
+msgid "новая программа"
+msgstr ""
+
+#: app/templates/programs.html:36
+msgid "Добавить программу"
+msgstr ""
+
+#: app/templates/programs.html:44
+msgid "Название программы"
+msgstr ""
+
+#: app/templates/programs.html:50
+msgid "Описание программы"
+msgstr ""
+
+#: app/templates/students.html:95
+msgid "Добавить ученика"
+msgstr ""
+
+#: app/templates/students.html:105
+msgid "Имя ученика"
+msgstr ""
+
+#: app/templates/students.html:110
+msgid "Логин ученика"
+msgstr ""
+
+#: app/templates/students.html:115
+msgid "Пароль"
+msgstr ""
+
+#: app/templates/students.html:120
+msgid "Расписание"
+msgstr ""
+
+#: app/templates/students.html:123
+msgid "Понедельник"
+msgstr ""
+
+#: app/templates/students.html:124
+msgid "Вторник"
+msgstr ""
+
+#: app/templates/students.html:125
+msgid "Среда"
+msgstr ""
+
+#: app/templates/students.html:126
+msgid "Четверг"
+msgstr ""
+
+#: app/templates/students.html:127
+msgid "Пятница"
+msgstr ""
+
+#: app/templates/students.html:128
+msgid "Суббота"
+msgstr ""
+
+#: app/templates/students.html:129
+msgid "Воскресенье"
+msgstr ""
+
+#: app/templates/students.html:146
+msgid "Создать"
+msgstr ""
+
+#: app/templates/test.html:9
+msgid "Тест"
 msgstr ""
 

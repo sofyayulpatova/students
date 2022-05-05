@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="row profile-head">
-    <h3 class="title">Уроки</h3>
+    <h3 class="title">{{ _('Уроки') }}</h3>
         <a href="{{ url_for('main.delete_student', student_id=student.id) }}"> Удалить ученика ;) </a>
      <!--
     <a href="{{ url_for('main.create_lesson', user_id=student.id, course_id=student.program[0].id) }}" class="plus-button">
@@ -34,7 +34,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="all"><a href="#">See all</a></div>
+        <div class="all"><a href="#">{{ _('Посмотреть все') }}</a></div>
     </div>
     <div class="col-4">
         <div class="card student profile">
@@ -75,7 +75,7 @@
 
 
 <div class="row profile-head">
-    <h3 class="title">Домашние задания</h3>
+    <h3 class="title">{{ _('Домашние задания') }}</h3>
         <div class="d-flex justify-content-between">
         </div>
     </a>
@@ -97,13 +97,13 @@
             </div>
             {% endfor %}
         </div>
-        <div class="all"><a href="#">See all</a></div>
+        <div class="all"><a href="#">{{ _('Посмотреть все') }}</a></div>
     </div>
     <div class="col-4"></div>
 </div>
 
 <div class="row profile-head">
-    <h3 class="title">Тесты</h3>
+    <h3 class="title">{{ _('Тесты') }}</h3>
         <div class="d-flex justify-content-between">
         </div>
     </a>
@@ -125,7 +125,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="all"><a href="#">See all</a></div>
+        <div class="all"><a href="#">{{ _('Посмотреть все') }}</a></div>
     </div>
     <div class="col-4"></div>
 </div>

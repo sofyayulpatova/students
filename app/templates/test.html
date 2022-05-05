@@ -6,7 +6,7 @@
 
 <div class="row homework">
 
-    <h2>{{ "Тест " + test.title }}</h2>
+    <h2>{{ _('Тест') + test.title }}</h2>
 
 </div>
 <a href="{{ url_for('main.edit_test', id=test.lesson_id) }}"></a>
