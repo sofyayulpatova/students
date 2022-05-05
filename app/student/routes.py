@@ -4,9 +4,14 @@ from app.models import Lesson, Test
 from app.student import bp
 from werkzeug.utils import secure_filename
 import os
-from app import db
+from app import db, babel
 
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt'}
+
+
+@babel.localeselector
+def get_locale():
+    return 'en'
 
 
 @bp.route('/lessons')

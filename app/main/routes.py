@@ -4,15 +4,14 @@ from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Uni
     Schedule
 from app.main.forms import LoginForm
 from app.main import bp
-from app import db, babel
-from config import Config
+from app import db, babel, Config
 import time
 import datetime
 
 
 @babel.localeselector
 def get_locale():
-    return request.accept_languages.best_match(Config.LANGUAGES.keys())
+    return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 # greeting page
