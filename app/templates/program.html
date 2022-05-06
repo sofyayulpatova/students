@@ -5,8 +5,6 @@
 {% block content %}
 
 <div class="row profile-head">
-
-    <a href="{{ url_for('main.remove_program', id=program.id) }}">{{ _('Удалить программу') }}</a>
     <h3 class="title">{{ _('Уроки') }}</h3>
     <a href="{{ url_for('main.create_lesson', user_id=0, course_id=program.id) }}" class="plus-button">
         <div class="d-flex justify-content-between">
@@ -42,7 +40,7 @@
             <div class="card-body">
                 <div class="head">
                     <h4 class="card-title left_title">{{program.program}}</h4>
-                    <i class="fa-solid fa-trash-can"></i>
+                    <a class="delete" data-bs-toggle="modal" data-bs-target="#delete-program"><i class="fa-solid fa-trash-can"></i></a>
                 </div>
                 <p class="card-text left_text">{{program.text}}</p>
             </div>
@@ -116,5 +114,24 @@
     <div class="col-4"></div>
 </div>
 
+<div class="modal fade" id="delete-program">
+    <div class="modal-dialog modal-dialog-centered rounded">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title ms-">{{ _('Удалить программу?') }}</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row delete-context">
+                    <a href="{{ url_for('main.remove_program', id=program.id) }}">{{ _('Да') }}</a>
+                    <a data-bs-dismiss="modal">{{ _('Нет') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
