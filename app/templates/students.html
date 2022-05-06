@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Students {% endblock %}
+{% block title %} {{_('Студенты')}} {% endblock %}
 
 {% block content %}
 
@@ -14,13 +14,13 @@
         items++;
 
         let newItem = "<select  name='weekday'>" +
-            "<option value=1>Monday</option>" +
-            "<option value=2>Tuesday</option>" +
-            "<option value=3>Wednesday</option>" +
-            "<option value=4>Thursday</option>" +
-            "<option value=5>Friday</option>" +
-            "<option value=6>Saturday</option>" +
-            "<option value=7>Sunday</option></select> " +
+            "option value=1>{{ _('Понедельник') }}</option>" +
+            "<option value=2>{{ _('Вторник') }}</option>" +
+            "<option value=3>{{ _('Среда') }}</option>" +
+            "<option value=4>{{ _('Четверг') }}</option>" +
+            "<option value=5>{{ _('Пятница') }}</option>" +
+            "<option value=6>{{ _('Суббота') }}</option>" +
+            "<option value=7>{{ _('Воскресенье') }}</option>" +
             "<input type='time' name='start-time'> " +
             "<input type='time' name='end-time'>";
         let newNode = document.createElement("div");

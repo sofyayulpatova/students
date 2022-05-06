@@ -502,6 +502,12 @@ h1, h2, h3, h4, h5 {
 .form .editor {
   margin: 0 2rem;
 }
+.form .editor div {
+  margin-bottom: 1rem;
+}
+.form .editor div textarea {
+  overflow: hidden;
+}
 .form .editor .note-editor .note-editable {
   height: 65vh;
 }
@@ -692,8 +698,3 @@ h1, h2, h3, h4, h5 {
 }
 
 /*# sourceMappingURL=style.css.map */
-
-
-
-
-

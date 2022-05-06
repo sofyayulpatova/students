@@ -359,14 +359,14 @@ h1, h2, h3, h4, h5 {
         }
       }
 
-      #items{
+      #items {
         margin-bottom: 1rem;
 
-        .record{
+        .record {
           margin-bottom: 0.5rem;
         }
 
-        #add{
+        #add {
           background: unset;
         }
       }
@@ -630,6 +630,15 @@ h1, h2, h3, h4, h5 {
 
   .editor {
     margin: 0 2rem;
+
+    div {
+
+      margin-bottom: 1rem;
+
+      textarea {
+        overflow: hidden;
+      }
+    }
 
     .note-editor {
 
