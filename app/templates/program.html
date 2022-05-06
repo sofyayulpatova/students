@@ -19,7 +19,7 @@
         <div class="list-group">
             {% for i in lessons %}
             <div class="line">
-                <a href="{{ url_for('main.lesson',  id=i.id, program_id=program.id, is_unique=0)}}"
+                <a href="{{ url_for('main.lesson',  id=i.id, user_id=0)}}"
                    class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
@@ -63,7 +63,7 @@
         <div class="list-group">
             {% for i in homeworks %}
             <div class="line">
-                <a href="{{ url_for('main.homework',  id=i.lesson_id, program=program.id)}}"
+                <a href="{{ url_for('main.homework',  id=i.lesson_id, user_id = 0)}}"
                    class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>

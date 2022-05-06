@@ -27,23 +27,6 @@ class User(UserMixin, db.Model):
     unique_lesson = db.relationship('Unique_Lesson', backref='user')
     schedule = db.relationship('Schedule', backref='user')
 
-    # for notifications homework
-    homework_sent = db.relationship('Homework',
-                                    foreign_keys='Homework.sender_id',
-                                    backref='author', lazy='dynamic')
-    homework_received = db.relationship('Homework',
-                                        foreign_keys='Homework.recipient_id',
-                                        backref='recipient', lazy='dynamic')
-
-    # for notifications unique homework
-    unique_homework_sent = db.relationship('Unique_Homework',
-                                           foreign_keys='Unique_Homework.unique_sender_id',
-                                           backref='author', lazy='dynamic')
-    unique_homework_received = db.relationship('Unique_Homework',
-                                               foreign_keys='Unique_Homework.unique_recipient_id',
-                                               backref='recipient', lazy='dynamic')
-    last_message_read_time = db.Column(db.DateTime())
-
     def __repr__(self):
         return "<User {}>".format(self.id)
 
@@ -94,8 +77,8 @@ class Lesson(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
     program_id = db.Column(db.Integer(), db.ForeignKey('program.id'))
-    unique_lesson = db.relationship('Unique_Lesson', backref='lesson', uselist=False)
-    unique_homework = db.relationship('Unique_Homework', backref='lesson', uselist=False)
+    unique_lesson = db.relationship('Unique_Lesson', backref='lesson')
+    unique_homework = db.relationship('Unique_Homework', backref='lesson')
     homework = db.relationship('Homework', backref='lesson_homework', uselist=False)
     test = db.relationship('Test', backref='lesson', uselist=False)
 
@@ -110,19 +93,23 @@ class Library(db.Model):
 
 class Homework(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    # for notifications
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-
-    grade = db.Column(db.Integer)
-
-    # homework itself (title, body, route to file)
+    # homework itself (title, body)
     title = db.Column(db.String(100), nullable=False)
-
     text = db.Column(db.Text())
-    to_file = db.Column(db.String(255))
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
+
+    task = db.relationship('Task', backref='homework')
+
+
+class Task(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    grade = db.Column(db.Integer)
+    to_file = db.Column(db.String(255))
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
+
+    homework_id = db.Column(db.Integer(), db.ForeignKey("homework.id"))
+
+    unique_homework_id = db.Column(db.Integer(), db.ForeignKey("unique__homework.id"))
 
 
 class Unique_Lesson(db.Model):
@@ -134,6 +121,8 @@ class Unique_Lesson(db.Model):
     program = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
 
 
+
+
 class Unique_Homework(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
@@ -142,13 +131,7 @@ class Unique_Homework(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
 
-    # for notifications
-    unique_sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    unique_recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-
-    # route to file
-    to_file = db.Column(db.String(255))
+    task = db.relationship('Task', backref='unique_homework')
 
 
 class Test(db.Model):

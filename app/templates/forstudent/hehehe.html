@@ -12,14 +12,7 @@
     <div class="col main">
         <div class="list-group">
             {% for i in lessons %}
-            <div class="line">
-                <a href="{{ url_for('student.lesson',  id=i.id)}}" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="m-1">{{i.title}}</h5>
-                    </div>
-                    <p class="m-1">Some placeholder content in a paragraph.</p>
-                </a>
-            </div>
+            {{ i }}
             {% endfor %}
         </div>
         <div class="all"><a href="{{ url_for('student.lessons') }}">See all</a></div>

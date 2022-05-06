@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_required
-from app.models import Lesson, Test
+from app.models import Lesson, Test, Task
 from app.student import bp
 from werkzeug.utils import secure_filename
 import os
@@ -55,14 +55,12 @@ def homework(id):
         avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
 
         if lesson.unique_homework:
-            lesson.unique_homework.to_file = filename
-            print(lesson.unique_homework.to_file)
-            db.session.add(lesson.unique_homework)
+            task = Task(user_id=current_user.id, unique_homework_id=lesson.unique_homework.id, to_file=filename)
+            db.session.add(task)
             db.session.commit()
         else:
-            lesson.homework.to_file = filename
-            db.session.add(lesson.homework)
-            print(lesson.homework.to_file)
+            task = Task(user_id=current_user.id, homework_id=lesson.homework.id, to_file=filename)
+            db.session.add(task)
             db.session.commit()
         return redirect(url_for('student.homework', id=id))
 
