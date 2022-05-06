@@ -28,8 +28,8 @@
             <div class="solution">
                 <h5>{{ _('Последняя попытка') }}</h5>
 
-                {% if homework.task %}
-                    <p><a href="{{ url_for('main.get_file', filename=homework.task.to_file) }}">{{ _('Скачать файл') }}</a></p>
+                {% if task %}
+                    <p><a href="{{ url_for('main.get_file', filename=task.to_file) }}">{{ _('Скачать файл') }}</a></p>
                     <a data-bs-toggle="modal" data-bs-target="#new-student" class="graduate">{{ _('Оценить') }}</a>
                 {% else %}
                     <p class="">{{ _('Ученик еще не загрузил домашнее задание') }}</p>

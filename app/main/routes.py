@@ -122,7 +122,6 @@ def person(person):
 
         print(lessons)
 
-
         return render_template('student.html', student=person, lessons=lessons, homeworks=homeworks,
                                tests=tests)
     else:
@@ -504,10 +503,11 @@ def homework(id, user_id):
             unique_homework = Unique_Homework.query.filter(
                 Unique_Homework.user_id == user_id and Unique_Homework.lesson_id == id).first()
             if unique_homework:
-                return render_template("homework.html", lesson=lesson, homework=unique_homework)
+                return render_template("homework.html", lesson=lesson, homework=unique_homework,
+                                       task=unique_homework.task[0])
             else:
-
-                return render_template("homework.html", lesson=lesson, homework=lesson.homework)
+                task = Task.query.filter(Task.user_id == user_id, Task.homework_id == lesson.homework.id).first()
+                return render_template("homework.html", lesson=lesson, homework=lesson.homework, task=task)
 
         # if we are browsing homework from some program page
         else:
