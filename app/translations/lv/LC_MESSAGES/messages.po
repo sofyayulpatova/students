@@ -1,0 +1,247 @@
+# Latvian translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-05-05 14:41+0300\n"
+"PO-Revision-Date: 2022-05-05 01:02+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: lv\n"
+"Language-Team: lv <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
+" 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+
+#: app/templates/base.html:22 app/templates/login.html:7
+msgid "Войти"
+msgstr ""
+
+#: app/templates/base.html:28 app/templates/base.html:49
+msgid "Главная"
+msgstr ""
+
+#: app/templates/base.html:31 app/templates/program.html:10
+#: app/templates/student.html:8
+msgid "Уроки"
+msgstr ""
+
+#: app/templates/base.html:34
+msgid "Домашняя работа"
+msgstr ""
+
+#: app/templates/base.html:37 app/templates/lesson.html:21
+#: app/templates/program.html:88 app/templates/student.html:106
+msgid "Тесты"
+msgstr ""
+
+#: app/templates/base.html:43 app/templates/base.html:73
+msgid "Выйти"
+msgstr ""
+
+#: app/templates/base.html:53
+msgid "Ученики"
+msgstr ""
+
+#: app/templates/base.html:57
+msgid "Мои программы"
+msgstr ""
+
+#: app/templates/base.html:63
+msgid "Панель управления"
+msgstr ""
+
+#: app/templates/base.html:67
+msgid "Библиотека"
+msgstr ""
+
+#: app/templates/control_profile.html:20
+msgid "Cтуденты"
+msgstr ""
+
+#: app/templates/control_profile.html:31
+msgid "Все студенты"
+msgstr ""
+
+#: app/templates/control_profile.html:34
+msgid "Сейчас у вас есть"
+msgstr ""
+
+#: app/templates/control_profile.html:41
+msgid "студентов"
+msgstr ""
+
+#: app/templates/control_profile.html:49
+msgid "программ"
+msgstr ""
+
+#: app/templates/create_homework.html:3
+msgid "Новое ДЗ"
+msgstr ""
+
+#: app/templates/create_homework.html:23 app/templates/edit_homework.html:29
+msgid "Содержание задания"
+msgstr ""
+
+#: app/templates/create_lesson.html:3
+msgid "Новый урок"
+msgstr ""
+
+#: app/templates/create_lesson.html:18 app/templates/edit_lesson.html:18
+msgid "Название урока"
+msgstr ""
+
+#: app/templates/create_lesson.html:23 app/templates/students.html:138
+msgid "Курс"
+msgstr ""
+
+#: app/templates/create_lesson.html:43 app/templates/edit_lesson.html:24
+msgid "Содержание урока"
+msgstr ""
+
+#: app/templates/edit_homework.html:3
+msgid "Редактировать ДЗ"
+msgstr ""
+
+#: app/templates/edit_homework.html:20
+msgid "Название домашней работы"
+msgstr ""
+
+#: app/templates/edit_lesson.html:3 app/templates/edit_test.html:3
+#: app/templates/try.html:3
+msgid "Редактировать урок"
+msgstr ""
+
+#: app/templates/edit_profile.html:3
+msgid "Редактировать профиль"
+msgstr ""
+
+#: app/templates/edit_profile.html:18
+msgid "Ваше имя и фамилия"
+msgstr ""
+
+#: app/templates/edit_profile.html:23
+msgid "Специализация"
+msgstr ""
+
+#: app/templates/edit_profile.html:28
+msgid "О себе"
+msgstr ""
+
+#: app/templates/edit_profile.html:36 app/templates/index.html:28
+msgid "Образование"
+msgstr ""
+
+#: app/templates/edit_profile.html:43 app/templates/index.html:33
+msgid "Опыт работы"
+msgstr ""
+
+#: app/templates/edit_profile.html:50 app/templates/index.html:37
+msgid "Стоимость занятий"
+msgstr ""
+
+#: app/templates/edit_profile.html:58
+msgid "Контакты"
+msgstr ""
+
+#: app/templates/index.html:41
+msgid "Хочу связаться"
+msgstr ""
+
+#: app/templates/lesson.html:16 app/templates/program.html:54
+#: app/templates/student.html:78
+msgid "Домашние задания"
+msgstr ""
+
+#: app/templates/program.html:9
+msgid "Удалить программу"
+msgstr ""
+
+#: app/templates/program.html:38 app/templates/program.html:82
+#: app/templates/program.html:113 app/templates/student.html:37
+#: app/templates/student.html:100 app/templates/student.html:128
+msgid "Посмотреть все"
+msgstr ""
+
+#: app/templates/programs.html:3
+msgid "Программы"
+msgstr ""
+
+#: app/templates/programs.html:26
+msgid "новая программа"
+msgstr ""
+
+#: app/templates/programs.html:36
+msgid "Добавить программу"
+msgstr ""
+
+#: app/templates/programs.html:44
+msgid "Название программы"
+msgstr ""
+
+#: app/templates/programs.html:50
+msgid "Описание программы"
+msgstr ""
+
+#: app/templates/students.html:95
+msgid "Добавить ученика"
+msgstr ""
+
+#: app/templates/students.html:105
+msgid "Имя ученика"
+msgstr ""
+
+#: app/templates/students.html:110
+msgid "Логин ученика"
+msgstr ""
+
+#: app/templates/students.html:115
+msgid "Пароль"
+msgstr ""
+
+#: app/templates/students.html:120
+msgid "Расписание"
+msgstr ""
+
+#: app/templates/students.html:123
+msgid "Понедельник"
+msgstr ""
+
+#: app/templates/students.html:124
+msgid "Вторник"
+msgstr ""
+
+#: app/templates/students.html:125
+msgid "Среда"
+msgstr ""
+
+#: app/templates/students.html:126
+msgid "Четверг"
+msgstr ""
+
+#: app/templates/students.html:127
+msgid "Пятница"
+msgstr ""
+
+#: app/templates/students.html:128
+msgid "Суббота"
+msgstr ""
+
+#: app/templates/students.html:129
+msgid "Воскресенье"
+msgstr ""
+
+#: app/templates/students.html:146
+msgid "Создать"
+msgstr ""
+
+#: app/templates/test.html:9
+msgid "Тест"
+msgstr ""
+

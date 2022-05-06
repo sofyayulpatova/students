@@ -92,7 +92,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title ms-">Добавить ученика</h4>
+                <h4 class="modal-title ms-">{{ _('Добавить ученика') }}</h4>
             </div>
 
             <!-- Modal body -->
@@ -102,31 +102,31 @@
                     <form action="" method="post">
 
                         <p>
-                            <label for="StudentName" class="form-label">Имя ученика</label>
+                            <label for="StudentName" class="form-label">{{ _('Имя ученика') }}</label>
                             <input type="text" class="form-control" id="StudentName" name="StudentName">
                         </p>
 
                         <p>
-                            <label for="StudentLogin" class="form-label">Логин ученика</label>
+                            <label for="StudentLogin" class="form-label">{{ _('Логин ученика') }}</label>
                             <input type="text" class="form-control" id="StudentLogin" name="StudentLogin">
                         </p>
 
                         <p>
-                            <label for="StudentPassword" class="form-label">Пароль</label>
+                            <label for="StudentPassword" class="form-label">{{ _('Пароль') }}</label>
                             <input type="text" class="form-control" id="StudentPassword" name="StudentPassword">
                         </p>
 
                         <div id="items">
-                            <label class="form-label">Schedule</label><br>
+                            <label class="form-label">{{ _('Расписание') }}</label><br>
                             <div class="record">
                                 <select name="weekday">
-                                    <option value=1>Monday</option>
-                                    <option value=2>Tuesday</option>
-                                    <option value=3>Wednesday</option>
-                                    <option value=4>Thursday</option>
-                                    <option value=5>Friday</option>
-                                    <option value=6>Saturday</option>
-                                    <option value=7>Sunday</option>
+                                    <option value=1>{{ _('Понедельник') }}</option>
+                                    <option value=2>{{ _('Вторник') }}</option>
+                                    <option value=3>{{ _('Среда') }}</option>
+                                    <option value=4>{{ _('Четверг') }}</option>
+                                    <option value=5>{{ _('Пятница') }}</option>
+                                    <option value=6>{{ _('Суббота') }}</option>
+                                    <option value=7>{{ _('Воскресенье') }}</option>
                                 </select>
                                 <input type='time' name='start-time'>
                                 <input type='time' name='end-time'>
@@ -135,7 +135,7 @@
                         </div>
 
                         <p>
-                            <label for="Course" class="form-label">Курс</label>
+                            <label for="Course" class="form-label">{{ _('Курс') }}</label>
                             <select class="form-select" aria-label="Default select example" id="Course" name="Course">
                                 {% for i in programs %}
                                 <option value="{{ i.id }}">{{ i.program }}</option>
@@ -143,14 +143,11 @@
                             </select>
                         </p>
 
-                        <input type="submit" class="btn btn-success" value="Создать">
+                        <input type="submit" class="btn btn-success" value="{{ _('Создать') }}">
 
                     </form>
                 </div>
-
             </div>
-
-
         </div>
     </div>
 </div>
