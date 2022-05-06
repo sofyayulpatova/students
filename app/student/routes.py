@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_required
-from app.models import Lesson, Test, Task
+from app.models import Lesson, Test, Task, Unique_Lesson, Unique_Homework
 from app.student import bp
 from werkzeug.utils import secure_filename
 import os
@@ -68,11 +68,14 @@ def homework(id):
             db.session.add(task)
             db.session.commit()
         return redirect(url_for('student.homework', id=id))
-
-    if lesson.unique_homework:
-        return render_template('forstudent/homework.html', homework=lesson.unique_homework)
+    unique_homework = Unique_Homework.query.filter(Unique_Homework.lesson_id == id,
+                                                   Unique_Homework.user_id == current_user.id).first()
+    if unique_homework:
+        task = unique_homework.task
+        return render_template('forstudent/homework.html', homework=unique_homework, task=task)
     else:
-        return render_template('forstudent/homework.html', homework=lesson.homework)
+        task = Task.query.filter(Task.user_id == current_user.id, Task.homework_id == lesson.homework.id).first()
+        return render_template('forstudent/homework.html', homework=lesson.homework, task=task)
 
 
 @bp.route('/tests')

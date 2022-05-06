@@ -105,6 +105,7 @@ class Task(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     grade = db.Column(db.Integer)
     to_file = db.Column(db.String(255))
+    comments = db.Column(db.Text)
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
     homework_id = db.Column(db.Integer(), db.ForeignKey("homework.id"))
@@ -119,8 +120,6 @@ class Unique_Lesson(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
     program = db.Column(db.Integer(), db.ForeignKey("program.id"), default=1)
-
-
 
 
 class Unique_Homework(db.Model):

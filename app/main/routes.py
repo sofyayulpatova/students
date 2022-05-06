@@ -485,6 +485,7 @@ def homework(id, user_id):
                     task = Task.query.filter(
                         Task.user_id == user_id and Task.unique_homework_id == lesson.unique_homework.id).first()
                     task.grade = grade
+                    task.comment = comment
                     db.session.add(task)
                     db.session.commit()
                 # if it is original homework for student
@@ -492,6 +493,7 @@ def homework(id, user_id):
                     task = Task.query.filter(
                         Task.user_id == user_id and Task.homework_id == lesson.homework.id).first()
                     task.grade = grade
+                    task.comment = comment
                     db.session.add(task)
                     db.session.commit()
 
