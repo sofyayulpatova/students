@@ -12,58 +12,69 @@
 
 {% block content %}
 
-<form method="post">
+<form method="post" class="form form-profile">
 
-    <div class="mb-3 m-3">
-        <label for="Name_Surname" class="form-label">{{ _('Ваше имя и фамилия') }}</label>
-        <input type="text" class="form-control" id="Name_Surname" name="Name_Surname" value="{{profile.name}}">
+    <div class="head">
+        <div class="sticky">
+            <div>
+                <label for="Name_Surname" class="form-label">{{ _('Ваше имя и фамилия') }}</label>
+                <input type="text" class="form-control" id="Name_Surname" name="Name_Surname" value="{{profile.name}}">
+            </div>
+
+            <div>
+                <label for="tutor" class="form-label">{{ _('Специализация') }}</label>
+                <input type="text" class="form-control" id="tutor" name="tutor"
+                       value="Репетитор по {{profile.specialization}}">
+            </div>
+
+            <input type="submit">
+        </div>
     </div>
 
-    <div class="mb-3 m-3">
-        <label for="tutor" class="form-label">{{ _('Специализация') }}</label>
-        <input type="text" class="form-control" id="tutor" name="tutor" value="Репетитор по {{profile.specialization}}">
-    </div>
-
-    <div class="editor mb-3 m-3">
-        <label for="about">{{ _('О себе') }}</label>
-        <textarea id="about" name="about" class="form-control" rows="4">
+    <div class="editor">
+        <div>
+            <label for="about">{{ _('О себе') }}</label>
+            <textarea id="about" name="about" class="form-control" rows="4">
             {{profile.about}}
         </textarea>
-    </div>
-
-
-    <div class="editor mb-3 m-3">
-        <label for="education">{{ _('Образование') }}</label>
-        <textarea id="education" name="education" class="form-control" rows="3">
+        </div>
+        <div>
+            <label for="education">{{ _('Образование') }}</label>
+            <textarea id="education" name="education" class="form-control" rows="3">
             {{profile.education}}
         </textarea>
-    </div>
-
-    <div class="editor mb-3 m-3">
-        <label for="work">{{ _('Опыт работы') }}</label>
-        <textarea id="work" name="work" class="form-control" rows="6">
+        </div>
+        <div>
+            <label for="work">{{ _('Опыт работы') }}</label>
+            <textarea id="work" name="work" class="form-control" rows="6">
             {{profile.work}}
         </textarea>
-    </div>
-
-    <div class="editor mb-3 m-3">
-        <label for="price">{{ _('Стоимость занятий') }}</label>
-        <textarea id="price" name="price" class="form-control" rows="3">
+        </div>
+        <div>
+            <label for="price">{{ _('Стоимость занятий') }}</label>
+            <textarea id="price" name="price" class="form-control" rows="3">
             {{profile.price}}
         </textarea>
-    </div>
-
-
-    <div class="editor mb-3 m-3">
-        <label for="contacts">{{ _('Контакты') }}</label>
-        <textarea id="contacts" name="contacts" class="form-control">
+        </div>
+        <div>
+            <label for="contacts">{{ _('Контакты') }}</label>
+            <textarea id="contacts" name="contacts" class="form-control">
             {{profile.contacts}}
         </textarea>
+        </div>
     </div>
 
-    <input type="submit">
 
 </form>
 
+<script>
+    $(document).ready(function () {
+        $("textarea").keyup(function () {
+            if (this.scrollTop > 0) {
+                this.style.height = this.scrollHeight + "px";
+            }
+        });
+    });
+</script>
 
 {% endblock %}

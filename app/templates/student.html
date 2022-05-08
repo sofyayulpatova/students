@@ -8,7 +8,6 @@
 
     <h2>{{ program }}</h2>
     <h3 class="title">{{ _('Уроки') }}</h3>
-        <a href="{{ url_for('main.delete_student', student_id=student.id) }}"> Удалить ученика ;) </a>
      <!--
     <a href="{{ url_for('main.create_lesson', user_id=student.id, course_id=student.program[0].id) }}" class="plus-button">
         <div class="d-flex justify-content-between">
@@ -44,6 +43,7 @@
                 <div class="head">
                     <h4 class="card-title left_title">{{student.name}}</h4>
                     <p class="card-text left_text">{{ student.program }}</p>
+                    <a class="delete" data-bs-toggle="modal" data-bs-target="#delete-student"><i class="fa-solid fa-trash-can"></i></a>
                 </div>
                 <div>
                     <p class="phone">Телефон: {{student.phone}}</p>
@@ -85,9 +85,6 @@
 
 <div class="row profile-head">
     <h3 class="title">{{ _('Домашние задания') }}</h3>
-        <div class="d-flex justify-content-between">
-        </div>
-    </a>
 </div>
 <div class="row student-profile">
     <div class="col main">
@@ -113,9 +110,6 @@
 
 <div class="row profile-head">
     <h3 class="title">{{ _('Тесты') }}</h3>
-        <div class="d-flex justify-content-between">
-        </div>
-    </a>
 </div>
 <div class="row student-profile">
     <div class="col main">
@@ -137,6 +131,26 @@
         <div class="all"><a href="#">{{ _('Посмотреть все') }}</a></div>
     </div>
     <div class="col-4"></div>
+</div>
+
+<div class="modal fade" id="delete-student">
+    <div class="modal-dialog modal-dialog-centered rounded">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title ms-">{{ _('Удалить ученика?') }}</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row delete-context">
+                    <a href="{{ url_for('main.delete_student', student_id=student.id) }}">{{ _('Да') }}</a>
+                    <a data-bs-dismiss="modal">{{ _('Нет') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

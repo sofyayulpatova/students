@@ -167,6 +167,15 @@ h1, h2, h3, h4, h5 {
 .student-profile .profile .card-body .head .left_title, .program-profile .profile .card-body .head .left_title {
   margin-top: 1rem;
   grid-area: pos1;
+  margin-bottom: 0;
+}
+.student-profile .profile .card-body .head .delete, .program-profile .profile .card-body .head .delete {
+  color: #6fc793;
+  text-align: center;
+}
+.student-profile .profile .card-body .head .delete:hover, .program-profile .profile .card-body .head .delete:hover {
+  color: #43875f;
+  cursor: pointer;
 }
 .student-profile .profile .card-body .head .arrow, .program-profile .profile .card-body .head .arrow {
   grid-area: pos2;
@@ -252,31 +261,50 @@ h1, h2, h3, h4, h5 {
   cursor: pointer;
 }
 
-#new-program .modal-content, #new-student .modal-content {
+/* Modal windows */
+#delete-program .modal-dialog, #delete-student .modal-dialog {
+  max-width: 300px;
+}
+
+#new-program .modal-content, #new-student .modal-content, #delete-program .modal-content, #delete-student .modal-content {
   border-radius: 0.5rem;
   border: none;
 }
-#new-program .modal-content .modal-header, #new-student .modal-content .modal-header {
+#new-program .modal-content .modal-header, #new-student .modal-content .modal-header, #delete-program .modal-content .modal-header, #delete-student .modal-content .modal-header {
   display: block;
   text-align: center;
   box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
   border: none;
 }
-#new-program .modal-content .modal-body, #new-student .modal-content .modal-body {
+#new-program .modal-content .modal-body, #new-student .modal-content .modal-body, #delete-program .modal-content .modal-body, #delete-student .modal-content .modal-body {
   margin: 0.5rem 1rem;
 }
-#new-program .modal-content .modal-body label, #new-student .modal-content .modal-body label {
+#new-program .modal-content .modal-body label, #new-student .modal-content .modal-body label, #delete-program .modal-content .modal-body label, #delete-student .modal-content .modal-body label {
   font-size: 1.1rem;
   color: #0a58ca;
 }
-#new-program .modal-content .modal-body input, #new-program .modal-content .modal-body textarea, #new-program .modal-content .modal-body select, #new-student .modal-content .modal-body input, #new-student .modal-content .modal-body textarea, #new-student .modal-content .modal-body select {
+#new-program .modal-content .modal-body .delete-context, #new-student .modal-content .modal-body .delete-context, #delete-program .modal-content .modal-body .delete-context, #delete-student .modal-content .modal-body .delete-context {
+  justify-content: center;
+}
+#new-program .modal-content .modal-body .delete-context a, #new-student .modal-content .modal-body .delete-context a, #delete-program .modal-content .modal-body .delete-context a, #delete-student .modal-content .modal-body .delete-context a {
+  width: max-content;
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
+  padding: 0.25rem 0.75rem;
+  margin-left: 1rem;
+  color: #787fce;
+}
+#new-program .modal-content .modal-body .delete-context a:hover, #new-student .modal-content .modal-body .delete-context a:hover, #delete-program .modal-content .modal-body .delete-context a:hover, #delete-student .modal-content .modal-body .delete-context a:hover {
+  cursor: pointer;
+}
+#new-program .modal-content .modal-body input, #new-program .modal-content .modal-body textarea, #new-program .modal-content .modal-body select, #new-student .modal-content .modal-body input, #new-student .modal-content .modal-body textarea, #new-student .modal-content .modal-body select, #delete-program .modal-content .modal-body input, #delete-program .modal-content .modal-body textarea, #delete-program .modal-content .modal-body select, #delete-student .modal-content .modal-body input, #delete-student .modal-content .modal-body textarea, #delete-student .modal-content .modal-body select {
   border: 1px solid rgba(120, 127, 206, 0.2);
   border-radius: 1rem;
   box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
   padding: 0.7rem 0.5rem;
   background-clip: unset;
 }
-#new-program .modal-content .modal-body input[type=submit], #new-program .modal-content .modal-body textarea[type=submit], #new-program .modal-content .modal-body select[type=submit], #new-student .modal-content .modal-body input[type=submit], #new-student .modal-content .modal-body textarea[type=submit], #new-student .modal-content .modal-body select[type=submit] {
+#new-program .modal-content .modal-body input[type=submit], #new-program .modal-content .modal-body textarea[type=submit], #new-program .modal-content .modal-body select[type=submit], #new-student .modal-content .modal-body input[type=submit], #new-student .modal-content .modal-body textarea[type=submit], #new-student .modal-content .modal-body select[type=submit], #delete-program .modal-content .modal-body input[type=submit], #delete-program .modal-content .modal-body textarea[type=submit], #delete-program .modal-content .modal-body select[type=submit], #delete-student .modal-content .modal-body input[type=submit], #delete-student .modal-content .modal-body textarea[type=submit], #delete-student .modal-content .modal-body select[type=submit] {
   width: -webkit-fill-available;
   width: -moz-available;
   width: fill-available;
@@ -284,13 +312,13 @@ h1, h2, h3, h4, h5 {
   background-color: #fefefe;
   color: #0a58ca;
 }
-#new-program .modal-content .modal-body #items, #new-student .modal-content .modal-body #items {
+#new-program .modal-content .modal-body #items, #new-student .modal-content .modal-body #items, #delete-program .modal-content .modal-body #items, #delete-student .modal-content .modal-body #items {
   margin-bottom: 1rem;
 }
-#new-program .modal-content .modal-body #items .record, #new-student .modal-content .modal-body #items .record {
+#new-program .modal-content .modal-body #items .record, #new-student .modal-content .modal-body #items .record, #delete-program .modal-content .modal-body #items .record, #delete-student .modal-content .modal-body #items .record {
   margin-bottom: 0.5rem;
 }
-#new-program .modal-content .modal-body #items #add, #new-student .modal-content .modal-body #items #add {
+#new-program .modal-content .modal-body #items #add, #new-student .modal-content .modal-body #items #add, #delete-program .modal-content .modal-body #items #add, #delete-student .modal-content .modal-body #items #add {
   background: unset;
 }
 
@@ -502,6 +530,12 @@ h1, h2, h3, h4, h5 {
 .form .editor {
   margin: 0 2rem;
 }
+.form .editor div {
+  margin-bottom: 1rem;
+}
+.form .editor div textarea {
+  overflow: hidden;
+}
 .form .editor .note-editor .note-editable {
   height: 65vh;
 }
@@ -692,8 +726,3 @@ h1, h2, h3, h4, h5 {
 }
 
 /*# sourceMappingURL=style.css.map */
-
-
-
-
-

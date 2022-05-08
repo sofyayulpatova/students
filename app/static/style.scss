@@ -217,6 +217,17 @@ h1, h2, h3, h4, h5 {
         .left_title {
           margin-top: 1rem;
           grid-area: pos1;
+          margin-bottom: 0;
+        }
+
+        .delete {
+          color: $green;
+          text-align: center;
+
+          &:hover {
+            color: $green_hover;
+            cursor: pointer;
+          }
         }
 
         .arrow {
@@ -320,7 +331,13 @@ h1, h2, h3, h4, h5 {
   }
 }
 
-#new-program, #new-student {
+/* Modal windows */
+
+#delete-program .modal-dialog, #delete-student .modal-dialog{
+  max-width: 300px;
+}
+
+#new-program, #new-student, #delete-program, #delete-student {
 
   .modal-content {
     border-radius: 0.5rem;
@@ -342,6 +359,22 @@ h1, h2, h3, h4, h5 {
         color: $blue;
       }
 
+      .delete-context {
+        justify-content: center;
+        a {
+          width: max-content;
+          border: 1px solid $shadow;
+          border-radius: 1rem;
+          padding: 0.25rem 0.75rem;
+          margin-left: 1rem;
+          color: $blue_light;
+
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+
       input, textarea, select {
         border: 1px solid rgba(120, 127, 206, 0.2);
         border-radius: 1rem;
@@ -359,14 +392,14 @@ h1, h2, h3, h4, h5 {
         }
       }
 
-      #items{
+      #items {
         margin-bottom: 1rem;
 
-        .record{
+        .record {
           margin-bottom: 0.5rem;
         }
 
-        #add{
+        #add {
           background: unset;
         }
       }
@@ -630,6 +663,15 @@ h1, h2, h3, h4, h5 {
 
   .editor {
     margin: 0 2rem;
+
+    div {
+
+      margin-bottom: 1rem;
+
+      textarea {
+        overflow: hidden;
+      }
+    }
 
     .note-editor {
 
