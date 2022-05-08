@@ -5,6 +5,8 @@
 {% block content %}
 
 <div class="row profile-head">
+
+    <h2>{{ program }}</h2>
     <h3 class="title">{{ _('Уроки') }}</h3>
         <a href="{{ url_for('main.delete_student', student_id=student.id) }}"> Удалить ученика ;) </a>
      <!--
@@ -44,26 +46,33 @@
                     <p class="card-text left_text">{{ student.program }}</p>
                 </div>
                 <div>
-                    <p class="phone">Телефон: +7(800) 200-23-16</p>
+                    <p class="phone">Телефон: {{student.phone}}</p>
                     <table class="table-sm">
+
                         <thead>
                         <tr>
-                            <th>Пн</th>
-                            <th>Вт</th>
-                            <th>Ср</th>
-                            <th>Чт</th>
-                            <th>Пт</th>
-                            <th>Cб</th>
+                            {% for i in student.schedule %}
+                            <th> {{ i.weekday.name }} </th>
+                            {% endfor %}
                         </tr>
+
                         </thead>
                         <tbody>
                         <tr>
-                            <td>15:00</td>
-                            <td>18:30</td>
-                            <td>08:50</td>
-                            <td>15:00</td>
-                            <td>18:30</td>
-                            <td>08:50</td>
+                            {% for i in student.schedule %}
+                            <th>{{ i.start.strftime('%H:%M') }}</th>
+
+                            {% endfor %}
+
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            {% for i in student.schedule %}
+                            <th>{{i.end.strftime('%H:%M')}}</th>
+
+                            {% endfor %}
+
                         </tr>
                         </tbody>
                     </table>

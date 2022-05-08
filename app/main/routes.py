@@ -120,10 +120,10 @@ def person(person):
                         lessons[i] = j
                         break
 
-        print(lessons)
+        print(person.program)
 
         return render_template('student.html', student=person, lessons=lessons, homeworks=homeworks,
-                               tests=tests)
+                               tests=tests, program=person.program[0].program)
     else:
         return redirect(url_for('main.index'))
 
@@ -683,7 +683,8 @@ def open_lesson(lesson_id, user_id):
         lesson.user.append(User.query.get(user_id))
         db.session.add(lesson)
         db.session.commit()
-        return "0"
+        flash("Successfully opened")
+        return redirect(url_for('main.person', person=user_id))
     else:
         return redirect(url_for('main.index'))
 

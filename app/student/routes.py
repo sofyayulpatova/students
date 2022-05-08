@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from app.models import Lesson, Test, Task, Unique_Lesson, Unique_Homework
 from app.student import bp
@@ -30,8 +30,10 @@ def lessons():
 @login_required
 def lesson(id):
     lesson = Lesson.query.get(id)
-    if lesson.unique_lesson:
-        return render_template('forstudent/lesson.html', lesson=lesson.unique_lesson)
+    unique_lesson = Unique_Lesson.query.filter(Unique_Lesson.user_id == current_user.id, Unique_Lesson.lesson_id == id).first()
+
+    if unique_lesson:
+        return render_template('forstudent/lesson.html', lesson=unique_lesson)
     else:
         return render_template('forstudent/lesson.html', lesson=lesson)
 
@@ -67,6 +69,7 @@ def homework(id):
             task = Task(user_id=current_user.id, homework_id=lesson.homework.id, to_file=filename)
             db.session.add(task)
             db.session.commit()
+        flash('successfully imported')
         return redirect(url_for('student.homework', id=id))
     unique_homework = Unique_Homework.query.filter(Unique_Homework.lesson_id == id,
                                                    Unique_Homework.user_id == current_user.id).first()
@@ -107,14 +110,20 @@ def test(id):
 def main_page():
     lessons, homeworks, tests = [], [], []
     for i in current_user.lesson:
-        if i.unique_lesson:
-            lessons.append(i.unique_lesson)
+        unique_lesson = Unique_Lesson.query.filter(Unique_Lesson.lesson_id == i.id, Unique_Lesson.user_id == current_user.id).first()
+
+        if unique_lesson:
+            lessons.append(unique_lesson)
         else:
             lessons.append(i)
-        if i.unique_homework:
-            homeworks.append(i.unique_homework)
+
+        unique_homework = Unique_Homework.query.filter(Unique_Homework.lesson_id == i.id,
+                                                   Unique_Homework.user_id == current_user.id).first()
+        if unique_homework:
+            homeworks.append(unique_homework)
         else:
             homeworks.append(i.homework)
+
         tests.append(i.test)
     return render_template("forstudent/hehehe.html", lessons=lessons[-3:], homeworks=homeworks[-3:], tests=tests[-3:])
 
