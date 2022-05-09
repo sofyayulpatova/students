@@ -501,10 +501,13 @@ h1, h2, h3, h4, h5 {
   position: sticky;
   top: 10px;
 }
+.form .head .sticky > div {
+  margin-bottom: 1.5rem;
+}
 .form .head .form-label:not(:first-of-type), .form .head .form-check {
   margin-top: 1rem;
 }
-.form .head input.form-control {
+.form .head .form-control {
   box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
   border: 1px solid rgba(120, 127, 206, 0.2);
   border-radius: 1rem;
@@ -531,10 +534,13 @@ h1, h2, h3, h4, h5 {
   margin: 0 2rem;
 }
 .form .editor div {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .form .editor div textarea {
   overflow: hidden;
+  box-shadow: 0px 1px 4px 0px rgba(120, 127, 206, 0.2);
+  border: 1px solid rgba(120, 127, 206, 0.2);
+  border-radius: 1rem;
 }
 .form .editor .note-editor .note-editable {
   height: 65vh;

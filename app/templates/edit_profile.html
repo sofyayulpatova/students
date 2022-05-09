@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ _('Редактировать профиль') }}} {% endblock %}
+{% block title %} {{ _('Редактировать профиль') }} {% endblock %}
 
 {% block addons %}
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,18 @@
                 <input type="text" class="form-control" id="tutor" name="tutor"
                        value="Репетитор по {{profile.specialization}}">
             </div>
-
+            <div>
+                <label for="price">{{ _('Стоимость занятий') }}</label>
+                <textarea id="price" name="price" class="form-control" rows="3">
+            {{profile.price}}
+        </textarea>
+            </div>
+            <div>
+                <label for="contacts">{{ _('Контакты') }}</label>
+                <textarea id="contacts" name="contacts" class="form-control">
+            {{profile.contacts}}
+        </textarea>
+            </div>
             <input type="submit">
         </div>
     </div>
@@ -40,7 +51,7 @@
         </div>
         <div>
             <label for="education">{{ _('Образование') }}</label>
-            <textarea id="education" name="education" class="form-control" rows="3">
+            <textarea id="education" name="education" class="form-control" rows="4">
             {{profile.education}}
         </textarea>
         </div>
@@ -48,18 +59,6 @@
             <label for="work">{{ _('Опыт работы') }}</label>
             <textarea id="work" name="work" class="form-control" rows="6">
             {{profile.work}}
-        </textarea>
-        </div>
-        <div>
-            <label for="price">{{ _('Стоимость занятий') }}</label>
-            <textarea id="price" name="price" class="form-control" rows="3">
-            {{profile.price}}
-        </textarea>
-        </div>
-        <div>
-            <label for="contacts">{{ _('Контакты') }}</label>
-            <textarea id="contacts" name="contacts" class="form-control">
-            {{profile.contacts}}
         </textarea>
         </div>
     </div>
