@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 import os
 from app import db, babel
 
-ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt'}
+
 
 
 @babel.localeselector

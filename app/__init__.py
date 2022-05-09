@@ -8,6 +8,11 @@ from flask_mail import Mail
 
 from flask_babel import Babel
 
+
+
+
+
+
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()

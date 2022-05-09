@@ -1,4 +1,5 @@
 from app import create_app
+import os
 import logging
 from logging.handlers import SMTPHandler
 
@@ -12,4 +13,5 @@ def make_shell_context():
 
 
 if __name__ == "__main__":
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.run("127.0.0.1", debug=True)

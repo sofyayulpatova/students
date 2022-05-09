@@ -6,7 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     # ...
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-                         'sqlite:///' + os.path.join(basedir, 'app.db')
+                              'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'a really really really really long secret key'
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
@@ -15,6 +15,14 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     UPLOAD_FOLDER = '/uploads'
+    ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt'}
+    CLIENT_SECRETS_FILE = "client_secret.json"
+
+    # This OAuth 2.0 access scope allows for full read/write access to the
+    # authenticated user's account and requires requests to use an SSL connection.
+    SCOPES = ['https://www.googleapis.com/auth/calendar']
+    API_SERVICE_NAME = 'calendar'
+    API_VERSION = 'v3'
 
     LANGUAGES = ['ru', 'en', 'lv']
 
