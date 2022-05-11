@@ -1,17 +1,17 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from flask_login import current_user, login_required
 from app.models import Lesson, Test, Task, Unique_Lesson, Unique_Homework
 from app.student import bp
 from werkzeug.utils import secure_filename
 import os
-from app import db, babel
-
-
+from app import db, babel, Config
 
 
 @babel.localeselector
 def get_locale():
-    return 'en'
+    if 'language' not in session:
+        return request.accept_languages.best_match(Config.LANGUAGES)
+    return session['language']
 
 
 @bp.route('/lessons')

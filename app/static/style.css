@@ -15,7 +15,7 @@
 .menu .nav-item .nav-link:hover {
   background: none;
 }
-.menu .nav-item:nth-last-child(2) {
+.menu .nav-item:nth-last-child(3) {
   margin-left: auto;
 }
 
