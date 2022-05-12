@@ -12,6 +12,31 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 
+cal = []  # for calendar, what !!!!
+
+from oauth2client import client
+from googleapiclient import sample_tools
+
+
+def create_calendar(calendar):
+    if not current_user.calendar_id:
+        request_body = {'summary': "students"}
+        res = calendar.calendars().insert(body=request_body).execute()
+        teacher = User.query.get(current_user.id)
+        teacher.calendar_id = res['id']
+
+        db.session.add(teacher)
+        db.session.commit()
+        flash('calendar created!')
+
+
+def create_student_event():
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    calendar = googleapiclient.discovery.build(
+        Config.API_SERVICE_NAME, Config.API_VERSION, credentials=credentials)
+
 
 @babel.localeselector
 def get_locale():
@@ -19,10 +44,12 @@ def get_locale():
         return request.accept_languages.best_match(Config.LANGUAGES)
     return session['language']
 
+
 @bp.route('/language')
 def set_language():
     session['language'] = request.args.get('lang')
     return redirect(request.args.get('next'))
+
 
 @bp.route('/testss')
 def test_api_request():
@@ -36,19 +63,18 @@ def test_api_request():
     calendar = googleapiclient.discovery.build(
         Config.API_SERVICE_NAME, Config.API_VERSION, credentials=credentials)
 
-    request_body = {'summary': "san events"}
-    res = calendar.calendars().insert(body=request_body).execute()
+    create_calendar(calendar)
 
-    print(res)
     # Save credentials back to session in case access token was refreshed.
     # ACTION ITEM: In a production app, you likely want to save these
     #              credentials in a persistent database instead.
     session['credentials'] = credentials_to_dict(credentials)
-
-    return '3'
+    flash('You have successfully authorized')
+    return redirect(url_for('main.index'))
 
 
 @bp.route('/authorize')
+@login_required
 def authorize():
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow steps.
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
@@ -74,6 +100,7 @@ def authorize():
 
 
 @bp.route('/oauth2callback')
+@login_required
 def oauth2callback():
     # Specify the state when creating the flow in the callback so that it can
     # verified in the authorization server response.
@@ -81,12 +108,12 @@ def oauth2callback():
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         Config.CLIENT_SECRETS_FILE, scopes=Config.SCOPES, state=state)
+
     flow.redirect_uri = url_for('main.oauth2callback', _external=True)
 
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
     authorization_response = request.url
 
-    print("HE!", authorization_response)
     flow.fetch_token(authorization_response=authorization_response)
 
     # Store credentials in the session.
@@ -94,11 +121,12 @@ def oauth2callback():
     #              credentials in a persistent database instead.
     credentials = flow.credentials
     session['credentials'] = credentials_to_dict(credentials)
-
+    print(credentials)
     return redirect(url_for('main.test_api_request'))
 
 
 @bp.route('/revoke')
+@login_required
 def revoke():
     if 'credentials' not in session:
         return ('You need to <a href="/authorize">authorize</a> before ' +
@@ -119,6 +147,7 @@ def revoke():
 
 
 @bp.route('/clear')
+@login_required
 def clear_credentials():
     if 'credentials' in session:
         del session['credentials']
@@ -199,7 +228,20 @@ def students():
             db.session.add(student)
             db.session.commit()
 
-            create_schedule(weekday, student.id, start, end)
+            datetimes = []
+
+            for i in range(len(weekday)):
+                date = datetime.datetime.combine(datetime.datetime.today(), datetime.datetime.min.time())
+
+                while date.weekday() != int(weekday[i]) - 1:
+                    date = date + datetime.timedelta(days=1)
+
+                datetimes.append(date)
+
+                date = datetime.datetime.combine(datetime.datetime.today(), datetime.datetime.min.time())
+
+            create_schedule(datetimes, student.id, start, end, name)
+
             request.close()
             return redirect('/students', 302)
         programs = Program.query.all()
@@ -212,16 +254,48 @@ def students():
         return redirect(url_for('main.index'))
 
 
-def create_schedule(weekday, user_id, start, end):
+def create_schedule(weekday, user_id, start, end, student_name):
+    if 'credentials' not in session:
+        print('HERE cred')
+
+        return redirect('authorize')  # url_for()
+    print('HERE')
+
+    # Load credentials from the session.
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    calendar = googleapiclient.discovery.build(
+        Config.API_SERVICE_NAME, Config.API_VERSION, credentials=credentials)
+
     sch = []
+    # date = date + datetime.timedelta(days=1)
+
     for i in range(len(weekday)):
-        sch.append(Schedule(start=datetime.datetime.strptime(start[i], '%H:%M').time(),
-                            end=datetime.datetime.strptime(end[i], '%H:%M').time(), weekday_id=weekday[i],
+        start = datetime.datetime.strptime(start[i] + ':00', '%H:%M:%S').time()
+        end = datetime.datetime.strptime(end[i] + ':00', '%H:%M:%S').time()
+        event = {
+            'summary': 'lesson with +' + student_name,
+            'location': 'remotely',
+            'start': {
+                'datetime': weekday[i] + datetime.timedelta(hours=start.hour, minutes=start.minute,
+                                                            seconds=start.second),
+                'timeZone': 'Europe/Riga'
+            },
+            'end': {
+                'datetime': weekday[i] + datetime.timedelta(hours=end.hour, minutes=end.minute,
+                                                            seconds=end.second),
+                'timeZone': 'Europe/Riga'
+            }
+        }
+        event = calendar.events().insert(calendarId='primary', body=event).execute()
+
+        sch.append(Schedule(start=start,
+                            end=end, weekday_id=weekday[i],
                             user_id=user_id))
 
     db.session.add_all(sch)
     db.session.commit()
-    return 0
 
 
 # particular student page
@@ -275,6 +349,8 @@ def person(person):
 @login_required
 def delete_student(student_id):
     uniq_hw = Unique_Homework.query.filter_by(user_id=student_id).first()
+
+
     uniq_le = Unique_Lesson.query.filter_by(user_id=student_id).first()
 
     if uniq_le is not None:
@@ -362,15 +438,16 @@ def remove_program(id):
         db.session.delete(program)
         db.session.commit()
         '''
-        lesson = Lesson.query.get(id)
-        homework = Homework.query.filter_by(lesson_id=lesson.id).first()
-        test = Test.query.filter_by(lesson_id=lesson.id).first()
-        db.session.delete(homework)
-        db.session.delete(test)
-        db.session.delete(lesson)
-        db.session.commit()
-        request.close()
-        '''
+    lesson = Lesson.query.get(id)
+    homework = Homework.query.filter_by(lesson_id=lesson.id).first()
+    test = Test.query.filter_by(lesson_id=lesson.id).first()
+    db.session.delete(homework)
+    db.session.delete(test)
+    db.session.delete(lesson)
+    db.session.commit()
+    request.close()
+    '''
+
 
         return redirect(url_for('main.programs'))
     else:
@@ -383,6 +460,7 @@ def remove_program(id):
 def library():
     if current_user.tutor:
         return render_template('library.html')
+
     else:
         return redirect(url_for('main.index'))
 
@@ -415,6 +493,8 @@ def edit_profile():
             db.session.add(profile)
             db.session.commit()
             return redirect(url_for('main.index'))
+
+
         profile = Profile.query.get(1)
         return render_template('edit_profile.html', profile=profile)
     else:
@@ -445,21 +525,23 @@ def update_profile():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.main'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('main.login'))
-        login_user(user)
-        if user.tutor:
-            print("I AM TUTOR")
-            return redirect(url_for('main.main'))
-        elif not user.tutor:
-            print("I AM STDENTS")
-            print(url_for('student.main_page'))
-            return redirect(url_for('student.main_page'))
-    return render_template('login.html', title='Sign In', form=form)
+
+
+form = LoginForm()
+if form.validate_on_submit():
+    user = User.query.filter_by(username=form.username.data).first()
+if user is None or not user.check_password(form.password.data):
+    flash('Invalid username or password')
+    return redirect(url_for('main.login'))
+login_user(user)
+if user.tutor:
+    print("I AM TUTOR")
+    return redirect(url_for('main.main'))
+elif not user.tutor:
+    print("I AM STDENTS")
+    print(url_for('student.main_page'))
+    return redirect(url_for('student.main_page'))
+return render_template('login.html', title='Sign In', form=form)
 
 
 # logout
@@ -467,7 +549,9 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+
+
+return redirect(url_for('main.index'))
 
 
 def is_tutor(obj):
@@ -480,22 +564,24 @@ def is_tutor(obj):
 def lesson(user_id, id):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
-        # from student page
-        if user_id != 0:
 
-            unique_lesson = Unique_Lesson.query.filter(
-                Unique_Lesson.lesson_id == id, Unique_Lesson.user_id == user_id).first()
-            print(unique_lesson)
 
-            if unique_lesson:
-                return render_template("lesson.html", lesson=unique_lesson, id=id)
-            else:
-                print("in program == 0 and not unique lesson")
-                return render_template("lesson.html", lesson=lesson, id=id)
-        # from program page
-        return render_template("lesson.html", lesson=lesson, id=id)
+# from student page
+if user_id != 0:
+
+    unique_lesson = Unique_Lesson.query.filter(
+        Unique_Lesson.lesson_id == id, Unique_Lesson.user_id == user_id).first()
+    print(unique_lesson)
+
+    if unique_lesson:
+        return render_template("lesson.html", lesson=unique_lesson, id=id)
     else:
-        return redirect(url_for('main.index'))
+        print("in program == 0 and not unique lesson")
+        return render_template("lesson.html", lesson=lesson, id=id)
+# from program page
+return render_template("lesson.html", lesson=lesson, id=id)
+else:
+return redirect(url_for('main.index'))
 
 
 @bp.route('/<int:course_id>/lessons/create/<int:user_id>', methods=['GET', 'POST'])
@@ -511,32 +597,33 @@ def create_lesson(course_id, user_id):
             # print(Program.query.filter(Program.user.contains(user)))
             return render_template('create_lesson.html', program=program)
 
-        if request.method == "POST":
-            if user_id == 0:
-                title = request.form.get('LessonName')
-                body = request.form.get('editordata')
-                program = Program.query.get(course_id)
-                lesson = Lesson(title=title, program=program, text=body)
 
-                db.session.add(lesson)
-                db.session.commit()
-                request.close()
-                return redirect(url_for('main.create_empty_homework', id=lesson.id))
-            else:
-                print("we are creating for user")
-                title = request.form.get('LessonName')
-                course = request.form.get('Course')
-                body = request.form.get('editordata')
+if request.method == "POST":
+    if user_id == 0:
+        title = request.form.get('LessonName')
+        body = request.form.get('editordata')
+        program = Program.query.get(course_id)
+        lesson = Lesson(title=title, program=program, text=body)
 
-                # TODO THIS IS TRASH PROGRAM!!!!!!
-                program = Program.query.get(2)
-                lesson = Lesson(title=title, program=program, text=body)
-                db.session.add(lesson)
-                db.session.commit()
-                request.close()
-                return redirect(url_for('main.create_empty_homework', id=lesson.id))
+        db.session.add(lesson)
+        db.session.commit()
+        request.close()
+        return redirect(url_for('main.create_empty_homework', id=lesson.id))
     else:
-        return redirect(url_for('main.index'))
+        print("we are creating for user")
+        title = request.form.get('LessonName')
+        course = request.form.get('Course')
+        body = request.form.get('editordata')
+
+        # TODO THIS IS TRASH PROGRAM!!!!!!
+        program = Program.query.get(2)
+        lesson = Lesson(title=title, program=program, text=body)
+        db.session.add(lesson)
+        db.session.commit()
+        request.close()
+        return redirect(url_for('main.create_empty_homework', id=lesson.id))
+else:
+    return redirect(url_for('main.index'))
 
 
 @bp.route('/lessons/<int:id>/create/empty_homework/', methods=['GET', 'POST'])
@@ -544,47 +631,51 @@ def create_lesson(course_id, user_id):
 def create_empty_homework(id):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
-        homework = Homework(text="Домашки нет!", lesson_id=lesson.id, title=lesson.title)
-        test = Test(lesson_id=lesson.id, title=lesson.title)
-        db.session.add_all([homework, test])
-        db.session.commit()
 
-        return redirect(url_for("main.program", id=lesson.program_id))
-    else:
-        return redirect(url_for('main.index'))
+
+homework = Homework(text="Домашки нет!", lesson_id=lesson.id, title=lesson.title)
+test = Test(lesson_id=lesson.id, title=lesson.title)
+db.session.add_all([homework, test])
+db.session.commit()
+
+return redirect(url_for("main.program", id=lesson.program_id))
+else:
+return redirect(url_for('main.index'))
 
 
 @bp.route("/lessons/edit/<int:id>/<int:user_id>", methods=["GET", "POST"])
 def edit_lesson(id, user_id):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
-        programs = Program.query.all()
-        if request.method == "POST":
-            if user_id == 0:
-                lesson.title = request.form.get('LessonName')
-                lesson.text = request.form.get('editordata')
 
-                db.session.add(lesson)
-                db.session.commit()
-                request.close()
-                # print(lesson, lesson.program)
-                return redirect(url_for('main.program', id=lesson.program_id))
-            else:
 
-                title = request.form.get('LessonName')
-                text = request.form.get('editordata')
-                user_id = user_id
-                unique_lesson = Unique_Lesson(lesson=lesson, user_id=user_id, title=title, text=text)
+programs = Program.query.all()
+if request.method == "POST":
+    if user_id == 0:
+        lesson.title = request.form.get('LessonName')
+        lesson.text = request.form.get('editordata')
 
-                db.session.add(unique_lesson)
-                db.session.commit()
-                request.close()
-                return redirect(url_for('main.person', person=user_id))
-
-        return render_template("edit_lesson.html", lesson=lesson, programs=programs)
-
+        db.session.add(lesson)
+        db.session.commit()
+        request.close()
+        # print(lesson, lesson.program)
+        return redirect(url_for('main.program', id=lesson.program_id))
     else:
-        return redirect(url_for('main.index'))
+
+        title = request.form.get('LessonName')
+        text = request.form.get('editordata')
+        user_id = user_id
+        unique_lesson = Unique_Lesson(lesson=lesson, user_id=user_id, title=title, text=text)
+
+        db.session.add(unique_lesson)
+        db.session.commit()
+        request.close()
+        return redirect(url_for('main.person', person=user_id))
+
+return render_template("edit_lesson.html", lesson=lesson, programs=programs)
+
+else:
+return redirect(url_for('main.index'))
 
 
 @bp.route("/lessons/remove/<int:id>/<int:course_id>", methods=["GET", "POST"])
@@ -592,16 +683,18 @@ def edit_lesson(id, user_id):
 def remove_lesson(id, course_id):
     if current_user.tutor:
         lesson = Lesson.query.get(id)
-        homework = Homework.query.filter_by(lesson_id=id).first()
-        test = Test.query.filter_by(lesson_id=id).first()
-        db.session.delete(homework)
-        db.session.delete(test)
-        db.session.delete(lesson)
-        db.session.commit()
-        request.close()
-        return redirect(url_for('main.program', id=course_id))
-    else:
-        return redirect(url_for('main.index'))
+
+
+homework = Homework.query.filter_by(lesson_id=id).first()
+test = Test.query.filter_by(lesson_id=id).first()
+db.session.delete(homework)
+db.session.delete(test)
+db.session.delete(lesson)
+db.session.commit()
+request.close()
+return redirect(url_for('main.program', id=course_id))
+else:
+return redirect(url_for('main.index'))
 
 
 # homework
@@ -609,88 +702,88 @@ def remove_lesson(id, course_id):
 @bp.route("/lesson/<int:id>/homework/<int:user_id>", methods=['GET', 'POST'])
 @login_required
 def homework(id, user_id):
-    # if we are logged in using tutor account
-    if current_user.tutor:
-        lesson = Lesson.query.get(id)
-        # if we are browsing homework from some student page
-        if user_id != 0:
 
-            # if we want to evaluate student's homework
-            if request.method == "POST":
-                # inputs
-                grade = request.form.get('grade')
-                comment = request.form.get('comment')
 
-                # if we have UNIQUE homework for exact student
-                if lesson.unique_homework and lesson.unique_homework.user_id == user_id:
+# if we are logged in using tutor account
+if current_user.tutor:
+    lesson = Lesson.query.get(id)
+# if we are browsing homework from some student page
+if user_id != 0:
 
-                    # get student's submission
-                    task = Task.query.filter(
-                        Task.user_id == user_id and Task.unique_homework_id == lesson.unique_homework.id).first()
-                    task.grade = grade
-                    task.comment = comment
-                    db.session.add(task)
-                    db.session.commit()
-                # if it is original homework for student
-                else:
-                    task = Task.query.filter(
-                        Task.user_id == user_id and Task.homework_id == lesson.homework.id).first()
-                    task.grade = grade
-                    task.comment = comment
-                    db.session.add(task)
-                    db.session.commit()
+    # if we want to evaluate student's homework
+    if request.method == "POST":
+        # inputs
+        grade = request.form.get('grade')
+        comment = request.form.get('comment')
 
-                # redirect on this page
-                return redirect(url_for('main.homework', user_id=user_id, id=id))
+        # if we have UNIQUE homework for exact student
+        if lesson.unique_homework and lesson.unique_homework.user_id == user_id:
 
-            # for GET method
-
-            unique_homework = Unique_Homework.query.filter(
-                Unique_Homework.user_id == user_id and Unique_Homework.lesson_id == id).first()
-            if unique_homework:
-                return render_template("homework.html", lesson=lesson, homework=unique_homework,
-                                       task=unique_homework.task[0])
-            else:
-                task = Task.query.filter(Task.user_id == user_id, Task.homework_id == lesson.homework.id).first()
-                return render_template("homework.html", lesson=lesson, homework=lesson.homework, task=task)
-
-        # if we are browsing homework from some program page
+            # get student's submission
+            task = Task.query.filter(
+                Task.user_id == user_id and Task.unique_homework_id == lesson.unique_homework.id).first()
+            task.grade = grade
+            task.comment = comment
+            db.session.add(task)
+            db.session.commit()
+        # if it is original homework for student
         else:
-            return render_template("homework.html", lesson=lesson, homework=lesson.homework, user_id=0)
-    # if we have a smart student, who wants to find some info on website
-    else:
-        return redirect(url_for("main.index"))
+            task = Task.query.filter(
+                Task.user_id == user_id and Task.homework_id == lesson.homework.id).first()
+            task.grade = grade
+            task.comment = comment
+            db.session.add(task)
+            db.session.commit()
 
+        # redirect on this page
+        return redirect(url_for('main.homework', user_id=user_id, id=id))
+
+    # for GET method
+
+    unique_homework = Unique_Homework.query.filter(
+        Unique_Homework.user_id == user_id and Unique_Homework.lesson_id == id).first()
+    if unique_homework:
+        return render_template("homework.html", lesson=lesson, homework=unique_homework,
+                               task=unique_homework.task[0])
+    else:
+        task = Task.query.filter(Task.user_id == user_id, Task.homework_id == lesson.homework.id).first()
+        return render_template("homework.html", lesson=lesson, homework=lesson.homework, task=task)
+
+# if we are browsing homework from some program page
+else:
+    return render_template("homework.html", lesson=lesson, homework=lesson.homework, user_id=0)
+# if we have a smart student, who wants to find some info on website
+else:
+return redirect(url_for("main.index"))
 
 '''
-    if current_user.tutor:
-        lesson = Lesson.query.get(id)
+if current_user.tutor:
+    lesson = Lesson.query.get(id)
 
-        if request.method == "POST":
-            grade = request.form.get('grade')
-            comment = request.form.get('comment')
+    if request.method == "POST":
+        grade = request.form.get('grade')
+        comment = request.form.get('comment')
 
-            if lesson.unique_lesson:
-                lesson.unique_homework.text = comment
-                lesson.unique_homework.grade = grade
+        if lesson.unique_lesson:
+            lesson.unique_homework.text = comment
+            lesson.unique_homework.grade = grade
 
-                db.session.add(lesson.unique_homework)
-            else:
-                lesson.homework.text = comment
-                lesson.homework.grade = grade
+            db.session.add(lesson.unique_homework)
+        else:
+            lesson.homework.text = comment
+            lesson.homework.grade = grade
 
-                db.session.add(lesson.homework)
+            db.session.add(lesson.homework)
 
-            db.session.commit()
-            return redirect(url_for('main.homework', program=program, id=id))
+        db.session.commit()
+        return redirect(url_for('main.homework', program=program, id=id))
 
-    # method GET
-    if program == 0:
-        if lesson.unique_homework:
-            return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
+# method GET
+if program == 0:
+    if lesson.unique_homework:
+        return render_template("homework.html", lesson=lesson, homework=lesson.unique_homework)
 
-    return render_template("homework.html", lesson=lesson, homework=lesson.homework)
-
+return render_template("homework.html", lesson=lesson, homework=lesson.homework)
 
 else:
 return redirect(url_for('main.index'))

@@ -16,6 +16,7 @@ up = db.Table('up',
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer(), primary_key=True)
+    calendar_id = db.Column(db.String(255))
     username = db.Column(db.String(255), nullable=False, unique=True)
     name = db.Column(db.String(255), nullable=False)
     program = db.relationship('Program', secondary=up, backref='user')
@@ -26,6 +27,7 @@ class User(UserMixin, db.Model):
     lesson = db.relationship('Lesson', secondary=lu, backref='user')
     unique_lesson = db.relationship('Unique_Lesson', backref='user')
     schedule = db.relationship('Schedule', backref='user')
+
 
     def __repr__(self):
         return "<User {}>".format(self.id)
