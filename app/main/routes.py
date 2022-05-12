@@ -256,7 +256,7 @@ def create_schedule(weekday, user_id, start, end, student_name):
     if 'credentials' not in session:
         print('HERE cred')
 
-        return redirect(url_for('authorize'))
+        return redirect(url_for('main.authorize'))
     print('HERE')
 
     # Load credentials from the session.

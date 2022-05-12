@@ -134,7 +134,7 @@ h1, h2, h3, h4, h5 {
   margin-left: 1.25rem;
 }
 .student-profile .profile.program, .program-profile .profile.program {
-  height: 17rem;
+  height: 19rem;
   width: 20rem;
 }
 .student-profile .profile.program .card-body, .program-profile .profile.program .card-body {

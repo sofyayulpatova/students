@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} 404 | Not Found {% endblock %}
+{% block title %} 404 | {{ _('Не найдено') }} {% endblock %}
 
 {% block menu %}
 {% endblock %}
@@ -9,9 +9,9 @@
 <article class="error">
     <section class="error-block">
         <h6 class="error-code">404</h6>
-        <h3 class="error-title">Страница не найдена</h3>
-        <p class="error-description">Давайте вернемся в начало</p>
-        <a href="{{ url_for('main.main') }}" class="error-button">На главную</a>
+        <h3 class="error-title">{{ _('Страница не найдена') }}</h3>
+        <p class="error-description">{{ _('Давайте вернемся в начало') }}</p>
+        <a href="{{ url_for('main.main') }}" class="error-button">{{ _('На главную') }}</a>
     </section>
 </article>
 {% endblock %}

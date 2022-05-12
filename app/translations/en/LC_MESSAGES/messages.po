@@ -1,63 +1,65 @@
-# English translations for PROJECT.
+# English translations for Student Study Platform.
 # Copyright (C) 2022 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# This file is distributed under the same license as the 'Student Study Platform' project.
+# Matvei Barbashov <matveibarbashov@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-05 14:41+0300\n"
+"POT-Creation-Date: 2022-05-12 19:43+0300\n"
 "PO-Revision-Date: 2022-05-05 15:48+0300\n"
 "Last-Translator: \n"
-"Language-Team: en <LL@li.org>\n"
 "Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.10.1\n"
-"X-Generator: Poedit 3.0.1\n"
 
-#: app/templates/base.html:22 app/templates/login.html:7
+#: app/templates/base.html:31 app/templates/login.html:7
 msgid "Войти"
 msgstr "Log In"
 
-#: app/templates/base.html:28 app/templates/base.html:49
+#: app/templates/base.html:37 app/templates/base.html:69
+#: app/templates/index.html:3
 msgid "Главная"
 msgstr "Home"
 
-#: app/templates/base.html:31 app/templates/program.html:10
-#: app/templates/student.html:8
+#: app/templates/base.html:40 app/templates/forstudent/lessons.html:9
+#: app/templates/program.html:8 app/templates/student.html:10
 msgid "Уроки"
 msgstr "Lessons"
 
-#: app/templates/base.html:34
+#: app/templates/base.html:43 app/templates/forstudent/homework.html:3
+#: app/templates/homework.html:3
 msgid "Домашняя работа"
 msgstr "Homework"
 
-#: app/templates/base.html:37 app/templates/lesson.html:21
-#: app/templates/program.html:88 app/templates/student.html:106
+#: app/templates/base.html:46 app/templates/forstudent/lesson.html:21
+#: app/templates/lesson.html:21 app/templates/program.html:87
+#: app/templates/student.html:112
 msgid "Тесты"
 msgstr "Tests"
 
-#: app/templates/base.html:43 app/templates/base.html:73
+#: app/templates/base.html:63 app/templates/base.html:100
 msgid "Выйти"
 msgstr "Log Out"
 
-#: app/templates/base.html:53
+#: app/templates/base.html:72
 msgid "Ученики"
 msgstr "Students"
 
-#: app/templates/base.html:57
+#: app/templates/base.html:75
 msgid "Мои программы"
 msgstr "My programs"
 
-#: app/templates/base.html:63
+#: app/templates/base.html:78
 msgid "Панель управления"
 msgstr "Control Panel"
 
-#: app/templates/base.html:67
+#: app/templates/base.html:83
 msgid "Библиотека"
 msgstr "Library"
 
@@ -97,7 +99,7 @@ msgstr "New Lesson"
 msgid "Название урока"
 msgstr "Title of Lesson"
 
-#: app/templates/create_lesson.html:23 app/templates/students.html:138
+#: app/templates/create_lesson.html:23 app/templates/students.html:141
 msgid "Курс"
 msgstr "Course"
 
@@ -122,52 +124,77 @@ msgstr "Edit Lesson"
 msgid "Редактировать профиль"
 msgstr "Edit profile"
 
-#: app/templates/edit_profile.html:18
+#: app/templates/edit_profile.html:20
 msgid "Ваше имя и фамилия"
 msgstr "Your first and last name"
 
-#: app/templates/edit_profile.html:23
+#: app/templates/edit_profile.html:25
 msgid "Специализация"
 msgstr "Speciality"
 
-#: app/templates/edit_profile.html:28
-msgid "О себе"
-msgstr "About me"
-
-#: app/templates/edit_profile.html:36 app/templates/index.html:28
-msgid "Образование"
-msgstr "Education"
-
-#: app/templates/edit_profile.html:43 app/templates/index.html:33
-msgid "Опыт работы"
-msgstr "Work Experience"
-
-#: app/templates/edit_profile.html:50 app/templates/index.html:37
+#: app/templates/edit_profile.html:30 app/templates/index.html:37
 msgid "Стоимость занятий"
 msgstr "Lesson Cost"
 
-#: app/templates/edit_profile.html:58
+#: app/templates/edit_profile.html:36
 msgid "Контакты"
 msgstr "Contacts"
+
+#: app/templates/edit_profile.html:47
+msgid "О себе"
+msgstr "About me"
+
+#: app/templates/edit_profile.html:53 app/templates/index.html:28
+msgid "Образование"
+msgstr "Education"
+
+#: app/templates/edit_profile.html:59 app/templates/index.html:33
+msgid "Опыт работы"
+msgstr "Work Experience"
+
+#: app/templates/homework.html:29
+msgid "Последняя попытка"
+msgstr "Last attempt"
+
+#: app/templates/homework.html:32
+msgid "Скачать файл"
+msgstr "Download file"
+
+#: app/templates/homework.html:33
+msgid "Оценить"
+msgstr "Rate"
+
+#: app/templates/homework.html:35
+msgid "Ученик еще не загрузил домашнее задание"
+msgstr "Student hasn't uploaded the homework yet"
 
 #: app/templates/index.html:41
 msgid "Хочу связаться"
 msgstr "Stay in Contact"
 
-#: app/templates/lesson.html:16 app/templates/program.html:54
-#: app/templates/student.html:78
+#: app/templates/forstudent/lesson.html:16 app/templates/lesson.html:16
+#: app/templates/program.html:53 app/templates/student.html:87
 msgid "Домашние задания"
 msgstr "Homeworks"
 
-#: app/templates/program.html:9
-msgid "Удалить программу"
-msgstr "Delete program"
-
-#: app/templates/program.html:38 app/templates/program.html:82
-#: app/templates/program.html:113 app/templates/student.html:37
-#: app/templates/student.html:100 app/templates/student.html:128
+#: app/templates/program.html:36 app/templates/program.html:81
+#: app/templates/program.html:112 app/templates/student.html:38
+#: app/templates/student.html:106 app/templates/student.html:131
 msgid "Посмотреть все"
 msgstr "See All"
+
+#: app/templates/program.html:123
+#, fuzzy
+msgid "Удалить программу?"
+msgstr "Delete program"
+
+#: app/templates/program.html:129 app/templates/student.html:148
+msgid "Да"
+msgstr "Yes"
+
+#: app/templates/program.html:130 app/templates/student.html:149
+msgid "Нет"
+msgstr "No"
 
 #: app/templates/programs.html:3
 msgid "Программы"
@@ -187,60 +214,112 @@ msgstr "Program title"
 
 #: app/templates/programs.html:50
 msgid "Описание программы"
-msgstr "Program description"
+msgstr "Program Description"
 
-#: app/templates/students.html:95
-msgid "Добавить ученика"
-msgstr "Add student"
+#: app/templates/programs.html:55 app/templates/students.html:149
+msgid "Создать"
+msgstr "Create"
 
-#: app/templates/students.html:105
-msgid "Имя ученика"
-msgstr "Student name"
+#: app/templates/student.html:49 app/templates/students.html:51
+msgid "Телефон"
+msgstr "Phone"
 
-#: app/templates/students.html:110
-msgid "Логин ученика"
-msgstr "Student login"
+#: app/templates/student.html:142
+#, fuzzy
+msgid "Удалить ученика?"
+msgstr "Delete the student?"
 
-#: app/templates/students.html:115
-msgid "Пароль"
-msgstr "Password"
+#: app/templates/students.html:3
+#, fuzzy
+msgid "Студенты"
+msgstr "Students"
 
-#: app/templates/students.html:120
-msgid "Расписание"
-msgstr "Schedule"
-
-#: app/templates/students.html:123
+#: app/templates/students.html:17 app/templates/students.html:126
 msgid "Понедельник"
 msgstr "Monday"
 
-#: app/templates/students.html:124
+#: app/templates/students.html:18 app/templates/students.html:127
 msgid "Вторник"
 msgstr "Tuesday"
 
-#: app/templates/students.html:125
+#: app/templates/students.html:19 app/templates/students.html:128
 msgid "Среда"
 msgstr "Wednesday"
 
-#: app/templates/students.html:126
+#: app/templates/students.html:20 app/templates/students.html:129
 msgid "Четверг"
 msgstr "Thursday"
 
-#: app/templates/students.html:127
+#: app/templates/students.html:21 app/templates/students.html:130
 msgid "Пятница"
 msgstr "Friday"
 
-#: app/templates/students.html:128
+#: app/templates/students.html:22 app/templates/students.html:131
 msgid "Суббота"
 msgstr "Saturday"
 
-#: app/templates/students.html:129
+#: app/templates/students.html:23 app/templates/students.html:132
 msgid "Воскресенье"
 msgstr "Sunday"
 
-#: app/templates/students.html:146
-msgid "Создать"
-msgstr "Create"
+#: app/templates/students.html:98
+msgid "Добавить ученика"
+msgstr "Add student"
+
+#: app/templates/students.html:108
+msgid "Имя ученика"
+msgstr "Student name"
+
+#: app/templates/students.html:113
+msgid "Логин ученика"
+msgstr "Student login"
+
+#: app/templates/students.html:118
+msgid "Пароль"
+msgstr "Password"
+
+#: app/templates/students.html:123
+msgid "Расписание"
+msgstr "Schedule"
 
 #: app/templates/test.html:9
 msgid "Тест"
 msgstr "Test"
+
+#: app/templates/errors/404.html:3
+msgid "Не найдено"
+msgstr "Not Found"
+
+#: app/templates/errors/404.html:12
+msgid "Страница не найдена"
+msgstr "Page not found"
+
+#: app/templates/errors/404.html:13 app/templates/errors/500.html:13
+msgid "Давайте вернемся в начало"
+msgstr "Back to the beginning"
+
+#: app/templates/errors/404.html:14 app/templates/errors/500.html:14
+msgid "На главную"
+msgstr "Home"
+
+#: app/templates/errors/500.html:3
+msgid "Неожиданная ошибка"
+msgstr "An unexpected error"
+
+#: app/templates/errors/500.html:12
+msgid "Что-то пошло не так"
+msgstr "Something went wrong"
+
+#: app/templates/forstudent/tests.html:7
+msgid "Все тесты"
+msgstr "All tests"
+
+#: app/templates/forstudent/uploads.html:9
+msgid "Вертикальная ориентация"
+msgstr "Vertical orientation"
+
+#: app/templates/forstudent/uploads.html:13
+#, fuzzy
+msgid "Описание"
+msgstr "Description"
+
