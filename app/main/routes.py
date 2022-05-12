@@ -19,10 +19,12 @@ def get_locale():
         return request.accept_languages.best_match(Config.LANGUAGES)
     return session['language']
 
+
 @bp.route('/language')
 def set_language():
     session['language'] = request.args.get('lang')
     return redirect(request.args.get('next'))
+
 
 @bp.route('/testss')
 def test_api_request():
