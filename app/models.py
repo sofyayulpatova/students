@@ -2,6 +2,8 @@ from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+import json
+from time import time
 
 lu = db.Table('lu',
               db.Column('user', db.Integer(), db.ForeignKey('user.id')),
@@ -28,6 +30,19 @@ class User(UserMixin, db.Model):
     unique_lesson = db.relationship('Unique_Lesson', backref='user')
     schedule = db.relationship('Schedule', backref='user')
 
+    # for notifications
+    notifications = db.relationship('Notification', backref='user',
+                                    lazy='dynamic')
+
+
+    message_sent = db.relationship('Task',
+                                   foreign_keys='Task.user_id',
+                                   backref='author', lazy='dynamic')
+    message_received = db.relationship('Task',
+                                       foreign_keys='Task.recipient_id',
+                                       backref='recipient', lazy='dynamic')
+
+    last_message_read_time = db.Column(db.DateTime)
 
     def __repr__(self):
         return "<User {}>".format(self.id)
@@ -40,8 +55,14 @@ class User(UserMixin, db.Model):
 
     def new_messages(self):
         last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
-        return Homework.query.filter_by(recipient=self).filter(
-            Homework.timestamp > last_read_time).count()
+        return Task.query.filter_by(recipient=self).filter(
+            Task.timestamp > last_read_time).count()
+
+    def add_notification(self, name, data):
+        self.notifications.filter_by(name=name).delete()
+        n = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(n)
+        return n
 
 
 @login.user_loader
@@ -61,6 +82,17 @@ class Schedule(db.Model):
     end = db.Column(db.Time)
     weekday_id = db.Column(db.Integer(), db.ForeignKey("weekday.id"))
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
+
+
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+    def get_data(self):
+        return json.loads(str(self.payload_json))
 
 
 class Program(db.Model):
@@ -110,6 +142,9 @@ class Task(db.Model):
     comments = db.Column(db.Text)
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     homework_id = db.Column(db.Integer(), db.ForeignKey("homework.id"))
 
     unique_homework_id = db.Column(db.Integer(), db.ForeignKey("unique__homework.id"))

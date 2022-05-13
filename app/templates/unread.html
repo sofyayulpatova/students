@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %} 123 {% endblock %}
+
+{% block content %}
+
+{% for i in messages %}
+
+{{ i.user_id }}
+
+{% endfor %}
+{% endblock %}

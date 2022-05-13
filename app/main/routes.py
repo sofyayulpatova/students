@@ -1,7 +1,7 @@
-from flask import render_template, request, redirect, url_for, flash, send_from_directory, session
+from flask import render_template, request, redirect, url_for, flash, send_from_directory, session, jsonify
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA, Weekday, \
-    Schedule, Task
+    Schedule, Task, Notification
 from app.main.forms import LoginForm
 from app.main import bp
 from app import db, babel, Config
@@ -252,11 +252,51 @@ def students():
         return redirect(url_for('main.index'))
 
 
+@bp.route('/unread')
+@login_required
+def unread():
+    current_user.last_message_read_time = datetime.datetime.utcnow()
+    db.session.commit()
+    messages = current_user.message_received.order_by(Task.timestamp.desc())
+
+    return render_template('unread.html', messages=messages)
+
+@bp.route('/notifications')
+@login_required
+def notifications():
+    since = request.args.get('since', 0.0, type=float)
+    notifications = current_user.notifications.filter(
+        Notification.timestamp > since).order_by(Notification.timestamp.asc())
+    return jsonify([{
+        'name': n.name,
+        'data': n.get_data(),
+        'timestamp': n.timestamp
+    } for n in notifications])
+
+
+
+
+weekday_from_int = {
+    1: "MO",
+    2: "TU",
+    3: 'WE',
+    4: "TH",
+    5: 'FR',
+    6: 'ST',
+    7: "SU"
+}
+
+
+
+
+
+
+
 def create_schedule(weekday, user_id, start, end, student_name):
     if 'credentials' not in session:
         print('HERE cred')
 
-        return redirect(url_for('authorize'))
+        return redirect(url_for('main.test_api_request'))
     print('HERE')
 
     # Load credentials from the session.
@@ -270,28 +310,36 @@ def create_schedule(weekday, user_id, start, end, student_name):
     # date = date + datetime.timedelta(days=1)
 
     for i in range(len(weekday)):
-        start = datetime.datetime.strptime(start[i], '%H:%M').time()
-        end = datetime.datetime.strptime(end[i], '%H:%M').time()
+        start_time = datetime.datetime.strptime(start[i], '%H:%M').time()
+        end_time = datetime.datetime.strptime(end[i], '%H:%M').time()
 
-        date_start = ((weekday[i] + datetime.timedelta(hours=start.hour, minutes=start.minute,
+        date_start = ((weekday[i] + datetime.timedelta(hours=start_time.hour, minutes=start_time.minute,
                                                        seconds=0)).isoformat()) + '+03:00'
 
-        date_end = ((weekday[i] + datetime.timedelta(hours=end.hour, minutes=end.minute,
-                                                       seconds=0)).isoformat()) + '+03:00'
+        date_end = ((weekday[i] + datetime.timedelta(hours=end_time.hour, minutes=end_time.minute,
+                                                     seconds=0)).isoformat()) + '+03:00'
+
+        print(weekday_from_int[weekday[i].isoweekday()])
         json_date = {
-            'summary': 'lesson with' + student_name,
-            'description': 'lesson with' + + student_name,
+            'summary': 'lesson with ' + student_name,
+            'description': 'lesson with ' + student_name,
             'start': {
                 'dateTime': date_start,
+                'timeZone': 'Europe/Riga'
             },
             'end': {
                 'dateTime': date_end,
-            }
+                'timeZone': 'Europe/Riga'
+            },
+            'recurrence':
+                [
+                    "RRULE:FREQ=WEEKLY;COUNT=53;BYDAY=" + weekday_from_int[weekday[i].isoweekday()]
+                ],
         }
         event = calendar.events().insert(calendarId=current_user.calendar_id, body=json_date).execute()
-
-        sch.append(Schedule(start=start,
-                            end=end, weekday_id=weekday[i],
+        print(event)
+        sch.append(Schedule(start=start_time,
+                            end=end_time, weekday_id=weekday[i],
                             user_id=user_id))
 
     db.session.add_all(sch)
@@ -348,6 +396,11 @@ def person(person):
 @bp.route('/delete_student/<int:student_id>')
 @login_required
 def delete_student(student_id):
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    calendar = googleapiclient.discovery.build(
+        Config.API_SERVICE_NAME, Config.API_VERSION, credentials=credentials)
     uniq_hw = Unique_Homework.query.filter_by(user_id=student_id).first()
 
     uniq_le = Unique_Lesson.query.filter_by(user_id=student_id).first()
@@ -363,6 +416,7 @@ def delete_student(student_id):
     return redirect(url_for('main.delete_completely_student', student_id=student_id))
 
 
+@bp.route('/notifications')
 @bp.route('/delete_student_complete/<int:student_id>')
 @login_required
 def delete_completely_student(student_id):
@@ -694,6 +748,7 @@ def homework(id, user_id):
 
             # if we want to evaluate student's homework
             if request.method == "POST":
+
                 # inputs
                 grade = request.form.get('grade')
                 comment = request.form.get('comment')
@@ -704,18 +759,23 @@ def homework(id, user_id):
                     # get student's submission
                     task = Task.query.filter(
                         Task.user_id == user_id and Task.unique_homework_id == lesson.unique_homework.id).first()
-                    task.grade = grade
-                    task.comment = comment
-                    db.session.add(task)
-                    db.session.commit()
+                    if task is not None:
+                        current_user.last_message_read_time = datetime.datetime.utcnow()  # HOMEWORK GRADED
+
+                        task.grade = grade
+                        task.comment = comment
+                        db.session.add(task)
+                        db.session.commit()
                 # if it is original homework for student
                 else:
                     task = Task.query.filter(
                         Task.user_id == user_id and Task.homework_id == lesson.homework.id).first()
-                    task.grade = grade
-                    task.comment = comment
-                    db.session.add(task)
-                    db.session.commit()
+                    if task is not None:
+                        current_user.last_message_read_time = datetime.datetime.utcnow()  # HOMEWORK GRADED
+                        task.grade = grade
+                        task.comment = comment
+                        db.session.add(task)
+                        db.session.commit()
 
                 # redirect on this page
                 return redirect(url_for('main.homework', user_id=user_id, id=id))
@@ -799,7 +859,7 @@ def edit_homework(id, user_id):
                 db.session.add(homework)
                 db.session.commit()
                 request.close()
-                return redirect(url_for('main.homework', id=id, program=lesson.program_id))
+                return redirect(url_for('main.homework', id=id, user_id=user_id))
 
             unique_homework = Unique_Homework.query.filter(Unique_Homework.user_id == user_id).first()
             if unique_homework is None:
