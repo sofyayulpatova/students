@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ homework.title + " | Домашняя работа" }} {% endblock %}
+{% block title %} {{ homework.title + " | " + _('Домашняя работа')  }} {% endblock %}
 
 {% block content %}
 <div class="homework">

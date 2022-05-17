@@ -1,13 +1,13 @@
-# Latvian translations for PROJECT.
+# Latvian translations for Student Study Platform.
 # Copyright (C) 2022 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# This file is distributed under the same license as the 'Student Study Platform' project.
+# Matvei Barbashov <matveibarbashov@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-05 14:41+0300\n"
+"POT-Creation-Date: 2022-05-12 19:43+0300\n"
 "PO-Revision-Date: 2022-05-05 01:02+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: lv\n"
@@ -19,229 +19,307 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: app/templates/base.html:22 app/templates/login.html:7
+#: app/templates/base.html:31 app/templates/login.html:7
 msgid "Войти"
-msgstr ""
+msgstr "Ienākt"
 
-#: app/templates/base.html:28 app/templates/base.html:49
+#: app/templates/base.html:37 app/templates/base.html:69
+#: app/templates/index.html:3
 msgid "Главная"
-msgstr ""
+msgstr "Mājas"
 
-#: app/templates/base.html:31 app/templates/program.html:10
-#: app/templates/student.html:8
+#: app/templates/base.html:40 app/templates/forstudent/lessons.html:9
+#: app/templates/program.html:8 app/templates/student.html:10
 msgid "Уроки"
-msgstr ""
+msgstr "Mācība"
 
-#: app/templates/base.html:34
+#: app/templates/base.html:43 app/templates/forstudent/homework.html:3
+#: app/templates/homework.html:3
 msgid "Домашняя работа"
-msgstr ""
+msgstr "Mājasdarbs"
 
-#: app/templates/base.html:37 app/templates/lesson.html:21
-#: app/templates/program.html:88 app/templates/student.html:106
+#: app/templates/base.html:46 app/templates/forstudent/lesson.html:21
+#: app/templates/lesson.html:21 app/templates/program.html:87
+#: app/templates/student.html:112
 msgid "Тесты"
-msgstr ""
+msgstr "Tests"
 
-#: app/templates/base.html:43 app/templates/base.html:73
+#: app/templates/base.html:63 app/templates/base.html:100
 msgid "Выйти"
-msgstr ""
+msgstr "Iziet"
 
-#: app/templates/base.html:53
+#: app/templates/base.html:72
 msgid "Ученики"
-msgstr ""
+msgstr "Students"
 
-#: app/templates/base.html:57
+#: app/templates/base.html:75
 msgid "Мои программы"
-msgstr ""
+msgstr "Manas programmas"
 
-#: app/templates/base.html:63
+#: app/templates/base.html:78
 msgid "Панель управления"
-msgstr ""
+msgstr "Panelis"
 
-#: app/templates/base.html:67
+#: app/templates/base.html:83
 msgid "Библиотека"
-msgstr ""
+msgstr "Bibliotēka"
 
 #: app/templates/control_profile.html:20
 msgid "Cтуденты"
-msgstr ""
+msgstr "Students"
 
 #: app/templates/control_profile.html:31
 msgid "Все студенты"
-msgstr ""
+msgstr "Visi Studenti"
 
 #: app/templates/control_profile.html:34
 msgid "Сейчас у вас есть"
-msgstr ""
+msgstr "Tagad jums ir"
 
 #: app/templates/control_profile.html:41
 msgid "студентов"
-msgstr ""
+msgstr "studenti"
 
 #: app/templates/control_profile.html:49
 msgid "программ"
-msgstr ""
+msgstr "programmas"
 
 #: app/templates/create_homework.html:3
 msgid "Новое ДЗ"
-msgstr ""
+msgstr "Jaunu Mājasdarbu"
 
 #: app/templates/create_homework.html:23 app/templates/edit_homework.html:29
 msgid "Содержание задания"
-msgstr ""
+msgstr "Uzdevuma saturs"
 
 #: app/templates/create_lesson.html:3
 msgid "Новый урок"
-msgstr ""
+msgstr "Jauna Nodarbība"
 
 #: app/templates/create_lesson.html:18 app/templates/edit_lesson.html:18
 msgid "Название урока"
-msgstr ""
+msgstr "Nodarbības nosaukums"
 
-#: app/templates/create_lesson.html:23 app/templates/students.html:138
+#: app/templates/create_lesson.html:23 app/templates/students.html:141
 msgid "Курс"
-msgstr ""
+msgstr "Kurss"
 
 #: app/templates/create_lesson.html:43 app/templates/edit_lesson.html:24
 msgid "Содержание урока"
-msgstr ""
+msgstr "Nodarbības saturs"
 
 #: app/templates/edit_homework.html:3
 msgid "Редактировать ДЗ"
-msgstr ""
+msgstr "Rediģēt Mājasdarbu"
 
 #: app/templates/edit_homework.html:20
 msgid "Название домашней работы"
-msgstr ""
+msgstr "Mājasdarbu nosaukums"
 
 #: app/templates/edit_lesson.html:3 app/templates/edit_test.html:3
 #: app/templates/try.html:3
 msgid "Редактировать урок"
-msgstr ""
+msgstr "Rediģēt nodarbību"
 
 #: app/templates/edit_profile.html:3
 msgid "Редактировать профиль"
-msgstr ""
+msgstr "Rediģēt profilu"
 
-#: app/templates/edit_profile.html:18
+#: app/templates/edit_profile.html:20
 msgid "Ваше имя и фамилия"
-msgstr ""
+msgstr "Jūsu vārds un uzvārds"
 
-#: app/templates/edit_profile.html:23
+#: app/templates/edit_profile.html:25
 msgid "Специализация"
-msgstr ""
+msgstr "Specialitāte"
 
-#: app/templates/edit_profile.html:28
-msgid "О себе"
-msgstr ""
-
-#: app/templates/edit_profile.html:36 app/templates/index.html:28
-msgid "Образование"
-msgstr ""
-
-#: app/templates/edit_profile.html:43 app/templates/index.html:33
-msgid "Опыт работы"
-msgstr ""
-
-#: app/templates/edit_profile.html:50 app/templates/index.html:37
+#: app/templates/edit_profile.html:30 app/templates/index.html:37
 msgid "Стоимость занятий"
-msgstr ""
+msgstr "Nodarbības izmaksas"
 
-#: app/templates/edit_profile.html:58
+#: app/templates/edit_profile.html:36
 msgid "Контакты"
-msgstr ""
+msgstr "Kontakts"
+
+#: app/templates/edit_profile.html:47
+msgid "О себе"
+msgstr "Par sevi"
+
+#: app/templates/edit_profile.html:53 app/templates/index.html:28
+msgid "Образование"
+msgstr "Izglītība"
+
+#: app/templates/edit_profile.html:59 app/templates/index.html:33
+msgid "Опыт работы"
+msgstr "Darba pieredze"
+
+#: app/templates/homework.html:29
+msgid "Последняя попытка"
+msgstr "Pēdējais mēģinājums"
+
+#: app/templates/homework.html:32
+msgid "Скачать файл"
+msgstr "Lejupielādēt failu"
+
+#: app/templates/homework.html:33
+msgid "Оценить"
+msgstr "Novērtēt"
+
+#: app/templates/homework.html:35
+msgid "Ученик еще не загрузил домашнее задание"
+msgstr "Students vēl nav augšupielādējis mājasdarbu"
 
 #: app/templates/index.html:41
 msgid "Хочу связаться"
-msgstr ""
+msgstr "Palieciet kontaktā"
 
-#: app/templates/lesson.html:16 app/templates/program.html:54
-#: app/templates/student.html:78
+#: app/templates/forstudent/lesson.html:16 app/templates/lesson.html:16
+#: app/templates/program.html:53 app/templates/student.html:87
 msgid "Домашние задания"
-msgstr ""
+msgstr "Mājasdarbs"
 
-#: app/templates/program.html:9
-msgid "Удалить программу"
-msgstr ""
-
-#: app/templates/program.html:38 app/templates/program.html:82
-#: app/templates/program.html:113 app/templates/student.html:37
-#: app/templates/student.html:100 app/templates/student.html:128
+#: app/templates/program.html:36 app/templates/program.html:81
+#: app/templates/program.html:112 app/templates/student.html:38
+#: app/templates/student.html:106 app/templates/student.html:131
 msgid "Посмотреть все"
-msgstr ""
+msgstr "Skatīt visu"
+
+#: app/templates/program.html:123
+msgid "Удалить программу?"
+msgstr "Dzēst programmu"
+
+#: app/templates/program.html:129 app/templates/student.html:148
+msgid "Да"
+msgstr "Jā"
+
+#: app/templates/program.html:130 app/templates/student.html:149
+msgid "Нет"
+msgstr "Nē"
 
 #: app/templates/programs.html:3
 msgid "Программы"
-msgstr ""
+msgstr "Programs"
 
 #: app/templates/programs.html:26
 msgid "новая программа"
-msgstr ""
+msgstr "jauna programma"
 
 #: app/templates/programs.html:36
 msgid "Добавить программу"
-msgstr ""
+msgstr "Pievienot programmu"
 
 #: app/templates/programs.html:44
 msgid "Название программы"
-msgstr ""
+msgstr "Programmas nosaukums"
 
 #: app/templates/programs.html:50
 msgid "Описание программы"
-msgstr ""
+msgstr "Programmas apraksts"
 
-#: app/templates/students.html:95
+#: app/templates/programs.html:55 app/templates/students.html:149
+msgid "Создать"
+msgstr "Izveidot"
+
+#: app/templates/student.html:49 app/templates/students.html:51
+msgid "Телефон"
+msgstr "Tālrunis"
+
+#: app/templates/student.html:142
+msgid "Удалить ученика?"
+msgstr "Dzēst students?"
+
+#: app/templates/students.html:3
+msgid "Студенты"
+msgstr "Students"
+
+#: app/templates/students.html:17 app/templates/students.html:126
+msgid "Понедельник"
+msgstr "Pirmdiena"
+
+#: app/templates/students.html:18 app/templates/students.html:127
+msgid "Вторник"
+msgstr "Otrdiena"
+
+#: app/templates/students.html:19 app/templates/students.html:128
+msgid "Среда"
+msgstr "Trešdiena"
+
+#: app/templates/students.html:20 app/templates/students.html:129
+msgid "Четверг"
+msgstr "Ceturtdiena"
+
+#: app/templates/students.html:21 app/templates/students.html:130
+msgid "Пятница"
+msgstr "Piektdiena"
+
+#: app/templates/students.html:22 app/templates/students.html:131
+msgid "Суббота"
+msgstr "Sestdiena"
+
+#: app/templates/students.html:23 app/templates/students.html:132
+msgid "Воскресенье"
+msgstr "Svētdiena"
+
+#: app/templates/students.html:98
 msgid "Добавить ученика"
-msgstr ""
+msgstr "Pievienot studentu"
 
-#: app/templates/students.html:105
+#: app/templates/students.html:108
 msgid "Имя ученика"
-msgstr ""
+msgstr "Studenta vārds"
 
-#: app/templates/students.html:110
+#: app/templates/students.html:113
 msgid "Логин ученика"
-msgstr ""
+msgstr "Studentu pieteikšanās"
 
-#: app/templates/students.html:115
+#: app/templates/students.html:118
 msgid "Пароль"
-msgstr ""
-
-#: app/templates/students.html:120
-msgid "Расписание"
-msgstr ""
+msgstr "Parole"
 
 #: app/templates/students.html:123
-msgid "Понедельник"
-msgstr ""
-
-#: app/templates/students.html:124
-msgid "Вторник"
-msgstr ""
-
-#: app/templates/students.html:125
-msgid "Среда"
-msgstr ""
-
-#: app/templates/students.html:126
-msgid "Четверг"
-msgstr ""
-
-#: app/templates/students.html:127
-msgid "Пятница"
-msgstr ""
-
-#: app/templates/students.html:128
-msgid "Суббота"
-msgstr ""
-
-#: app/templates/students.html:129
-msgid "Воскресенье"
-msgstr ""
-
-#: app/templates/students.html:146
-msgid "Создать"
-msgstr ""
+msgid "Расписание"
+msgstr "Grafiks"
 
 #: app/templates/test.html:9
 msgid "Тест"
-msgstr ""
+msgstr "Test"
+
+#: app/templates/errors/404.html:3
+msgid "Не найдено"
+msgstr "Nav atrasts"
+
+#: app/templates/errors/404.html:12
+msgid "Страница не найдена"
+msgstr "Lapa nav atrasta"
+
+#: app/templates/errors/404.html:13 app/templates/errors/500.html:13
+msgid "Давайте вернемся в начало"
+msgstr "Atpakaļ uz sākumu"
+
+#: app/templates/errors/404.html:14 app/templates/errors/500.html:14
+msgid "На главную"
+msgstr "Mājas"
+
+#: app/templates/errors/500.html:3
+msgid "Неожиданная ошибка"
+msgstr "Negaidīta kļūda"
+
+#: app/templates/errors/500.html:12
+msgid "Что-то пошло не так"
+msgstr "Kaut kas nogāja greizi"
+
+#: app/templates/forstudent/tests.html:7
+msgid "Все тесты"
+msgstr "Visi testi"
+
+#: app/templates/forstudent/uploads.html:9
+msgid "Вертикальная ориентация"
+msgstr "Vertikālā orientācija"
+
+#: app/templates/forstudent/uploads.html:13
+msgid "Описание"
+msgstr "Apraksts"
+
+#~ msgid "Удалить программу"
+#~ msgstr ""
 

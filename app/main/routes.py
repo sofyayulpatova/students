@@ -296,7 +296,8 @@ def create_schedule(weekday, user_id, start, end, student_name):
     if 'credentials' not in session:
         print('HERE cred')
 
-        return redirect(url_for('main.test_api_request'))
+        return redirect(url_for('main.authorize'))
+        # return redirect(url_for('main.test_api_request'))
     print('HERE')
 
     # Load credentials from the session.
@@ -748,7 +749,6 @@ def homework(id, user_id):
 
             # if we want to evaluate student's homework
             if request.method == "POST":
-
                 # inputs
                 grade = request.form.get('grade')
                 comment = request.form.get('comment')
