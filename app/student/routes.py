@@ -30,7 +30,8 @@ def lessons():
 @login_required
 def lesson(id):
     lesson = Lesson.query.get(id)
-    unique_lesson = Unique_Lesson.query.filter(Unique_Lesson.user_id == current_user.id, Unique_Lesson.lesson_id == id).first()
+    unique_lesson = Unique_Lesson.query.filter(Unique_Lesson.user_id == current_user.id,
+                                               Unique_Lesson.lesson_id == id).first()
 
     if unique_lesson:
         return render_template('forstudent/lesson.html', lesson=unique_lesson)
@@ -50,22 +51,30 @@ def homeworks():
     return render_template("forstudent/homeworks.html", homeworks=homeworks)
 
 
-@bp.route('/homework/<int:id>', methods=["GET", "POST"])
+@bp.route('/homework/<int:id>/<is_unqiue>', methods=["GET", "POST"])
 @login_required
-def homework(id):
+def homework(id, is_unqiue):
     lesson = Lesson.query.get(id)
 
     if request.method == "POST":
         # get student's tutor
         tutor = User.query.get(1)
 
-
         avatar = request.files.get('avatar')
 
         filename = avatar.filename
         avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
 
-        if lesson.unique_homework:
+        if is_unqiue:
+            uniq_hm = Unique_Homework.query.get(id)
+
+            task = Task(user_id=current_user, unique_homework_id=uniq_hm.id, to_file=filename)
+            db.session.add(task)
+            db.session.commit()
+
+
+
+        elif lesson.unique_homework:
             task = Task(user_id=current_user, unique_homework_id=lesson.unique_homework.id, to_file=filename)
             db.session.add(task)
             db.session.commit()
@@ -77,6 +86,8 @@ def homework(id):
             db.session.commit()
         flash('successfully imported')
         return redirect(url_for('student.homework', id=id))
+
+
     unique_homework = Unique_Homework.query.filter(Unique_Homework.lesson_id == id,
                                                    Unique_Homework.user_id == current_user.id).first()
     if unique_homework:
@@ -116,7 +127,8 @@ def test(id):
 def main_page():
     lessons, homeworks, tests = [], [], []
     for i in current_user.lesson:
-        unique_lesson = Unique_Lesson.query.filter(Unique_Lesson.lesson_id == i.id, Unique_Lesson.user_id == current_user.id).first()
+        unique_lesson = Unique_Lesson.query.filter(Unique_Lesson.lesson_id == i.id,
+                                                   Unique_Lesson.user_id == current_user.id).first()
 
         if unique_lesson:
             lessons.append(unique_lesson)
@@ -124,7 +136,7 @@ def main_page():
             lessons.append(i)
 
         unique_homework = Unique_Homework.query.filter(Unique_Homework.lesson_id == i.id,
-                                                   Unique_Homework.user_id == current_user.id).first()
+                                                       Unique_Homework.user_id == current_user.id).first()
         if unique_homework:
             homeworks.append(unique_homework)
         else:
@@ -136,7 +148,7 @@ def main_page():
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1] in Config.ALLOWED_EXTENSIONS
 
 
 # Create a directory in a known location to save files to.

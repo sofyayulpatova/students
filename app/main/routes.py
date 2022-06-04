@@ -1,11 +1,12 @@
 from flask import render_template, request, redirect, url_for, flash, send_from_directory, session, jsonify
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User, Program, Lesson, Unique_Lesson, Homework, Test, Unique_Homework, Profile, QA, Weekday, \
-    Schedule, Task, Notification
+    Schedule, Task, Notification, Library
 from app.main.forms import LoginForm
 from app.main import bp
 from app import db, babel, Config
 import time
+import os
 import datetime
 import requests
 import google.oauth2.credentials
@@ -261,6 +262,7 @@ def unread():
 
     return render_template('unread.html', messages=messages)
 
+
 @bp.route('/notifications')
 @login_required
 def notifications():
@@ -274,8 +276,6 @@ def notifications():
     } for n in notifications])
 
 
-
-
 weekday_from_int = {
     1: "MO",
     2: "TU",
@@ -285,11 +285,6 @@ weekday_from_int = {
     6: 'ST',
     7: "SU"
 }
-
-
-
-
-
 
 
 def create_schedule(weekday, user_id, start, end, student_name):
@@ -359,6 +354,16 @@ def person(person):
         lesson = current_program.lesson
         homeworks, lessons, tests = [], lesson.copy(), []
 
+        # trash_program imported
+        trash_lessons = []
+        trash_program = Program.query.get(2)
+        for i in trash_program.lesson:
+
+            if person in i.user:
+                trash_lessons.append(i)
+
+        lessons = lessons + trash_lessons
+
         # lessons from program and unique lessons from program
         for i in range(len(lessons)):
 
@@ -387,6 +392,8 @@ def person(person):
                         break
 
         print(person.program)
+
+        # lessons = lessons + trash_lessons
 
         return render_template('student.html', student=person, lessons=lessons, homeworks=homeworks,
                                tests=tests, program=person.program[0].program)
@@ -508,11 +515,30 @@ def remove_program(id):
 
 
 # page with books, files etc.
-@bp.route('/library')
+@bp.route('/library', methods=['GET', 'POST'])
 @login_required
 def library():
     if current_user.tutor:
-        return render_template('library.html')
+
+
+        lib = Library.query.all()
+
+
+        if request.method == 'POST':
+            name = request.form['name']
+            avatar = request.files.get('avatar')
+
+            print(avatar)
+            filename = avatar.filename
+            avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
+
+            lib = Library(name=name, filename=filename)
+            db.session.add(lib)
+            db.session.commit()
+
+            flash('successfully imported')
+
+        return render_template('library.html', lib=lib)
 
     else:
         return redirect(url_for('main.index'))
@@ -661,8 +687,9 @@ def create_lesson(course_id, user_id):
                 body = request.form.get('editordata')
 
                 # TODO THIS IS TRASH PROGRAM!!!!!!
+
                 program = Program.query.get(2)
-                lesson = Lesson(title=title, program=program, text=body)
+                lesson = Lesson(title=title, program=program, text=body, user=[User.query.get(user_id)])
                 db.session.add(lesson)
                 db.session.commit()
                 request.close()

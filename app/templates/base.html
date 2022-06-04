@@ -91,7 +91,8 @@
 
 
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{{ url_for('main.main') }}">{{ _('Главная') }}</a>
+        <img src="/static/logo.png" alt="NOPE" style="width: 150px;">
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.main') }}"></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ url_for('main.students') }}">{{ _('Ученики') }}</a>
@@ -104,7 +105,7 @@
             }}</a>
     </li>
     <li class="nav-item">
-        <a style="color: grey;" class="nav-link disabled" aria-current="page" href="{{ url_for('main.library') }}">{{
+        <a style="color: grey;" class="nav-link" aria-current="page" href="{{ url_for('main.library') }}">{{
             _('Библиотека') }}</a>
     </li>
     <li class="nav-item dropdown">

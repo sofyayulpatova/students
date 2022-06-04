@@ -6,5 +6,78 @@
 {% block content %}
 
 
+<h1>Library</h1>
 
+
+<br>
+<br>
+<br>
+
+<div class="row student-profile">
+    <div class="col main">
+        <div class="list-group">
+            {% for i in lib %}
+            <div class="line">
+                <a href="" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="m-1">{{i.name}}</h5>
+                    </div>
+
+                </a>
+                <ul class="actions">
+                    <li><a href=""><i class="fa-solid fa-trash"></i></a></li>
+                </ul>
+            </div>
+            {% endfor %}
+
+
+
+
+        </div>
+
+
+
+
+
+        <div class="all">
+            <a data-bs-toggle="modal" data-bs-target="#new-book">+ новый ученик</a>
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>
+
+
+
+
+
+<!-- The Modal -->
+<div class="modal fade" id="new-book">
+    <div class="modal-dialog modal-dialog-centered rounded">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title ms-">{{ _('Загрузить материалы') }}</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+
+                    <form action="" method="post">
+
+                        <label for="name">Name: </label>
+                        <input type="text" id="name" name="name"><br><br>
+
+                        <!--<label for="file">Choose a file</label>-->
+                        <input type="file" name="avatar" id="file"><br><br>
+
+                        <input type="submit" value="Submit">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

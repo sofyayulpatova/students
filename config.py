@@ -15,8 +15,10 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     UPLOAD_FOLDER = '/uploads'
-    ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt'}
+    ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pptx', 'ppt', 'txt', 'jpeg', 'jpg', 'txt'}
     CLIENT_SECRETS_FILE = "client_secret.json"
+
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
 
     # This OAuth 2.0 access scope allows for full read/write access to the
     # authenticated user's account and requires requests to use an SSL connection.
