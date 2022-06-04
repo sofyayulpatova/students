@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5 {
 
 
 /* PROFILES (program.html, student.html) */
-.profile-head {
+.profile-head, .library-head {
   align-items: center;
   margin: 1.5rem 0 1.5rem 3.5rem;
   width: max-content;
@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5 {
   }
 }
 
-.student-profile, .program-profile {
+.student-profile, .program-profile, .library-list {
   .main {
     margin-left: 3rem;
 
@@ -337,7 +337,7 @@ h1, h2, h3, h4, h5 {
   max-width: 300px;
 }
 
-#new-program, #new-student, #delete-program, #delete-student {
+#new-program, #new-student, #new-material, #delete-program, #delete-student {
 
   .modal-content {
     border-radius: 0.5rem;
@@ -390,6 +390,13 @@ h1, h2, h3, h4, h5 {
           padding: 1rem;
           background-color: #fefefe;
           color: #0a58ca;
+        }
+
+        &[type=file]{
+          border: none;
+          border-radius: 0;
+          box-shadow: unset;
+          padding: unset;
         }
       }
 

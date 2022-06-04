@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %} {{person}} {% endblock %}
+{% block title %} {{ _('Библиотека') }} {% endblock %}
 
 
 {% block content %}
 
-
-<h1>Library</h1>
-
-
-<br>
-<br>
-<br>
-
-<div class="row student-profile">
+<div class="row library-head">
+    <h3 class="title">{{ _('Материалы') }}</h3>
+    <a data-bs-toggle="modal" data-bs-target="#new-material" class="plus-button">
+        <div class="d-flex justify-content-between">
+            <h3>+</h3>
+        </div>
+    </a>
+</div>
+<div class="row library-list">
     <div class="col main">
         <div class="list-group">
             {% for i in lib %}
@@ -22,36 +22,20 @@
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.name}}</h5>
                     </div>
-
                 </a>
                 <ul class="actions">
                     <li><a href=""><i class="fa-solid fa-trash"></i></a></li>
                 </ul>
             </div>
             {% endfor %}
-
-
-
-
-        </div>
-
-
-
-
-
-        <div class="all">
-            <a data-bs-toggle="modal" data-bs-target="#new-book">+ новый ученик</a>
         </div>
     </div>
     <div class="col-4"></div>
 </div>
 
 
-
-
-
 <!-- The Modal -->
-<div class="modal fade" id="new-book">
+<div class="modal fade" id="new-material">
     <div class="modal-dialog modal-dialog-centered rounded">
         <div class="modal-content">
 
@@ -62,20 +46,16 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="row">
-
-                    <form action="" method="post">
-
-                        <label for="name">Name: </label>
-                        <input type="text" id="name" name="name"><br><br>
-
-                        <!--<label for="file">Choose a file</label>-->
-                        <input type="file" name="avatar" id="file"><br><br>
-
-                        <input type="submit" value="Submit">
-
-                    </form>
-                </div>
+                <form action="" method="post">
+                    <p>
+                        <label for="name" class="form-label">{{ _('Название') }}</label>
+                        <input type="text" id="name" name="name" class="form-control">
+                    </p>
+                    <p>
+                        <input type="file" name="avatar" id="file" class="form-file">
+                    </p>
+                    <input type="submit" value="{{ _('Добавить') }}">
+                </form>
             </div>
         </div>
     </div>
