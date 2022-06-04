@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %} fgdfghgjjk {% endblock %}
+{% block title %} {{_('Главная')}} {% endblock %}
 
 {% block content %}
 
 <div class="row profile-head">
-    <h3 class="title">Уроки</h3>
-
+    <h3 class="title">{{ _('Уроки') }}</h3>
 </div>
 <div class="row student-profile">
     <div class="col main">
@@ -20,20 +19,14 @@
                     <p class="m-1">Some placeholder content in a paragraph.</p>
                 </a>
             </div>
-
             {% endfor %}
         </div>
-        <div class="all"><a href="{{ url_for('student.lessons') }}">See all</a></div>
+        <div class="all"><a href="{{ url_for('student.lessons') }}">{{ _('Посмотреть все') }}</a></div>
     </div>
 
 </div>
-
-
 <div class="row profile-head">
-    <h3 class="title">Домашние задания</h3>
-        <div class="d-flex justify-content-between">
-        </div>
-    </a>
+    <h3 class="title">{{ _('Домашние задания') }}</h3>
 </div>
 <div class="row student-profile">
     <div class="col main">
@@ -49,16 +42,13 @@
             </div>
             {% endfor %}
         </div>
-        <div class="all"><a href="{{ url_for('student.homeworks') }}">See all</a></div>
+        <div class="all"><a href="{{ url_for('student.homeworks') }}">{{ _('Посмотреть все') }}</a></div>
     </div>
     <div class="col-4"></div>
 </div>
 
 <div class="row profile-head">
-    <h3 class="title">Тесты</h3>
-        <div class="d-flex justify-content-between">
-        </div>
-    </a>
+    <h3 class="title">{{ _('Тесты') }}</h3>
 </div>
 <div class="row student-profile">
     <div class="col main">
@@ -74,7 +64,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="all"><a href="{{ url_for('student.tests') }}">See all</a></div>
+        <div class="all"><a href="{{ url_for('student.tests') }}">{{ _('Посмотреть все') }}</a></div>
     </div>
     <div class="col-4"></div>
 </div>

@@ -143,7 +143,7 @@ def main_page():
             homeworks.append(i.homework)
 
         tests.append(i.test)
-    return render_template("forstudent/hehehe.html", lessons=lessons[-3:], homeworks=homeworks[-3:], tests=tests[-3:])
+    return render_template("forstudent/student_main.html", lessons=lessons[-3:], homeworks=homeworks[-3:], tests=tests[-3:])
 
 
 def allowed_file(filename):

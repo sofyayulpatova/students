@@ -1,13 +1,14 @@
 # English translations for Student Study Platform.
 # Copyright (C) 2022 ORGANIZATION
-# This file is distributed under the same license as the 'Student Study Platform' project.
+# This file is distributed under the same license as the 'Student Study
+# Platform' project.
 # Matvei Barbashov <matveibarbashov@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-12 19:43+0300\n"
+"POT-Creation-Date: 2022-06-04 16:07+0300\n"
 "PO-Revision-Date: 2022-05-05 15:48+0300\n"
 "Last-Translator: \n"
 "Language: en\n"
@@ -18,48 +19,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: app/templates/base.html:31 app/templates/login.html:7
+#: app/main/forms.py:8
+msgid "Логин"
+msgstr "Login"
+
+#: app/main/forms.py:9 app/templates/students.html:118
+msgid "Пароль"
+msgstr "Password"
+
+#: app/main/forms.py:10 app/templates/login.html:3
+msgid "Вход"
+msgstr "Log In"
+
+#: app/templates/base.html:43 app/templates/login.html:7
 msgid "Войти"
 msgstr "Log In"
 
-#: app/templates/base.html:37 app/templates/base.html:69
-#: app/templates/index.html:3
+#: app/templates/base.html:48 app/templates/index.html:3
 msgid "Главная"
 msgstr "Home"
 
-#: app/templates/base.html:40 app/templates/forstudent/lessons.html:9
+#: app/templates/base.html:51 app/templates/forstudent/lessons.html:9
 #: app/templates/program.html:8 app/templates/student.html:10
 msgid "Уроки"
 msgstr "Lessons"
 
-#: app/templates/base.html:43 app/templates/forstudent/homework.html:3
+#: app/templates/base.html:54 app/templates/forstudent/homework.html:3
 #: app/templates/homework.html:3
 msgid "Домашняя работа"
 msgstr "Homework"
 
-#: app/templates/base.html:46 app/templates/forstudent/lesson.html:21
+#: app/templates/base.html:57 app/templates/forstudent/lesson.html:21
 #: app/templates/lesson.html:21 app/templates/program.html:87
 #: app/templates/student.html:112
 msgid "Тесты"
 msgstr "Tests"
 
-#: app/templates/base.html:63 app/templates/base.html:100
+#: app/templates/base.html:71 app/templates/base.html:114
 msgid "Выйти"
 msgstr "Log Out"
 
-#: app/templates/base.html:72
+#: app/templates/base.html:80
 msgid "Ученики"
 msgstr "Students"
 
-#: app/templates/base.html:75
+#: app/templates/base.html:83
 msgid "Мои программы"
 msgstr "My programs"
 
-#: app/templates/base.html:78
+#: app/templates/base.html:86
 msgid "Панель управления"
 msgstr "Control Panel"
 
-#: app/templates/base.html:83
+#: app/templates/base.html:91 app/templates/library.html:3
 msgid "Библиотека"
 msgstr "Library"
 
@@ -177,6 +189,23 @@ msgstr "Stay in Contact"
 msgid "Домашние задания"
 msgstr "Homeworks"
 
+#: app/templates/library.html:9
+msgid "Материалы"
+msgstr ""
+
+#: app/templates/library.html:44
+msgid "Загрузить материалы"
+msgstr "Upload materials"
+
+#: app/templates/library.html:51
+#, fuzzy
+msgid "Название"
+msgstr "Name"
+
+#: app/templates/library.html:57
+msgid "Добавить"
+msgstr "Add"
+
 #: app/templates/program.html:36 app/templates/program.html:81
 #: app/templates/program.html:112 app/templates/student.html:38
 #: app/templates/student.html:106 app/templates/student.html:131
@@ -274,13 +303,14 @@ msgstr "Student name"
 msgid "Логин ученика"
 msgstr "Student login"
 
-#: app/templates/students.html:118
-msgid "Пароль"
-msgstr "Password"
-
 #: app/templates/students.html:123
 msgid "Расписание"
 msgstr "Schedule"
+
+#: app/templates/students.html:137
+#, fuzzy
+msgid "Добавить урок"
+msgstr "Add student"
 
 #: app/templates/test.html:9
 msgid "Тест"

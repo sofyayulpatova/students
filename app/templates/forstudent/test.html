@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} snth {% endblock %}
+{% block title %} {{ _('Тесты') }} {% endblock %}
 
 {% block content %}
 
@@ -18,8 +18,8 @@
 
 
 {% if counter >= 0 %}
-<p> You have answered right on {{ counter }} from {{ test|length }} questions </p>
-<a href="{{url_for('student.test', id=id)}}">Try again</a>
+<p> {{ _('Вы правильно ответили на %(counter)s из %(length)s вопросов', counter=counter, length=test.length) }} </p>
+<a href="{{url_for('student.test', id=id)}}">{{ _('Попробуйте еще раз') }}</a>
 {% endif %}
 
 
