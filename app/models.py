@@ -120,7 +120,6 @@ class Program(db.Model):
     text = db.Column(db.Text())
     lesson = db.relationship('Lesson', backref='program')
 
-
     def __repr__(self):
         return self.program + "@" + str(self.id)
 
@@ -136,8 +135,7 @@ class Lesson(db.Model):
     homework = db.relationship('Homework', backref='lesson_homework', uselist=False)
     test = db.relationship('Test', backref='lesson', uselist=False)
 
-
-
+    is_unique = db.Column(db.Boolean, default=0)
 
     def __repr__(self):
         return "<{}:{}>".format(self.id, self.title)
@@ -178,12 +176,10 @@ class Unique_Lesson(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
 
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))  # non-mandatory
-
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
     program = db.Column(db.Integer(), db.ForeignKey("program.id"), default=2)
-
 
 
 class Unique_Homework(db.Model):
@@ -193,7 +189,6 @@ class Unique_Homework(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
-
     task = db.relationship('Task', backref='unique_homework')
 
 

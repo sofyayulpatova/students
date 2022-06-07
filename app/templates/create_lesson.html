@@ -20,19 +20,14 @@
 
 
             {% if user_id == 0 %}
-            <label for="Course" class="form-label">{{ _('Курс') }}</label>
 
+                <label for="Course" class="form-label">{{ _('Курс') }}</label>
+                <select class="form-select" aria-label="Default select example" id="Course" name="Course">
+                    {% for i in programs %}
+                        <option value="{{ i.id }}">{{ i.program }}</option>
+                    {% endfor %}
+                </select>
 
-            <select class="form-select" aria-label="Default select example" id="Course" name="Course">
-
-
-
-                {% for i in programs %}
-                <option value="{{ i.id }}">{{ i.program }}</option>
-                {% endfor %}
-
-
-            </select>
             {% endif %}
 
 

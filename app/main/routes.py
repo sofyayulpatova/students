@@ -689,7 +689,7 @@ def create_lesson(course_id, user_id):
                 # TODO THIS IS TRASH PROGRAM!!!!!!
 
                 program = Program.query.get(2)
-                lesson = Lesson(title=title, program=program, text=body, user=[User.query.get(user_id)])
+                lesson = Lesson(title=title, program=program, text=body, user=[User.query.get(user_id)], is_unique=1)
                 db.session.add(lesson)
                 db.session.commit()
                 request.close()
