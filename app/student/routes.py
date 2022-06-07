@@ -66,16 +66,19 @@ def homework(id, is_unqiue):
         avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
 
         if is_unqiue:
-            uniq_hm = Unique_Homework.query.get(id)
+            unique_lesson = Lesson.query.get(id)
 
-            task = Task(user_id=current_user, unique_homework_id=uniq_hm.id, to_file=filename)
+            print(unique_lesson.homework.id)
+            task = Task(user_id=current_user.id, homework_id=2, to_file=filename, recipient=tutor)
             db.session.add(task)
             db.session.commit()
+            return redirect(url_for('student.homework', id=id, is_unqiue=1))
 
 
 
         elif lesson.unique_homework:
-            task = Task(user_id=current_user, unique_homework_id=lesson.unique_homework.id, to_file=filename)
+            task = Task(user_id=current_user.id, unique_homework_id=lesson.unique_homework.id, to_file=filename,
+                        recipient=tutor)
             db.session.add(task)
             db.session.commit()
         else:
@@ -85,8 +88,7 @@ def homework(id, is_unqiue):
             db.session.add(task)
             db.session.commit()
         flash('successfully imported')
-        return redirect(url_for('student.homework', id=id))
-
+        return redirect(url_for('student.homework', id=id, is_unqiue=0))
 
     unique_homework = Unique_Homework.query.filter(Unique_Homework.lesson_id == id,
                                                    Unique_Homework.user_id == current_user.id).first()
@@ -143,7 +145,8 @@ def main_page():
             homeworks.append(i.homework)
 
         tests.append(i.test)
-    return render_template("forstudent/student_main.html", lessons=lessons[-3:], homeworks=homeworks[-3:], tests=tests[-3:])
+    return render_template("forstudent/student_main.html", lessons=lessons[-3:], homeworks=homeworks[-3:],
+                           tests=tests[-3:])
 
 
 def allowed_file(filename):

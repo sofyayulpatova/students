@@ -424,7 +424,7 @@ def delete_student(student_id):
     return redirect(url_for('main.delete_completely_student', student_id=student_id))
 
 
-@bp.route('/notifications')
+
 @bp.route('/delete_student_complete/<int:student_id>')
 @login_required
 def delete_completely_student(student_id):
@@ -679,7 +679,7 @@ def create_lesson(course_id, user_id):
                 db.session.add(lesson)
                 db.session.commit()
                 request.close()
-                return redirect(url_for('main.create_empty_homework', id=lesson.id))
+                return redirect(url_for('main.create_empty_homework', id=lesson.id, is_unique=0))
             else:
                 print("we are creating for user")
                 title = request.form.get('LessonName')
@@ -693,17 +693,20 @@ def create_lesson(course_id, user_id):
                 db.session.add(lesson)
                 db.session.commit()
                 request.close()
-                return redirect(url_for('main.create_empty_homework', id=lesson.id))
+                return redirect(url_for('main.create_empty_homework', id=lesson.id, is_unique=0))
     else:
         return redirect(url_for('main.index'))
 
 
-@bp.route('/lessons/<int:id>/create/empty_homework/', methods=['GET', 'POST'])
+@bp.route('/lessons/<int:id>/create/empty_homework/<is_unique>', methods=['GET', 'POST'])
 @login_required
-def create_empty_homework(id):
+def create_empty_homework(id, is_unique):
     if current_user.tutor:
+
+
+
         lesson = Lesson.query.get(id)
-        homework = Homework(text="Домашки нет!", lesson_id=lesson.id, title=lesson.title)
+        homework = Homework(text="Домашки нет!", lesson_id=lesson.id, title=lesson.title, is_unique=is_unique)
         test = Test(lesson_id=lesson.id, title=lesson.title)
         db.session.add_all([homework, test])
         db.session.commit()
