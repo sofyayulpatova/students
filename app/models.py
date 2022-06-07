@@ -135,7 +135,7 @@ class Lesson(db.Model):
     homework = db.relationship('Homework', backref='lesson_homework', uselist=False)
     test = db.relationship('Test', backref='lesson', uselist=False)
 
-    is_unique = db.Column(db.Boolean, default=0)
+    is_unique = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return "<{}:{}>".format(self.id, self.title)
@@ -153,7 +153,7 @@ class Homework(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text())
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
-
+    is_unique = db.Column(db.Integer, default=0)
     task = db.relationship('Task', backref='homework')
 
 
@@ -197,6 +197,7 @@ class Test(db.Model):
     title = db.Column(db.String(100), nullable=False)
     lesson_id = db.Column(db.Integer(), db.ForeignKey("lesson.id"))
     qa = db.relationship("QA", backref="test")
+    is_unique = db.Column(db.Integer, default=0)
 
 
 

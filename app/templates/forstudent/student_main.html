@@ -40,9 +40,8 @@
             {% for i in homeworks %}
 
 
-            {% if i.is_unique %}
             <div class="line">
-                <a href="{{ url_for('student.homework',  id=i.id, is_unique=1)}}" class="list-group-item list-group-item-action">
+                <a href="{{ url_for('student.homework',  id=i.id, is_unqiue=i.is_unique)}}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="m-1">{{i.title}}</h5>
                     </div>
@@ -50,18 +49,8 @@
                 </a>
             </div>
 
-            {% else %}
 
-            <div class="line">
-                <a href="{{ url_for('student.homework',  id=i.id, is_unqiue=0)}}" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="m-1">{{i.title}}</h5>
-                    </div>
-                    <p class="m-1">Some placeholder content in a paragraph.</p>
-                </a>
-            </div>
 
-            {% endif %}
             {% endfor %}
         </div>
         <div class="all"><a href="{{ url_for('student.homeworks') }}">{{ _('Посмотреть все') }}</a></div>
