@@ -4,16 +4,30 @@
 
 {% block content %}
 
-<div class="row homework">
-
-    <h2>{{ _('Тест') + test.title }}</h2>
-
+<div class="row profile-head">
+    <h3 class="title">{{ _('Тест') + test.title }}</h3>
+    <a href="{{ url_for('main.edit_test', id=test.lesson_id) }}" class="plus-button">
+        <i class="fa-solid fa-pen"></i>
+    </a>
 </div>
-<a href="{{ url_for('main.edit_test', id=test.lesson_id) }}"></a>
-
-{% for i in qa %}
-<p>{{i.question +  " - "  + i.answer}}</p>
-{% endfor %}
-<p></p>
-<p></p>
+<div class="row student-profile">
+    <div class="col-4 main">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{_("Вопрос")}}</th>
+                <th>{{_("Ответ")}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in qa %}
+            <tr>
+                <td>{{i.question}}</td>
+                <td>{{i.answer}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

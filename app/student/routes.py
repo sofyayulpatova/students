@@ -63,7 +63,7 @@ def homework(id, is_unqiue):
         avatar = request.files.get('avatar')
 
         filename = avatar.filename
-        avatar.save(os.path.join("/Users/sofya/Downloads/students-master-2/app/uploads", filename))
+        avatar.save(os.path.join("C:/Users/h04226/PycharmProjects/students/app/uploads/", filename))
 
         if is_unqiue:
             uniq_hm = Unique_Homework.query.get(id)
