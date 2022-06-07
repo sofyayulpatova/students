@@ -693,7 +693,7 @@ def create_lesson(course_id, user_id):
                 db.session.add(lesson)
                 db.session.commit()
                 request.close()
-                return redirect(url_for('main.create_empty_homework', id=lesson.id, is_unique=0))
+                return redirect(url_for('main.create_empty_homework', id=lesson.id, is_unique=1))
     else:
         return redirect(url_for('main.index'))
 
@@ -702,12 +702,10 @@ def create_lesson(course_id, user_id):
 @login_required
 def create_empty_homework(id, is_unique):
     if current_user.tutor:
-
-
-
+        print(is_unique)
         lesson = Lesson.query.get(id)
         homework = Homework(text="Домашки нет!", lesson_id=lesson.id, title=lesson.title, is_unique=is_unique)
-        test = Test(lesson_id=lesson.id, title=lesson.title)
+        test = Test(lesson_id=lesson.id, title=lesson.title, is_unique=is_unique)
         db.session.add_all([homework, test])
         db.session.commit()
 
